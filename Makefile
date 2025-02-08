@@ -26,8 +26,10 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 # Arquivos de fontes (explicitamente definidos)
 SRCS        = $(TUPLE_DIR)/tuple.c
 
-TEST_SRCS    = $(TEST_DIR)/tuple_test.c \
-			   $(TEST_DIR)/test_utils.c  # Corrigido o caminho
+TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
+				$(TEST_DIR)/tuple_tests.c \
+				$(TEST_DIR)/tuple_op_tests.c \
+				$(TEST_DIR)/main_tests.c
 
 # Arquivos de objeto
 OBJS         = $(SRCS:.c=.o)
