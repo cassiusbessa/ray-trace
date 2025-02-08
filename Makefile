@@ -1,40 +1,43 @@
 # Cores para saída do terminal
-GREEN		=	\e[92;5;118m
-YELLOW		=	\e[93;5;226m
-GRAY		=	\e[33;2;37m
-RESET		=	\e[0m
-CURSIVE		=	\e[33;3m
+GREEN       = \e[92;5;118m
+YELLOW      = \e[93;5;226m
+GRAY        = \e[33;2;37m
+RESET       = \e[0m
+CURSIVE     = \e[33;3m
 
 # Definição de variáveis
-CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
-RM		= rm -f
+CC          = cc
+CFLAGS      = -Wall -Wextra -Werror
+RM          = rm -f
 
 # Caminhos
-SRC_DIR		= src
-ENTITIES_DIR = src/entities
-TEST_DIR	= tests
+TUPLE_DIR   = src/tuple
+TEST_DIR    = tests
 INCLUDE_DIR = include
-LIBFT_DIR	= utils/libft
+LIBFT_DIR   = utils/libft
 
 # Nome do executável
-MINIRT	= miniRT
-TEST_BIN = test_runner
+MINIRT      = miniRT
+TEST_BIN    = test_runner
 
 # Biblioteca auxiliar
-LIBFT	= $(LIBFT_DIR)/libft.a
+LIBFT       = $(LIBFT_DIR)/libft.a
 
-# Coletar os arquivos-fonte automaticamente
-SRCS	= $(wildcard $(SRC_DIR)/*.c) \
-          $(wildcard $(ENTITIES_DIR)/*.c)
+# Arquivos de fontes (explicitamente definidos)
+SRCS        = $(TUPLE_DIR)/tuple.c
 
-TEST_SRCS = $(wildcard $(TEST_DIR)/*.c)
+TEST_SRCS    = $(TEST_DIR)/tuple_test.c \
+			   $(TEST_DIR)/test_utils.c  # Corrigido o caminho
 
-OBJS	= $(SRCS:.c=.o)
-TEST_OBJS = $(TEST_SRCS:.c=.o)
+# Arquivos de objeto
+OBJS         = $(SRCS:.c=.o)
+TEST_OBJS    = $(TEST_SRCS:.c=.o)
 
 # Regra padrão para compilação de .c em .o
-%.o: %.c
+$(TUPLE_DIR)/%.o: $(TUPLE_DIR)/%.c
+	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
+
+$(TEST_DIR)/%.o: $(TEST_DIR)/%.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 # Compilar o miniRT
