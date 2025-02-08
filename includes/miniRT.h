@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 20:00:25 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 20:10:04 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdio.h>
 # include <math.h>
 
-#define EPSILON 0.0001
+# define EPSILON 0.0001
 
 typedef int	t_bool;
 
