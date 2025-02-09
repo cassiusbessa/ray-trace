@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_utils.c                                      :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:05:04 by caqueiro         ###   ########.fr       */
+/*   Created: 2025/02/08 22:34:47 by caqueiro          #+#    #+#             */
+/*   Updated: 2025/02/08 22:34:57 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-
-void	print_touple(t_touple *t)
+float	magnitude_of_vector(t_touple *t)
 {
-	printf("x: %f, y: %f, z: %f, w: %d\n", t->x, t->y, t->z, t->w);
+	return (sqrt(pow(t->x, 2) + pow(t->y, 2) + pow(t->z, 2)));
 }

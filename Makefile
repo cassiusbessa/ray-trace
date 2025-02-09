@@ -25,12 +25,14 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 
 # Arquivos de fontes (explicitamente definidos)
 SRCS        =	$(TUPLE_DIR)/tuple.c \
+				$(TUPLE_DIR)/vector.c \
 				$(TUPLE_DIR)/tuple_utils.c
 
 TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(TEST_DIR)/tuple_tests.c \
 				$(TEST_DIR)/tuple_op_tests.c \
 				$(TEST_DIR)/tuple_multiply_tests.c \
+				$(TEST_DIR)/tuple_magnitude_tests.c \
 				$(TEST_DIR)/main_tests.c
 
 # Arquivos de objeto
@@ -47,7 +49,7 @@ $(TEST_DIR)/%.o: $(TEST_DIR)/%.c
 # Compilar o miniRT
 $(MINIRT): $(OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(OBJS) $(LIBFT) -o $(MINIRT) -lreadline
+	$(CC) $(OBJS) $(LIBFT) -o $(MINIRT) -lreadline -lm
 	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
 
 all: $(MINIRT)
@@ -55,7 +57,7 @@ all: $(MINIRT)
 # Compilar os testes
 $(TEST_BIN): $(TEST_OBJS) $(OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(TEST_OBJS) $(OBJS) $(LIBFT) -o $(TEST_BIN)
+	$(CC) $(TEST_OBJS) $(OBJS) $(LIBFT) -o $(TEST_BIN) -lreadline -lm
 	@printf "$(GREEN)    - Test runner ready.\n$(RESET)"
 
 test: $(TEST_BIN)
