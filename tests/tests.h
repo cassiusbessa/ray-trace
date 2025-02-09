@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 23:35:06 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 23:55:51 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ int		test_multiply_tuple_by_scalar(void);
 int		test_multiply_tuple_by_fraction(void);
 int     all_vector_magnitude_tests(void);
 int     all_vector_normalize_tests(void);
+int     all_vector_dot_product_tests(void);
+int     all_vector_cross_product_tests(void);
 
 
 
 int     vector_tests(void);
 int	    tuple_tests(void);
+
 
 
 #endif

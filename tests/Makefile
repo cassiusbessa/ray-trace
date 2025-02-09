@@ -24,6 +24,8 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(TUPLE_TESTS)/tuple_multiply_tests.c \
 				$(VECTOR_TESTS)/vector_magnitude_tests.c \
 				$(VECTOR_TESTS)/vector_normalize_tests.c \
+				$(VECTOR_TESTS)/vector_dot_product_tests.c \
+				$(VECTOR_TESTS)/vector_cross_product_test.c \
 				$(VECTOR_TESTS)/vector_tests.c \
 				$(TEST_DIR)/tests.c
 

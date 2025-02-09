@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:42:13 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 23:59:25 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ t_touple	*sub_touple(t_touple *t1, t_touple *t2);
 t_touple	*multiply_tuple_by_scalar(t_touple *t, float scalar);
 float		magnitude_of_vector(t_touple *t);
 t_touple    *normalize_vector(t_touple *t);
+float    vector_dot_product(t_touple *t1, t_touple *t2);
+t_touple    *vector_cross_product(t_touple *t1, t_touple *t2);
+
+
 
 
 #endif
