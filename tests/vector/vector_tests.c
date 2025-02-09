@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests.c                                            :+:      :+:    :+:   */
+/*   vector_tests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 23:27:14 by caqueiro         ###   ########.fr       */
+/*   Created: 2025/02/08 23:23:01 by caqueiro          #+#    #+#             */
+/*   Updated: 2025/02/08 23:28:17 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "../tests.h"
 
-int    main(void)
+int vector_tests(void)
 {
-    int errors;
+    int    errors;
 
     errors = 0;
-    errors += tuple_tests();
-    errors += vector_tests();
+    errors += all_vector_magnitude_tests();
     if (errors == 0)
-        ft_printf("\n🎉 All tests fine!\n");
+        ft_printf("\n🎉 All vector tests fine!\n");
     else
-        ft_printf("\n❌ %d tests failed.\n", errors);
-    return (0);
+        ft_printf("\n❌ %d vector tests failed.\n", errors);
+    return (errors);
 }

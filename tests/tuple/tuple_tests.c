@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:43:28 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:55:29 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 23:24:52 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	tuple_tests(void)
     errors += test_multiply_tuple_by_scalar();
     errors += test_multiply_tuple_by_fraction();
 	if (errors == 0)
-		ft_printf("\n🎉 All tests fine!\n");
+		ft_printf("\n🎉 All tuple tests fine!\n");
 	else
-		ft_printf("\n❌ %d tests failed.\n", errors);
+		ft_printf("\n❌ %d tuple tests failed.\n", errors);
 	return (errors);
 }
