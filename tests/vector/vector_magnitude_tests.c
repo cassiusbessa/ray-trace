@@ -6,13 +6,13 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:58:31 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:50:02 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 23:29:53 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.h"
 
-int	test_magnitude_of_vector_1_0_0(void)
+static int	test_magnitude_of_vector_1_0_0(void)
 {
     t_touple	*vector;
     float		magnitude;
@@ -28,7 +28,7 @@ int	test_magnitude_of_vector_1_0_0(void)
     return (errors);
 }
 
-int	test_magnitude_of_vector_0_1_0(void)
+static int	test_magnitude_of_vector_0_1_0(void)
 {
     t_touple	*vector;
     float		magnitude;
@@ -44,7 +44,7 @@ int	test_magnitude_of_vector_0_1_0(void)
     return (errors);
 }
 
-int	test_magnitude_of_vector_0_0_1(void)
+static int	test_magnitude_of_vector_0_0_1(void)
 {
     t_touple	*vector;
     float		magnitude;
@@ -60,7 +60,7 @@ int	test_magnitude_of_vector_0_0_1(void)
     return (errors);
 }
 
-int	test_magnitude_of_vector_1_2_3(void)
+static int	test_magnitude_of_vector_1_2_3(void)
 {
     t_touple	*vector;
     float		magnitude;
@@ -76,7 +76,7 @@ int	test_magnitude_of_vector_1_2_3(void)
     return (errors);
 }
 
-int	test_magnitude_of_vector_neg_1_neg_2_neg_3(void)
+static int	test_magnitude_of_vector_neg_1_neg_2_neg_3(void)
 {
     t_touple	*vector;
     float		magnitude;

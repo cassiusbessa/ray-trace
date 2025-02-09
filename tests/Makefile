@@ -23,6 +23,7 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(TUPLE_TESTS)/tuple_op_tests.c \
 				$(TUPLE_TESTS)/tuple_multiply_tests.c \
 				$(VECTOR_TESTS)/vector_magnitude_tests.c \
+				$(VECTOR_TESTS)/vector_normalize_tests.c \
 				$(VECTOR_TESTS)/vector_tests.c \
 				$(TEST_DIR)/tests.c
 
