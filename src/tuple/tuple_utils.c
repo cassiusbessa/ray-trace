@@ -6,14 +6,14 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:05:04 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/09 01:25:16 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 
-void	print_touple(t_touple *t)
+void	print_tuple(t_tuple *t)
 {
 	printf("x: %f, y: %f, z: %f, w: %d\n", t->x, t->y, t->z, t->w);
 }

@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:38:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:51:23 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/09 01:25:16 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	test_multiply_tuple_by_scalar(void)
 {
-    t_touple	*t1;
-    t_touple	*result;
+    t_tuple	*t1;
+    t_tuple	*result;
     int			errors;
 
     errors = 0;
-    t1 = new_touple(1, -2, 3, TRUE);
+    t1 = new_tuple(1, -2, 3, TRUE);
     result = multiply_tuple_by_scalar(t1, 3.5);
     errors += test_check_double(result->x, 3.5, "result.x should be 3.5");
     errors += test_check_double(result->y, -7, "result.y should be -7");
@@ -34,12 +34,12 @@ int	test_multiply_tuple_by_scalar(void)
 
 int test_multiply_tuple_by_fraction(void)
 {
-    t_touple	*t1;
-    t_touple	*result;
+    t_tuple	*t1;
+    t_tuple	*result;
     int			errors;
 
     errors = 0;
-    t1 = new_touple(1, -2, 3, FALSE);
+    t1 = new_tuple(1, -2, 3, FALSE);
     result = multiply_tuple_by_scalar(t1, 0.5);
     errors += test_check_double(result->x, 0.5, "result.x should be 0.5");
     errors += test_check_double(result->y, -1, "result.y should be -1");

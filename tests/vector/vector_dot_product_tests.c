@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 23:42:22 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/09 00:03:22 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/09 01:25:16 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static int	test_dot_product_1_2_3_2_3_4(void)
 {
-    t_touple	*vector1;
-    t_touple	*vector2;
+    t_tuple	*vector1;
+    t_tuple	*vector2;
     float		dot;
     int			errors;
 
     errors = 0;
-    vector1 = new_touple(1, 2, 3, FALSE);
-    vector2 = new_touple(2, 3, 4, FALSE);
+    vector1 = new_tuple(1, 2, 3, FALSE);
+    vector2 = new_tuple(2, 3, 4, FALSE);
     dot = vector_dot_product(vector1, vector2);
     errors += test_check_double(dot, 20, "dot should be 20");
     free(vector1);

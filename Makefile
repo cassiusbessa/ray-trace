@@ -20,6 +20,7 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 SRCS        = $(TUPLE_DIR)/tuple.c \
               $(TUPLE_DIR)/tuple_utils.c \
 			  $(TUPLE_DIR)/vector.c \
+			  src/thick.c
 
 # Arquivos de objeto
 OBJS         = $(SRCS:.c=.o)

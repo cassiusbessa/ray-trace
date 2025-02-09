@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:58:31 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 23:29:53 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/09 01:25:16 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	test_magnitude_of_vector_1_0_0(void)
 {
-    t_touple	*vector;
+    t_tuple	*vector;
     float		magnitude;
     int			errors;
 
     errors = 0;
-    vector = new_touple(1, 0, 0, FALSE);
+    vector = new_tuple(1, 0, 0, FALSE);
     magnitude = magnitude_of_vector(vector);
     errors += test_check_double(magnitude, 1, "magnitude should be 1");
     free(vector);
@@ -30,12 +30,12 @@ static int	test_magnitude_of_vector_1_0_0(void)
 
 static int	test_magnitude_of_vector_0_1_0(void)
 {
-    t_touple	*vector;
+    t_tuple	*vector;
     float		magnitude;
     int			errors;
 
     errors = 0;
-    vector = new_touple(0, 1, 0, FALSE);
+    vector = new_tuple(0, 1, 0, FALSE);
     magnitude = magnitude_of_vector(vector);
     errors += test_check_double(magnitude, 1, "magnitude should be 1");
     free(vector);
@@ -46,12 +46,12 @@ static int	test_magnitude_of_vector_0_1_0(void)
 
 static int	test_magnitude_of_vector_0_0_1(void)
 {
-    t_touple	*vector;
+    t_tuple	*vector;
     float		magnitude;
     int			errors;
 
     errors = 0;
-    vector = new_touple(0, 0, 1, FALSE);
+    vector = new_tuple(0, 0, 1, FALSE);
     magnitude = magnitude_of_vector(vector);
     errors += test_check_double(magnitude, 1, "magnitude should be 1");
     free(vector);
@@ -62,12 +62,12 @@ static int	test_magnitude_of_vector_0_0_1(void)
 
 static int	test_magnitude_of_vector_1_2_3(void)
 {
-    t_touple	*vector;
+    t_tuple	*vector;
     float		magnitude;
     int			errors;
 
     errors = 0;
-    vector = new_touple(1, 2, 3, FALSE);
+    vector = new_tuple(1, 2, 3, FALSE);
     magnitude = magnitude_of_vector(vector);
     errors += test_check_double(magnitude, sqrt(14), "magnitude should be sqrt(14)");
     free(vector);
@@ -78,12 +78,12 @@ static int	test_magnitude_of_vector_1_2_3(void)
 
 static int	test_magnitude_of_vector_neg_1_neg_2_neg_3(void)
 {
-    t_touple	*vector;
+    t_tuple	*vector;
     float		magnitude;
     int			errors;
 
     errors = 0;
-    vector = new_touple(-1, -2, -3, FALSE);
+    vector = new_tuple(-1, -2, -3, FALSE);
     magnitude = magnitude_of_vector(vector);
     errors += test_check_double(magnitude, sqrt(14), "magnitude should be sqrt(14)");
     free(vector);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_tests.c                                      :+:      :+:    :+:   */
+/*   tuple_common_tests.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:29:08 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:44:52 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/09 01:25:16 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	test_tuple_as_point(void)
 {
-	t_touple	*point;
+	t_tuple	*point;
 	int			errors;
 
 	errors = 0;
-	point = new_touple(4.3, -4.2, 3.1, TRUE);
+	point = new_tuple(4.3, -4.2, 3.1, TRUE);
 	if (!point)
 		return (ft_printf("❌ Failed to allocate memory for the tuple.\n"));
 	errors += test_check_double(point->x, 4.3, "point.x should be 4.3");
@@ -35,11 +35,11 @@ int	test_tuple_as_point(void)
 
 int	test_tuple_as_vector(void)
 {
-	t_touple	*vector;
+	t_tuple	*vector;
 	int			errors;
 
 	errors = 0;
-	vector = new_touple(4.3, -4.2, 3.1, FALSE);
+	vector = new_tuple(4.3, -4.2, 3.1, FALSE);
 	if (!vector)
 		return (ft_printf("❌ Failed to allocate memory for the tuple.\n"));
 	errors += test_check_double(vector->x, 4.3, "vector.x should be 4.3");
