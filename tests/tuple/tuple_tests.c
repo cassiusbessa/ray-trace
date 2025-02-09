@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_tests.c                                       :+:      :+:    :+:   */
+/*   tuple_tests.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:43:28 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:04:13 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:55:29 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "../tests.h"
 
-int	main(void)
+int	tuple_tests(void)
 {
 	int	errors;
 
@@ -26,7 +26,6 @@ int	main(void)
     errors += test_sub_vector_from_zero_vector();
     errors += test_multiply_tuple_by_scalar();
     errors += test_multiply_tuple_by_fraction();
-    errors += all_tuple_magnitude_tests();
 	if (errors == 0)
 		ft_printf("\n🎉 All tests fine!\n");
 	else

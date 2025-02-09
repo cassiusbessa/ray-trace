@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_magnitude_tests.c                            :+:      :+:    :+:   */
+/*   vector_magnitude_tests.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:58:31 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:02:12 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:50:02 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "../tests.h"
 
 int	test_magnitude_of_vector_1_0_0(void)
 {
@@ -92,7 +92,7 @@ int	test_magnitude_of_vector_neg_1_neg_2_neg_3(void)
     return (errors);
 }
 
-int all_tuple_magnitude_tests(void)
+int all_vector_magnitude_tests(void)
 {
     int	errors;
 

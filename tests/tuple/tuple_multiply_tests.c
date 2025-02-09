@@ -6,11 +6,11 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:38:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 21:50:44 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:51:23 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "../tests.h"
 
 int	test_multiply_tuple_by_scalar(void)
 {

@@ -6,11 +6,11 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:40:07 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 20:40:58 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/08 22:51:24 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "../tests.h"
 
 int test_add_tuples(void)
 {
