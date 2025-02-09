@@ -24,11 +24,13 @@ TEST_BIN    = test_runner
 LIBFT       = $(LIBFT_DIR)/libft.a
 
 # Arquivos de fontes (explicitamente definidos)
-SRCS        = $(TUPLE_DIR)/tuple.c
+SRCS        =	$(TUPLE_DIR)/tuple.c \
+				$(TUPLE_DIR)/tuple_utils.c
 
 TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(TEST_DIR)/tuple_tests.c \
 				$(TEST_DIR)/tuple_op_tests.c \
+				$(TEST_DIR)/tuple_multiply_tests.c \
 				$(TEST_DIR)/main_tests.c
 
 # Arquivos de objeto
