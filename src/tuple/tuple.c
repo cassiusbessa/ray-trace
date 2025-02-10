@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:42:13 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/09 01:25:49 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/10 01:39:22 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_tuple	*new_tuple(float x, float y, float z, t_bool is_point);
 void		print_tuple(t_tuple *t);
-t_tuple	*add_tuple(t_tuple *t1, t_tuple *t2);
-t_tuple	*sub_tuple(t_tuple *t1, t_tuple *t2);
+t_tuple	*add_tuples(t_tuple *t1, t_tuple *t2);
+t_tuple	*sub_tuples(t_tuple *t1, t_tuple *t2);
 t_tuple	*multiply_tuple_by_scalar(t_tuple *t, float scalar);
 
 t_tuple	*new_tuple(float x, float y, float z, t_bool is_point)
@@ -46,7 +46,7 @@ t_tuple	*add_tuples(t_tuple *t1, t_tuple *t2)
 	return (result);
 }
 
-t_tuple	*sub_tuple(t_tuple *t1, t_tuple *t2)
+t_tuple	*sub_tuples(t_tuple *t1, t_tuple *t2)
 {
 	t_tuple	*result;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_op_tests.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:40:07 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/09 01:26:31 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/10 01:39:22 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int test_sub_points(void)
 	errors = 0;
 	t1 = new_tuple(3, 2, 1, TRUE);
 	t2 = new_tuple(5, 6, 7, TRUE);
-	result = sub_tuple(t1, t2);
+	result = sub_tuples(t1, t2);
 	errors += test_check_double(result->x, -2, "result.x should be -2");
 	errors += test_check_double(result->y, -4, "result.y should be -4");
 	errors += test_check_double(result->z, -6, "result.z should be -6");
@@ -68,7 +68,7 @@ int test_sub_vector_from_point(void)
 	errors = 0;
 	t1 = new_tuple(3, 2, 1, TRUE);
 	t2 = new_tuple(5, 6, 7, FALSE);
-	result = sub_tuple(t1, t2);
+	result = sub_tuples(t1, t2);
 	errors += test_check_double(result->x, -2, "result.x should be -2");
 	errors += test_check_double(result->y, -4, "result.y should be -4");
 	errors += test_check_double(result->z, -6, "result.z should be -6");
@@ -91,7 +91,7 @@ int test_sub_vectors(void)
 	errors = 0;
 	t1 = new_tuple(3, 2, 1, FALSE);
 	t2 = new_tuple(5, 6, 7, FALSE);
-	result = sub_tuple(t1, t2);
+	result = sub_tuples(t1, t2);
 	errors += test_check_double(result->x, -2, "result.x should be -2");
 	errors += test_check_double(result->y, -4, "result.y should be -4");
 	errors += test_check_double(result->z, -6, "result.z should be -6");
@@ -114,7 +114,7 @@ int test_sub_vector_from_zero_vector(void)
 	errors = 0;
 	t1 = new_tuple(0, 0, 0, FALSE);
 	t2 = new_tuple(1, -2, 3, FALSE);
-	result = sub_tuple(t1, t2);
+	result = sub_tuples(t1, t2);
 	errors += test_check_double(result->x, -1, "result.x should be -1");
 	errors += test_check_double(result->y, 2, "result.y should be 2");
 	errors += test_check_double(result->z, -3, "result.z should be -3");

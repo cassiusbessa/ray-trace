@@ -49,6 +49,7 @@ clean:
 	@printf "\e[93;5;226m    - Objects removed.\n\e[0m"
 
 fclean: clean
+	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(TESTS_DIR)
 	$(RM) $(MINIRT)
 	@printf "\e[93;5;226m    - Executable removed.\n\e[0m"
