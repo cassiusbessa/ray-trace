@@ -7,6 +7,7 @@ RM          = rm -f
 TUPLE_DIR   = src/tuple
 VECTOR_DIR  = src/vector
 RGB_DIR		= src/rgb
+CANVAS_DIR  = src/canvas
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
 TESTS_DIR   = tests
@@ -22,6 +23,8 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
               $(TUPLE_DIR)/tuple_utils.c \
 			  $(TUPLE_DIR)/vector.c \
 			  $(RGB_DIR)/rgb.c \
+			  $(RGB_DIR)/rgb_utils.c \
+			  $(CANVAS_DIR)/canvas.c \
 			  src/thick.c
 
 # Arquivos de objeto

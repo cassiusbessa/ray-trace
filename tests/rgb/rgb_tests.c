@@ -1,21 +1,5 @@
 #include "../tests.h"
 
-static int test_create_rgb(void)
-{
-    t_rgb	*rgb;
-    int		errors;
-
-    errors = 0;
-    rgb = new_rgb(0.5, 0.4, 1.7);
-    errors += test_check_double(rgb->r, 0.5, "rgb->r should be 0.5");
-    errors += test_check_double(rgb->g, 0.4, "rgb->g should be 0.4");
-    errors += test_check_double(rgb->b, 1.7, "rgb->b should be 1.7");
-    free(rgb);
-    if (errors == 0)
-        test_success("test_create_rgb pass!");
-    return (errors);
-}
-
 static int test_add_rgb(void)
 {
     t_rgb   *color1;
@@ -103,13 +87,13 @@ static int  test_multiply_rgb_by_rgb(void)
 
 int all_rgb_tests(void)
 {
-    int erros;
+    int errors;
 
-    erros = 0;
-    erros += test_create_rgb();
-    erros += test_add_rgb();
-    erros += test_sub_rgb();
-    erros += test_multiply_rgb_by_scalar();
-    erros += test_multiply_rgb_by_rgb();
-    return (erros);
+    errors = 0;
+    errors += test_add_rgb();
+    errors += test_sub_rgb();
+    errors += test_multiply_rgb_by_scalar();
+    errors += test_multiply_rgb_by_rgb();
+    errors += all_rgb_common_tests();
+    return (errors);
 }
