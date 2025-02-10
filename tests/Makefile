@@ -7,6 +7,7 @@ RM          = rm -f
 TEST_DIR    = .
 TUPLE_TESTS = $(TEST_DIR)/tuple
 VECTOR_TESTS = $(TEST_DIR)/vector
+RGB_TESTS = $(TEST_DIR)/rgb
 LIBFT_DIR   = ../utils/libft
 CORE_DIR	= ../src
 
@@ -27,11 +28,13 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(VECTOR_TESTS)/vector_dot_product_tests.c \
 				$(VECTOR_TESTS)/vector_cross_product_test.c \
 				$(VECTOR_TESTS)/vector_tests.c \
+				$(RGB_TESTS)/rgb_tests.c \
 				$(TEST_DIR)/tests.c
 
 CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
 				$(CORE_DIR)/tuple/tuple_utils.c \
 				$(CORE_DIR)/tuple/vector.c \
+				$(CORE_DIR)/rgb/rgb.c
 
 TEST_SRCS	+= $(CORE_SRCS)
 

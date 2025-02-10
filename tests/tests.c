@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 23:27:14 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/10 02:12:18 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int    main(void)
     errors = 0;
     errors += tuple_tests();
     errors += vector_tests();
+    errors += all_rgb_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

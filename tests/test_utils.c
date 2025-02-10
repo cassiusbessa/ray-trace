@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:27:47 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 22:55:49 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/10 02:19:25 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	test_check(int condition, const char *message)
 {
 	if (!condition)
 	{
-		printf("❌ ERRO: %s\n", message);
+		printf("❌ ERROR: %s\n", message);
 		return (1);
 	}
 	return (0);
@@ -35,7 +35,7 @@ int	test_check_double(double a, double b, const char *msg)
 	}
 	else
 	{
-		ft_printf("❌ ERRO: %s (esperado: %.4f, obtido: %.4f)\n", msg, b, a);
+		printf("❌ ERROR: %s (expectd: %.4f, result: %.4f)\n", msg, b, a);
 		return (1);
 	}
 }

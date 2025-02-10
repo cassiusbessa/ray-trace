@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/10 01:39:22 by cassius          ###   ########.fr       */
+/*   Updated: 2025/02/10 02:46:04 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,29 @@ typedef struct s_tuple
 	int		w;
 }			t_tuple;
 
+typedef struct	s_rgb
+{
+	float	r;
+	float	g;
+	float	b;
+}				t_rgb;
+
 t_tuple	*new_tuple(float x, float y, float z, t_bool is_point);
 void		print_tuple(t_tuple *t);
 t_tuple	*add_tuples(t_tuple *t1, t_tuple *t2);
 t_tuple	*sub_tuples(t_tuple *t1, t_tuple *t2);
 t_tuple	*multiply_tuple_by_scalar(t_tuple *t, float scalar);
+
 float		magnitude_of_vector(t_tuple *t);
 t_tuple    *normalize_vector(t_tuple *t);
 float    vector_dot_product(t_tuple *t1, t_tuple *t2);
 t_tuple    *vector_cross_product(t_tuple *t1, t_tuple *t2);
+
+t_rgb    *new_rgb(float r, float g, float b);
+t_rgb    *add_rgb(t_rgb *c1, t_rgb *c2);
+t_rgb    *sub_rgb(t_rgb *c1, t_rgb *c2);
+t_rgb    *multiply_rgb_by_scalar(t_rgb *c, float scalar);
+t_rgb    *multiply_rgb_by_rgb(t_rgb *c1, t_rgb *c2);
 
 
 

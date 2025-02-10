@@ -6,6 +6,7 @@ RM          = rm -f
 # Caminhos
 TUPLE_DIR   = src/tuple
 VECTOR_DIR  = src/vector
+RGB_DIR		= src/rgb
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
 TESTS_DIR   = tests
@@ -20,6 +21,7 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 SRCS        = $(TUPLE_DIR)/tuple.c \
               $(TUPLE_DIR)/tuple_utils.c \
 			  $(TUPLE_DIR)/vector.c \
+			  $(RGB_DIR)/rgb.c \
 			  src/thick.c
 
 # Arquivos de objeto
