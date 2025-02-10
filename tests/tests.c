@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/10 02:12:18 by cassius          ###   ########.fr       */
+/*   Updated: 2025/02/10 03:50:20 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int    main(void)
     errors += tuple_tests();
     errors += vector_tests();
     errors += all_rgb_tests();
+    errors += canvas_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

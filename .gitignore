@@ -3,4 +3,5 @@ miniRT
 *.a
 *.swp
 libft.a
+./tests/test_runner
 test_runner

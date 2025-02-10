@@ -46,6 +46,9 @@ all: $(MINIRT)
 test:
 	@$(MAKE) -C $(TESTS_DIR) run
 
+test_leaks:
+	@$(MAKE) -C $(TESTS_DIR) leaks
+
 # Limpeza
 clean:
 	@make clean -C $(LIBFT_DIR)

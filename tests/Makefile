@@ -31,6 +31,7 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(VECTOR_TESTS)/vector_tests.c \
 				$(RGB_TESTS)/rgb_tests.c \
 				$(RGB_TESTS)/rgb_common_tests.c \
+				$(CANVAS_TESTS)/canvas_tests.c \
 				$(TEST_DIR)/tests.c
 
 CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
@@ -60,6 +61,14 @@ all: $(TEST_BIN)
 
 run: $(TEST_BIN)
 	./$(TEST_BIN)
+
+leaks: $(TEST_BIN)
+	@valgrind --leak-check=full --error-exitcode=1 ./$(TEST_BIN) 2>&1 | tee valgrind_output.log | grep -E "definitely lost|indirectly lost" > /dev/null && \
+		(echo "\e[91m❌ Memory leaks detected! Check the log below:\e[0m"; cat valgrind_output.log) || \
+		(echo "\e[92m✅ No memory leaks detected!\e[0m")
+	@rm -f valgrind_output.log
+
+
 
 # Limpeza
 clean:

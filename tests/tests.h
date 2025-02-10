@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/10 03:17:16 by cassius          ###   ########.fr       */
+/*   Updated: 2025/02/10 03:49:04 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	    tuple_tests(void);
 
 int all_rgb_tests(void);
 int all_rgb_common_tests(void);
+
+int canvas_tests(void);
 
 
 #endif
