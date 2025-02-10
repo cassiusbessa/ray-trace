@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/10 03:40:01 by cassius          ###   ########.fr       */
+/*   Updated: 2025/02/10 04:16:51 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ typedef struct s_canvas
 
 t_canvas	*new_canvas(int width, int height);
 void		free_canvas(t_canvas *canvas);
+t_rgb		*pixel_at(t_canvas *canvas, int x, int y);
+void		write_pixel(t_canvas *canvas, int x, int y, t_rgb *color);
 
 #endif

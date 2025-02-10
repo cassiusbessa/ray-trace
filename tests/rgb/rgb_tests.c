@@ -90,10 +90,10 @@ int all_rgb_tests(void)
     int errors;
 
     errors = 0;
+    errors += all_rgb_common_tests();
     errors += test_add_rgb();
     errors += test_sub_rgb();
     errors += test_multiply_rgb_by_scalar();
     errors += test_multiply_rgb_by_rgb();
-    errors += all_rgb_common_tests();
     return (errors);
 }

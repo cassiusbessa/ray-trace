@@ -31,11 +31,49 @@ static int  create_canvas_all_black(void)
     return (errors);
 }
 
+static int  test_pixel_at_canvas(void)
+{
+    t_canvas    *canvas;
+    t_rgb       *red;
+    t_rgb       *pixel;
+    int         errors;
+
+    errors = 0;
+    red = new_rgb(1, 0, 0);
+    canvas = new_canvas(10, 10);
+    write_pixel(canvas, 2, 3, red);
+    pixel = pixel_at(canvas, 2, 3);
+    errors += test_check(equal_rgb(pixel, red), "pixel_at(canvas, 2, 3) should be red");
+    free_canvas(canvas);
+    if (errors == 0)
+        test_success("pixel_at_canvas pass!");
+    return (errors);
+}
+
+static int  test_write_pixel_to_canvas(void)
+{
+    t_canvas    *canvas;
+    t_rgb       *red;
+    int         errors;
+
+    errors = 0;
+    red = new_rgb(1, 0, 0);
+    canvas = new_canvas(10, 10);
+    write_pixel(canvas, 2, 3, red);
+    errors += test_check(equal_rgb(canvas->pixels[3][2], red), "canvas->pixels[3][2] should be red");
+    free_canvas(canvas);
+    if (errors == 0)
+        test_success("write_pixel_to_canvas pass!");
+    return (errors);
+}
+
 int canvas_tests(void)
 {
     int errors;
 
     errors = 0;
     errors += create_canvas_all_black();
+    errors += test_pixel_at_canvas();
+    errors += test_write_pixel_to_canvas();
     return (errors);
 }

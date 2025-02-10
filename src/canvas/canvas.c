@@ -69,3 +69,17 @@ t_canvas	*new_canvas(int width, int height)
 	fill_black_canvas(canvas);
 	return (canvas);
 }
+
+t_rgb	*pixel_at(t_canvas *canvas, int x, int y)
+{
+    return (canvas->pixels[y][x]);
+}
+
+void write_pixel(t_canvas *canvas, int x, int y, t_rgb *color)
+{
+    if (x < 0 || x >= canvas->width || y < 0 || y >= canvas->height)
+        return ;
+    if (canvas->pixels[y][x])
+        free(canvas->pixels[y][x]);
+    canvas->pixels[y][x] = color;
+}
