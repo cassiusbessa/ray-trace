@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 00:34:13 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/09 01:30:52 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/10 21:45:43 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int main(void)
         projectile = tick(env, projectile);
         printf("Position: x: %f, y: %f, z: %f\n", projectile->position->x, projectile->position->y, projectile->position->z);
     }
+    open_mlx_screen(*new_canvas(800, 600));
 
     return (0);
 }

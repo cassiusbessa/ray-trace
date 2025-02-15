@@ -6,6 +6,8 @@
 		"tests.h": "c",
 		"minirt.h": "c",
 		"math.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"mlx.h": "c",
+		"libft.h": "c"
 	}
 }

@@ -39,7 +39,9 @@ CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
 				$(CORE_DIR)/tuple/vector.c \
 				$(CORE_DIR)/rgb/rgb.c \
 				$(CORE_DIR)/rgb/rgb_utils.c \
-				$(CORE_DIR)/canvas/canvas.c
+				$(CORE_DIR)/canvas/canvas.c \
+				$(CORE_DIR)/mlx_adapter/open_mlx_screen.c \
+				$(CORE_DIR)/mlx_adapter/canvas_to_mlx_image.c
 
 
 TEST_SRCS	+= $(CORE_SRCS)
@@ -54,7 +56,8 @@ TEST_OBJS   = $(TEST_SRCS:.c=.o)
 # Compilar os testes
 $(TEST_BIN): $(TEST_OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(TEST_OBJS) $(LIBFT) -o $(TEST_BIN) -lm
+	@make -C minilibx-linux
+	$(CC) $(TEST_OBJS) $(LIBFT) $(MINILIBX) -o $(TEST_BIN) -Imlx_linux -lXext -lX11 -lreadline -lm
 	@printf "\e[92;5;118m    - Test runner ready.\n\e[0m"
 
 all: $(TEST_BIN)

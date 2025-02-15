@@ -8,8 +8,10 @@ TUPLE_DIR   = src/tuple
 VECTOR_DIR  = src/vector
 RGB_DIR		= src/rgb
 CANVAS_DIR  = src/canvas
+MLX_DIR		= src/mlx_adapter
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
+
 TESTS_DIR   = tests
 
 # Nome do executável
@@ -18,6 +20,8 @@ MINIRT      = miniRT
 # Biblioteca auxiliar
 LIBFT       = $(LIBFT_DIR)/libft.a
 
+MINILIBX = minilibx-linux/libmlx_Linux.a
+
 # Arquivos de fontes do miniRT
 SRCS        = $(TUPLE_DIR)/tuple.c \
               $(TUPLE_DIR)/tuple_utils.c \
@@ -25,6 +29,8 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(RGB_DIR)/rgb.c \
 			  $(RGB_DIR)/rgb_utils.c \
 			  $(CANVAS_DIR)/canvas.c \
+			  $(MLX_DIR)/open_mlx_screen.c \
+			  $(MLX_DIR)/canvas_to_mlx_image.c \
 			  src/thick.c
 
 # Arquivos de objeto
@@ -37,7 +43,8 @@ OBJS         = $(SRCS:.c=.o)
 # Compilar o miniRT
 $(MINIRT): $(OBJS)
 	@make -C $(LIBFT_DIR)
-	$(CC) $(OBJS) $(LIBFT) -o $(MINIRT) -lreadline -lm
+	@make -C minilibx-linux
+	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) -o $(MINIRT) -Imlx_linux -lXext -lX11 -lreadline -lm
 	@printf "\e[92;5;118m    - Executable ready.\n\e[0m"
 
 all: $(MINIRT)
