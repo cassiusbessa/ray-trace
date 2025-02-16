@@ -11,12 +11,14 @@ RGB_TESTS = $(TEST_DIR)/rgb
 CANVAS_TESTS = $(TEST_DIR)/canvas
 LIBFT_DIR   = ../utils/libft
 CORE_DIR	= ../src
+MINILIBX_DIR = ../minilibx-linux
 
 # Nome do executável de testes
 TEST_BIN    = test_runner
 
 # Biblioteca auxiliar
 LIBFT       = $(LIBFT_DIR)/libft.a
+MINILIBX    = $(MINILIBX_DIR)/libmlx.a
 
 # Arquivos de fontes para testes
 TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
@@ -56,7 +58,7 @@ TEST_OBJS   = $(TEST_SRCS:.c=.o)
 # Compilar os testes
 $(TEST_BIN): $(TEST_OBJS)
 	@make -C $(LIBFT_DIR)
-	@make -C minilibx-linux
+	@make -C ../minilibx-linux
 	$(CC) $(TEST_OBJS) $(LIBFT) $(MINILIBX) -o $(TEST_BIN) -Imlx_linux -lXext -lX11 -lreadline -lm
 	@printf "\e[92;5;118m    - Test runner ready.\n\e[0m"
 

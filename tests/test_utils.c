@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:27:47 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/10 02:19:25 by cassius          ###   ########.fr       */
+/*   Updated: 2025/02/16 01:16:59 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	test_success(const char *message)
 {
 	printf("✅ %s\n", message);
 }
+
+void	test_failure(const char *message)
+{
+	printf("❌ %s\n", message);
+}
+
 
 int	test_check_double(double a, double b, const char *msg)
 {

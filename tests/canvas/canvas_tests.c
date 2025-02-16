@@ -3,7 +3,7 @@
 static int  create_canvas_all_black(void)
 {
     t_canvas    *canvas;
-    t_rgb       *black;
+    t_rgb       black;
     int         i;
     int         j;
     int         errors;
@@ -25,16 +25,17 @@ static int  create_canvas_all_black(void)
         i++;
     }
     free_canvas(canvas);
-    free(black);
     if (errors == 0)
         test_success("create_canvas_all_black pass!");
+    else
+        test_failure("create_canvas_all_black failed.");
     return (errors);
 }
 
 static int  test_pixel_at_canvas(void)
 {
     t_canvas    *canvas;
-    t_rgb       *red;
+    t_rgb       red;
     t_rgb       *pixel;
     int         errors;
 
@@ -43,17 +44,19 @@ static int  test_pixel_at_canvas(void)
     canvas = new_canvas(10, 10);
     write_pixel(canvas, 2, 3, red);
     pixel = pixel_at(canvas, 2, 3);
-    errors += test_check(equal_rgb(pixel, red), "pixel_at(canvas, 2, 3) should be red");
+    errors += test_check(equal_rgb(*pixel, red), "pixel_at(canvas, 2, 3) should be red");
     free_canvas(canvas);
     if (errors == 0)
         test_success("pixel_at_canvas pass!");
+    else
+        test_failure("pixel_at_canvas failed.");
     return (errors);
 }
 
 static int  test_write_pixel_to_canvas(void)
 {
     t_canvas    *canvas;
-    t_rgb       *red;
+    t_rgb       red;
     int         errors;
 
     errors = 0;
@@ -64,6 +67,8 @@ static int  test_write_pixel_to_canvas(void)
     free_canvas(canvas);
     if (errors == 0)
         test_success("write_pixel_to_canvas pass!");
+    else
+        test_failure("write_pixel_to_canvas failed.");
     return (errors);
 }
 

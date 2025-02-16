@@ -1,5 +1,5 @@
 # Definição de variáveis
-CC          = cc
+CC          = cc -g
 CFLAGS      = -Wall -Wextra -Werror
 RM          = rm -f
 
