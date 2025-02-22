@@ -8,6 +8,7 @@ TUPLE_DIR   = src/tuple
 VECTOR_DIR  = src/vector
 RGB_DIR		= src/rgb
 CANVAS_DIR  = src/canvas
+MATRIX_DIR  = src/matrix
 MLX_DIR		= src/mlx_adapter
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
@@ -29,6 +30,7 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(RGB_DIR)/rgb.c \
 			  $(RGB_DIR)/rgb_utils.c \
 			  $(CANVAS_DIR)/canvas.c \
+			  $(MATRIX_DIR)/matrix.c \
 			  $(MLX_DIR)/open_mlx_screen.c \
 			  $(MLX_DIR)/canvas_to_mlx_image.c \
 			  src/thick.c

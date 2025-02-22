@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/16 01:23:29 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:42:30 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_tuple
 }			t_tuple;
 
 t_tuple		new_tuple(float x, float y, float z, t_bool is_point);
-void		print_tuple(t_tuple t);
 t_tuple		add_tuples(t_tuple t1, t_tuple t2);
 t_tuple		sub_tuples(t_tuple t1, t_tuple t2);
 t_tuple		multiply_tuple_by_scalar(t_tuple t, float scalar);
@@ -91,5 +90,17 @@ typedef struct s_mlx
 
 void	open_mlx_screen(t_canvas *canvas);
 void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
+
+typedef struct s_matrix
+{
+	int		size;
+	float	**data;
+}			t_matrix;
+
+t_matrix	new_matrix(int rows, int cols);
+void		print_matrix(t_matrix matrix);
+void		free_matrix(t_matrix matrix);
+t_bool			equal_matrix(t_matrix m1, t_matrix m2);
+t_matrix		matrix_multiply_by_matrix(t_matrix a, t_matrix b);
 
 #endif

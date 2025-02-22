@@ -9,6 +9,7 @@ TUPLE_TESTS = $(TEST_DIR)/tuple
 VECTOR_TESTS = $(TEST_DIR)/vector
 RGB_TESTS = $(TEST_DIR)/rgb
 CANVAS_TESTS = $(TEST_DIR)/canvas
+MATRIX_TESTS = $(TEST_DIR)/matrix
 LIBFT_DIR   = ../utils/libft
 CORE_DIR	= ../src
 MINILIBX_DIR = ../minilibx-linux
@@ -34,6 +35,8 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(RGB_TESTS)/rgb_tests.c \
 				$(RGB_TESTS)/rgb_common_tests.c \
 				$(CANVAS_TESTS)/canvas_tests.c \
+				$(MATRIX_TESTS)/matrix_tests.c \
+				$(MATRIX_TESTS)/matrix_multiply_by_matrix_tests.c \
 				$(TEST_DIR)/tests.c
 
 CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
@@ -42,6 +45,7 @@ CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
 				$(CORE_DIR)/rgb/rgb.c \
 				$(CORE_DIR)/rgb/rgb_utils.c \
 				$(CORE_DIR)/canvas/canvas.c \
+				$(CORE_DIR)/matrix/matrix.c \
 				$(CORE_DIR)/mlx_adapter/open_mlx_screen.c \
 				$(CORE_DIR)/mlx_adapter/canvas_to_mlx_image.c
 
