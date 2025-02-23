@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:53:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/23 00:38:10 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/23 01:04:57 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,41 @@ t_bool	equal_matrix(t_matrix m1, t_matrix m2)
 	return (TRUE);
 }
 
-int matrix_determinant_2x2(t_matrix matrix)
+int	matrix_determinant_2x2(t_matrix matrix)
 {
-    return (matrix.data[0][0] * matrix.data[1][1] - matrix.data[0][1] * matrix.data[1][0]);
+	return (matrix.data[0][0] * matrix.data[1][1] - matrix.data[0][1]
+		* matrix.data[1][0]);
+}
+
+t_matrix	submatrix(t_matrix matrix, int row, int col)
+{
+	t_matrix sub;
+	int i;
+	int j;
+	int i_sub;
+	int j_sub;
+
+	sub = new_matrix(matrix.size - 1, matrix.size - 1);
+	i = 0;
+	i_sub = 0;
+	while (i < matrix.size)
+	{
+		if (i != row)
+		{
+			j = 0;
+			j_sub = 0;
+			while (j < matrix.size)
+			{
+				if (j != col)
+				{
+					sub.data[i_sub][j_sub] = matrix.data[i][j];
+					j_sub++;
+				}
+				j++;
+			}
+			i_sub++;
+		}
+		i++;
+	}
+	return (sub);
 }

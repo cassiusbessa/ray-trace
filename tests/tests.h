@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/23 00:22:44 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/23 01:16:18 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int     test_multiply_matrix_by_tuple(void);
 int     identity_matrix_tests(void);
 int     rotate_matrix_tests(void);
 int     test_determinant_2x2_matrix(void);
+int     test_submatrix(void);
 
 #endif

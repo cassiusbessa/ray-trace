@@ -41,6 +41,7 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(MATRIX_TESTS)/identity_matrix_tests.c \
 				$(MATRIX_TESTS)/rotate_matrix_tests.c \
 				$(MATRIX_TESTS)/determinant_matrix_tests.c \
+				$(MATRIX_TESTS)/submatrix_tests.c \
 				$(TEST_DIR)/tests.c
 
 CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
