@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:56:04 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 23:57:39 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/23 00:22:40 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int all_matrix_tests(void)
     errors += test_multiply_matrix_by_tuple();
     errors += identity_matrix_tests();
     errors += rotate_matrix_tests();
+    errors += test_determinant_2x2_matrix();
     if (errors == 0)
         ft_printf("\n🎉 All matrix tests fine!\n");
     else

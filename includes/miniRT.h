@@ -6,15 +6,15 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 23:38:44 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/23 00:33:14 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../utils/libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include "../utils/libft/libft.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <fcntl.h>
@@ -79,17 +79,17 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_img;
+}			t_img;
 
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
-}	t_mlx;
+}			t_mlx;
 
-void	open_mlx_screen(t_canvas *canvas);
-void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
+void		open_mlx_screen(t_canvas *canvas);
+void		canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
 
 typedef struct s_matrix
 {
@@ -101,9 +101,10 @@ t_matrix	new_matrix(int rows, int cols);
 t_matrix	identity_matrix(int size);
 void		print_matrix(t_matrix matrix);
 void		free_matrix(t_matrix matrix);
-t_bool			equal_matrix(t_matrix m1, t_matrix m2);
-t_matrix		matrix_multiply_by_matrix(t_matrix a, t_matrix b);
-t_tuple			matrix_multiply_by_tuple(t_matrix m, t_tuple t);
-t_matrix		transpose_matrix(t_matrix matrix);
+t_bool		equal_matrix(t_matrix m1, t_matrix m2);
+t_matrix	matrix_multiply_by_matrix(t_matrix a, t_matrix b);
+t_tuple		matrix_multiply_by_tuple(t_matrix m, t_tuple t);
+t_matrix	transpose_matrix(t_matrix matrix);
+int			matrix_determinant_2x2(t_matrix matrix);
 
 #endif
