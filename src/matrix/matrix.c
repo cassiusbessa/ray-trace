@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:53:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 21:43:04 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:44:32 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@ t_matrix	new_matrix(int rows, int cols)
             matrix.data[i][j] = 0;
             j++;
         }
+        i++;
+    }
+    return (matrix);
+}
+
+t_matrix    identity_matrix(int size)
+{
+    t_matrix	matrix;
+    int			i;
+
+    matrix = new_matrix(size, size);
+    i = 0;
+    while (i < size)
+    {
+        matrix.data[i][i] = 1;
         i++;
     }
     return (matrix);

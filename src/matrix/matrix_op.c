@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:30:27 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 22:39:41 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:41:51 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ static double	get_tuple_value(t_tuple t, int index)
 	return (t.w);
 }
 
-static void set_tuple_value(t_tuple *t, int index, double value)
+static void	set_tuple_value(t_tuple *t, int index, double value)
 {
-    if (index == 0)
-        t->x = value;
-    if (index == 1)
-        t->y = value;
-    if (index == 2)
-        t->z = value;
-    if (index == 3)
-        t->w = value;
+	if (index == 0)
+		t->x = value;
+	if (index == 1)
+		t->y = value;
+	if (index == 2)
+		t->z = value;
+	if (index == 3)
+		t->w = value;
 }
 
 t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
@@ -77,7 +77,7 @@ t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 		while (j < m.size)
 		{
 			value = m.data[i][j] * get_tuple_value(t, j);
-            set_tuple_value(&result, i, get_tuple_value(result, i) + value);
+			set_tuple_value(&result, i, get_tuple_value(result, i) + value);
 			j++;
 		}
 		i++;

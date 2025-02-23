@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 21:43:00 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 22:47:35 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_matrix
 }			t_matrix;
 
 t_matrix	new_matrix(int rows, int cols);
+t_matrix	identity_matrix(int size);
 void		print_matrix(t_matrix matrix);
 void		free_matrix(t_matrix matrix);
 t_bool			equal_matrix(t_matrix m1, t_matrix m2);
