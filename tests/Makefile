@@ -48,7 +48,7 @@ CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
 				$(CORE_DIR)/rgb/rgb_utils.c \
 				$(CORE_DIR)/canvas/canvas.c \
 				$(CORE_DIR)/matrix/matrix.c \
-				$(CORE_DIR)/matrix/matrix_op.c \
+				$(CORE_DIR)/matrix/matrix_multiply.c \
 				$(CORE_DIR)/mlx_adapter/open_mlx_screen.c \
 				$(CORE_DIR)/mlx_adapter/canvas_to_mlx_image.c
 
