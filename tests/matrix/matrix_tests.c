@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:56:04 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 23:12:31 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 23:57:39 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int  test_create_matrix(void)
     errors += test_check(matrix.data[3][1] == 0, "matrix.data[3][1] should be 0");
     errors += test_check(matrix.data[3][2] == 0, "matrix.data[3][2] should be 0");
     errors += test_check(matrix.data[3][3] == 0, "matrix.data[3][3] should be 0");
+    free_matrix(matrix);
     if (errors == 0)
         test_success("test_create_matrix pass!");
     else
@@ -106,6 +107,7 @@ int all_matrix_tests(void)
     errors += all_multiply_matrix_by_matrix_tests();
     errors += test_multiply_matrix_by_tuple();
     errors += identity_matrix_tests();
+    errors += rotate_matrix_tests();
     if (errors == 0)
         ft_printf("\n🎉 All matrix tests fine!\n");
     else

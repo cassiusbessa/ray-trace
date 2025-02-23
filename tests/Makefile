@@ -39,6 +39,7 @@ TEST_SRCS	=	$(TEST_DIR)/test_utils.c \
 				$(MATRIX_TESTS)/matrix_multiply_by_matrix_tests.c \
 				$(MATRIX_TESTS)/matrix_multiply_by_tuple_tests.c \
 				$(MATRIX_TESTS)/identity_matrix_tests.c \
+				$(MATRIX_TESTS)/rotate_matrix_tests.c \
 				$(TEST_DIR)/tests.c
 
 CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
@@ -48,7 +49,9 @@ CORE_SRCS	=	$(CORE_DIR)/tuple/tuple.c \
 				$(CORE_DIR)/rgb/rgb_utils.c \
 				$(CORE_DIR)/canvas/canvas.c \
 				$(CORE_DIR)/matrix/matrix.c \
+				$(CORE_DIR)/matrix/matrix_utils.c \
 				$(CORE_DIR)/matrix/matrix_multiply.c \
+				$(CORE_DIR)/matrix/matrix_rotate.c \
 				$(CORE_DIR)/mlx_adapter/open_mlx_screen.c \
 				$(CORE_DIR)/mlx_adapter/canvas_to_mlx_image.c
 

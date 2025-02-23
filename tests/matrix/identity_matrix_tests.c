@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 22:45:04 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 23:18:20 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 23:58:47 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int	test_multiply_identity_matrix_for_tuple(void)
     errors += test_check_double(result.y, expected.y, "multiply_identity_matrix_for_tuple");
     errors += test_check_double(result.z, expected.z, "multiply_identity_matrix_for_tuple");
     errors += test_check_double(result.w, expected.w, "multiply_identity_matrix_for_tuple");
+    free_matrix(identity);
     if (errors)
         printf("❌ test_multiply_identity_matrix_for_tuple failed\n");
     else
@@ -80,6 +81,9 @@ static int	test_multiply_matrix_for_identity(void)
     result = matrix_multiply_by_matrix(m, expected);
     errors = 0;
     errors += !equal_matrix(result, expected);
+    free_matrix(m);
+    free_matrix(expected);
+    free_matrix(result);
     if (errors)
         printf("❌ test_multiply_matrix_for_identity failed\n");
     else

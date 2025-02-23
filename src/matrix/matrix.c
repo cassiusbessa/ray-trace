@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:53:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 22:44:32 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 23:55:11 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,38 +48,6 @@ t_matrix    identity_matrix(int size)
         i++;
     }
     return (matrix);
-}
-
-void    print_matrix(t_matrix matrix)
-{
-    int	i;
-    int	j;
-
-    i = 0;
-    while (i < matrix.size)
-    {
-        j = 0;
-        while (j < matrix.size)
-        {
-            printf("%f ", matrix.data[i][j]);
-            j++;
-        }
-        printf("\n");
-        i++;
-    }
-}
-
-void    free_matrix(t_matrix matrix)
-{
-    int	i;
-
-    i = 0;
-    while (i < matrix.size)
-    {
-        free(matrix.data[i]);
-        i++;
-    }
-    free(matrix.data);
 }
 
 t_bool    equal_matrix(t_matrix m1, t_matrix m2)
