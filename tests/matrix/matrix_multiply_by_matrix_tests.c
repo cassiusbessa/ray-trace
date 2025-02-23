@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 18:21:33 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 18:45:28 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:42:16 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,10 @@ static int  test_multiply_matrix_by_matrix(void)
     free_matrix(matrix2);
     free_matrix(result);
     free_matrix(expected);
+    if (errors)
+        test_failure("test_multiply_matrix_by_matrix");
+    else
+        test_success("test_multiply_matrix_by_matrix");
     return (errors);
 }
 

@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 18:42:30 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:43:00 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ void		print_matrix(t_matrix matrix);
 void		free_matrix(t_matrix matrix);
 t_bool			equal_matrix(t_matrix m1, t_matrix m2);
 t_matrix		matrix_multiply_by_matrix(t_matrix a, t_matrix b);
+t_tuple			matrix_multiply_by_tuple(t_matrix m, t_tuple t);
 
 #endif

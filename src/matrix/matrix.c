@@ -6,7 +6,7 @@
 /*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 17:53:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 18:42:22 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/02/22 21:43:04 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,29 +89,3 @@ t_bool    equal_matrix(t_matrix m1, t_matrix m2)
     return (TRUE);
 }
 
-t_matrix    matrix_multiply_by_matrix(t_matrix m1, t_matrix m2)
-{
-    t_matrix	result;
-    int			i;
-    int			j;
-    int			k;
-
-    result = new_matrix(m1.size, m1.size);
-    i = 0;
-    while (i < m1.size)
-    {
-        j = 0;
-        while (j < m1.size)
-        {
-            k = 0;
-            while (k < m1.size)
-            {
-                result.data[i][j] += m1.data[i][k] * m2.data[k][j];
-                k++;
-            }
-            j++;
-        }
-        i++;
-    }
-    return (result);
-}

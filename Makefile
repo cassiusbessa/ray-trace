@@ -31,6 +31,7 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(RGB_DIR)/rgb_utils.c \
 			  $(CANVAS_DIR)/canvas.c \
 			  $(MATRIX_DIR)/matrix.c \
+			  $(MATRIX_DIR)/matrix_op.c \
 			  $(MLX_DIR)/open_mlx_screen.c \
 			  $(MLX_DIR)/canvas_to_mlx_image.c \
 			  src/thick.c
