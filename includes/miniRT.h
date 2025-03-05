@@ -107,5 +107,9 @@ t_tuple		matrix_multiply_by_tuple(t_matrix m, t_tuple t);
 t_matrix	transpose_matrix(t_matrix matrix);
 int			matrix_determinant_2x2(t_matrix matrix);
 t_matrix	submatrix(t_matrix matrix, int row, int col);
+int	matrix_determinant(t_matrix matrix);
+int	minor(t_matrix matrix, int row, int col);
+int	cofactor(t_matrix matrix, int row, int col);
+
 
 #endif

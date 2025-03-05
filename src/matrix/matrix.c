@@ -72,6 +72,31 @@ t_bool	equal_matrix(t_matrix m1, t_matrix m2)
 	return (TRUE);
 }
 
+int	matrix_determinant(t_matrix matrix)
+{
+	int		det;
+	int		i;
+	int		sign;
+	t_matrix	sub;
+
+	if (matrix.size == 2)
+		return matrix_determinant_2x2(matrix);
+	det = 0;
+	i = 0;
+	while (i < matrix.size)
+	{
+		sub = submatrix(matrix, 0, i);
+		if (i % 2 == 0)
+			sign = 1;
+		else
+			sign = -1;
+		det += sign * matrix.data[0][i] * matrix_determinant(sub);
+		free_matrix(sub);
+		i++;
+	}
+	return det;
+}
+
 int	matrix_determinant_2x2(t_matrix matrix)
 {
 	return (matrix.data[0][0] * matrix.data[1][1] - matrix.data[0][1]
@@ -87,26 +112,41 @@ t_matrix	submatrix(t_matrix matrix, int row, int col)
 	int j_sub;
 
 	sub = new_matrix(matrix.size - 1, matrix.size - 1);
-	i = 0;
+	i = -1;
 	i_sub = 0;
-	while (i < matrix.size)
+	while (++i < matrix.size)
 	{
 		if (i != row)
 		{
-			j = 0;
+			j = -1;
 			j_sub = 0;
-			while (j < matrix.size)
+			while (++j < matrix.size)
 			{
 				if (j != col)
-				{
-					sub.data[i_sub][j_sub] = matrix.data[i][j];
-					j_sub++;
-				}
-				j++;
+					sub.data[i_sub][j_sub++] = matrix.data[i][j];
 			}
 			i_sub++;
 		}
-		i++;
 	}
 	return (sub);
+}
+
+int	minor(t_matrix matrix, int row, int col)
+{
+	t_matrix	sub;
+	int		min;
+
+	sub = submatrix(matrix, row, col);
+	min = matrix_determinant(sub);
+	return min;
+}
+
+int	cofactor(t_matrix matrix, int row, int col)
+{
+	int	min;
+
+	min = minor(matrix, row, col);
+	if ((row + col) % 2 != 0)
+		min = -min;
+	return (min);
 }
