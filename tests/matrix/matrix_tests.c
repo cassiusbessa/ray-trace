@@ -113,7 +113,10 @@ int all_matrix_tests(void)
     errors += test_determinant_4x4_matrix();
     errors += test_submatrix();
     errors += test_minor_matrix();
-    errors += test_cofactor_matrix();
+    errors += test_cofactor_3x3_matrix();
+    errors += test_cofactor_4x4_matrix();
+    errors += test_cofactor_determinant_3x3_matrix();
+    errors += test_cofactor_determinant_4x4_matrix();
     if (errors == 0)
         ft_printf("\n🎉 All matrix tests fine!\n");
     else
