@@ -43,3 +43,10 @@ void    print_matrix(t_matrix matrix)
         i++;
     }
 }
+
+int	matrix_is_invertible(t_matrix matrix)
+{
+	if (matrix_determinant(matrix) == 0)
+		return (FALSE);
+	return (TRUE);
+}

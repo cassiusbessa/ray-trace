@@ -110,6 +110,6 @@ t_matrix	submatrix(t_matrix matrix, int row, int col);
 int	matrix_determinant(t_matrix matrix);
 int	minor(t_matrix matrix, int row, int col);
 int	cofactor(t_matrix matrix, int row, int col);
-
+int	matrix_is_invertible(t_matrix matrix);
 
 #endif

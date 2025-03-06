@@ -56,4 +56,6 @@ int     test_minor_matrix(void);
 int     test_cofactor_determinant_3x3_matrix(void);
 int     test_cofactor_determinant_4x4_matrix(void);
 
+int     test_is_invertible_matrix(void);
+
 #endif

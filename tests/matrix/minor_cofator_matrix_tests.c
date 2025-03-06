@@ -93,7 +93,10 @@ int test_minor_matrix(void)
 int test_cofactor_determinant_3x3_matrix(void)
 {
 	t_matrix	matrix;
-	int			cofactor_00, cofactor_01, cofactor_02, det;
+	int			cofactor_00;
+	int 		cofactor_01;
+	int 		cofactor_02;
+	int			det;
 	int			errors = 0;
 
 	matrix = matrix_c();
@@ -116,7 +119,11 @@ int test_cofactor_determinant_3x3_matrix(void)
 int test_cofactor_determinant_4x4_matrix(void)
 {
 	t_matrix	matrix;
-	int			cofactor_00, cofactor_01, cofactor_02, cofactor_03, det;
+	int			cofactor_00;
+	int 		cofactor_01;
+	int 		cofactor_02;
+	int 		cofactor_03;
+	int			det;
 	int			errors = 0;
 
 	matrix = matrix_b();
