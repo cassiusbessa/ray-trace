@@ -131,7 +131,7 @@ t_matrix	submatrix(t_matrix matrix, int row, int col)
 	return (sub);
 }
 
-int	minor(t_matrix matrix, int row, int col)
+int	matrix_minor(t_matrix matrix, int row, int col)
 {
 	t_matrix	sub;
 	int		min;
@@ -141,11 +141,11 @@ int	minor(t_matrix matrix, int row, int col)
 	return min;
 }
 
-int	cofactor(t_matrix matrix, int row, int col)
+int	matrix_cofactor(t_matrix matrix, int row, int col)
 {
 	int	min;
 
-	min = minor(matrix, row, col);
+	min = matrix_minor(matrix, row, col);
 	if ((row + col) % 2 != 0)
 		min = -min;
 	return (min);

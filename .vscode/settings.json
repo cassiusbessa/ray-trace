@@ -1,13 +1,5 @@
 {
     "files.associations": {
-		"*.sqlbook": "sql",
-		"*.ndjson": "jsonl",
-		"*.dbclient-js": "javascript",
-		"tests.h": "c",
-		"minirt.h": "c",
-		"math.h": "c",
-		"stdio.h": "c",
-		"mlx.h": "c",
-		"libft.h": "c"
-	}
+        "minirt.h": "c"
+    }
 }

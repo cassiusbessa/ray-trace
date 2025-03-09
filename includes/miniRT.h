@@ -108,8 +108,9 @@ t_matrix	transpose_matrix(t_matrix matrix);
 int			matrix_determinant_2x2(t_matrix matrix);
 t_matrix	submatrix(t_matrix matrix, int row, int col);
 int	matrix_determinant(t_matrix matrix);
-int	minor(t_matrix matrix, int row, int col);
-int	cofactor(t_matrix matrix, int row, int col);
+int	matrix_minor(t_matrix matrix, int row, int col);
+int	matrix_cofactor(t_matrix matrix, int row, int col);
 int	matrix_is_invertible(t_matrix matrix);
+t_matrix	matrix_inverse(t_matrix matrix);
 
 #endif

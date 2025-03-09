@@ -116,6 +116,8 @@ int all_matrix_tests(void)
     errors += test_cofactor_determinant_3x3_matrix();
     errors += test_cofactor_determinant_4x4_matrix();
     errors += test_is_invertible_matrix();
+    errors += all_matrix_inverse_tests();
+
     if (errors == 0)
         ft_printf("\n🎉 All matrix tests fine!\n");
     else
