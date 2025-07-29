@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/23 01:05:35 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:35:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
+#include <stdbool.h>
+
 
 # define EPSILON 0.0001
 
@@ -38,13 +40,22 @@ typedef struct s_tuple
 
 t_tuple		new_tuple(float x, float y, float z, t_bool is_point);
 t_tuple		add_tuples(t_tuple t1, t_tuple t2);
-t_tuple		sub_tuples(t_tuple t1, t_tuple t2);
-t_tuple		multiply_tuple_by_scalar(t_tuple t, float scalar);
-
-float		magnitude_of_vector(t_tuple t);
+t_tuple		subtract_tuples(t_tuple t1, t_tuple t2);
+t_tuple		multiply_tuple(t_tuple t, float scalar);
+t_tuple 	negate_tuple(t_tuple t);
+t_tuple		divide_tuple(t_tuple t, float scalar);
 t_tuple		normalize_vector(t_tuple t);
-float		vector_dot_product(t_tuple t1, t_tuple t2);
-t_tuple		vector_cross_product(t_tuple t1, t_tuple t2);
+t_tuple		vector_cross(t_tuple t1, t_tuple t2);
+t_tuple		vector_tuple(float x, float y, float z);
+t_tuple		point_tuple(float x, float y, float z);
+
+float		magnitude_vector(t_tuple t);
+float		vector_dot(t_tuple t1, t_tuple t2);
+int	tuple_equal(t_tuple t1, t_tuple t2);
+
+
+
+
 
 typedef struct s_rgb
 {

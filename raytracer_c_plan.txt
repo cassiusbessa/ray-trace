@@ -1,0 +1,236 @@
+# 🎯 Projeto: Ray Tracer em C (baseado em "The Ray Tracer Challenge" + minirt da Ecole 42)
+
+---
+
+## 📦 Estrutura do Projeto
+
+```text
+raytracer_c/
+├── include/                    # Headers (.h)
+│   ├── tuple.h
+│   ├── matrix.h
+│   ├── transforms.h
+│   ├── ray.h
+│   ├── sphere.h
+│   ├── intersection.h
+│   ├── world.h
+│   ├── camera.h
+│   ├── canvas.h
+│   ├── color.h
+│   ├── light.h
+│   └── material.h
+│
+├── src/                       # Implementações (.c)
+│   ├── tuple/                 # Módulo de tuplas
+│   │   ├── tuple_core.c       # Criação e utilidades (tuple, point, vector, etc.)
+│   │   ├── tuple_math.c       # Operações matemáticas básicas (add, subtract, etc.)
+│   │   ├── tuple_vector.c     # Operações vetoriais (normalize, dot, cross)
+│   │   └── tuple_utils.c      # Extras (comparações, validações, etc.)
+│   │
+│   ├── matrix.c
+│   ├── transforms.c
+│   ├── ray.c
+│   ├── sphere.c
+│   ├── intersection.c
+│   ├── world.c
+│   ├── camera.c
+│   ├── canvas.c
+│   ├── color.c
+│   ├── light.c
+│   └── material.c
+│
+├── tests/                      # Testes unitários
+│   └── test_runner.c
+│
+├── scenes/                     # Cenas salvas
+│   └── final_scene.c
+│
+├── images/                     # Saídas .ppm
+│   └── render.ppm
+│
+├── Makefile
+└── README.md
+```
+
+---
+
+## 📋 Sprints de Desenvolvimento (7 dias)
+
+### 🧩 Sprint 1: Tuplas e Vetores
+- [ ] `tuple.h/c`: `point()`, `vector()`, `add()`, `sub()`, `negate()`, `scale()`, `magnitude()`, `normalize()`, `dot()`, `cross()`
+- [ ] Testes com `assert` em `test_runner.c`
+
+### 🧮 Sprint 2: Matrizes 4x4
+- [ ] `matrix.h/c`: identidade, multiplicação, submatriz, cofator, determinante, inversa
+- [ ] Multiplicação com tupla
+- [ ] Testes de inversa e determinante
+
+### 🔧 Sprint 3: Transformações
+- [ ] `transforms.h/c`: `translation`, `scaling`, `rotation_x/y/z`, `shearing`
+- [ ] `multiply_transform_chain()`
+- [ ] Testes aplicando transformações em tuplas
+
+### 📏 Sprint 4: Raios e Interseções
+- [ ] `ray.h/c`: criar raio, calcular ponto ao longo de raio
+- [ ] `sphere.h/c`: criar esfera, aplicar transformações
+- [ ] `intersection.h/c`: `intersect()`, `hit()`
+
+### 💡 Sprint 5: Luz e Materiais
+- [ ] `light.h/c`: `PointLight`
+- [ ] `material.h/c`: cor base, difuso, especular, shininess
+- [ ] `lighting()` usando modelo Phong
+
+### 🎥 Sprint 6: Câmera e Canvas
+- [ ] `camera.h/c`: `ray_for_pixel`, `render`
+- [ ] `canvas.h/c`: matriz de pixels, exportação `.ppm`
+- [ ] Teste de imagem simples
+
+### 🌍 Sprint 7: Cena Final
+- [ ] `world.h/c`: organizar cena, objetos e luzes
+- [ ] `main.c`: montar cena completa
+- [ ] Exportar `render.ppm`
+
+---
+
+## 📌 Funções por Arquivo
+
+### `tuple.h`
+```c
+typedef struct s_tuple { float x, y, z, w; } t_tuple;
+t_tuple point(float x, float y, float z);
+t_tuple vector(float x, float y, float z);
+t_tuple add(t_tuple a, t_tuple b);
+t_tuple sub(t_tuple a, t_tuple b);
+t_tuple negate(t_tuple t);
+t_tuple scale(t_tuple t, float s);
+float magnitude(t_tuple t);
+t_tuple normalize(t_tuple t);
+float dot(t_tuple a, t_tuple b);
+t_tuple cross(t_tuple a, t_tuple b);
+```
+
+### `matrix.h`
+```c
+typedef struct s_matrix { float m[4][4]; } t_matrix;
+t_matrix identity_matrix();
+t_matrix multiply_matrix(t_matrix a, t_matrix b);
+t_tuple multiply_matrix_tuple(t_matrix m, t_tuple t);
+t_matrix transpose(t_matrix m);
+t_matrix inverse(t_matrix m);
+float determinant(t_matrix m);
+```
+
+### `transforms.h`
+```c
+t_matrix translation(float x, float y, float z);
+t_matrix scaling(float x, float y, float z);
+t_matrix rotation_x(float r);
+t_matrix rotation_y(float r);
+t_matrix rotation_z(float r);
+t_matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+```
+
+### `ray.h`
+```c
+typedef struct s_ray { t_tuple origin; t_tuple direction; } t_ray;
+t_ray ray(t_tuple origin, t_tuple direction);
+t_tuple position(t_ray r, float t);
+t_ray transform_ray(t_ray r, t_matrix m);
+```
+
+### `sphere.h`
+```c
+typedef struct s_sphere { t_matrix transform; } t_sphere;
+t_sphere sphere();
+void set_transform(t_sphere *s, t_matrix t);
+```
+
+### `intersection.h`
+```c
+typedef struct s_intersection { float t; t_sphere *object; } t_intersection;
+t_intersection *intersect(t_sphere *s, t_ray r, int *count);
+t_intersection *hit(t_intersection *xs, int count);
+```
+
+### `color.h`
+```c
+typedef struct s_color { float r, g, b; } t_color;
+t_color color(float r, float g, float b);
+t_color add_color(t_color a, t_color b);
+t_color mul_color(t_color a, float s);
+t_color hadamard(t_color a, t_color b);
+```
+
+### `light.h`
+```c
+typedef struct s_light { t_tuple position; t_color intensity; } t_light;
+t_light point_light(t_tuple position, t_color intensity);
+```
+
+### `material.h`
+```c
+typedef struct s_material {
+  t_color color;
+  float ambient;
+  float diffuse;
+  float specular;
+  float shininess;
+} t_material;
+
+t_color lighting(t_material m, t_light l, t_tuple pos, t_tuple eyev, t_tuple normalv, int in_shadow);
+```
+
+### `camera.h`
+```c
+typedef struct s_camera {
+  int hsize, vsize;
+  float fov;
+  t_matrix transform;
+} t_camera;
+t_ray ray_for_pixel(t_camera c, int px, int py);
+void render(t_camera c, t_world w, t_canvas *canvas);
+```
+
+### `canvas.h`
+```c
+typedef struct s_canvas {
+  int width, height;
+  t_color *pixels;
+} t_canvas;
+t_canvas *create_canvas(int w, int h);
+void write_pixel(t_canvas *c, int x, int y, t_color color);
+void canvas_to_ppm(t_canvas *c, const char *filename);
+```
+
+### `main.c`
+```c
+// Monta a cena final com chão e esferas, aplica transformações e renderiza
+```
+
+---
+
+## ✅ Testes (em `tests/test_runner.c`)
+Usar `assert()` em todos os módulos com comparações de tuplas, matrizes e cores.
+
+---
+
+## 🔨 Compilação (Makefile)
+```makefile
+CC=gcc
+CFLAGS=-Wall -Wextra -Iinclude
+SRC=$(wildcard src/*.c)
+OBJ=$(SRC:.c=.o)
+EXEC=raytracer
+
+default: $(EXEC)
+
+$(EXEC): $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+clean:
+	rm -f $(OBJ) $(EXEC)
+```
+
+---
+
+Se quiser, posso continuar agora com o **Dia 1: implementação completa de `tuple.c` e `tuple.h`**, com testes. Quer que eu avance com isso?

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/09 01:25:16 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:44:29 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
 
 void	print_tuple(t_tuple *t)
 {

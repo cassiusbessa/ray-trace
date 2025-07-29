@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple.c                                            :+:      :+:    :+:   */
+/*   tuple_math.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:42:13 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/16 01:21:24 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:42:37 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_tuple	new_tuple(float x, float y, float z, t_bool is_point);
-t_tuple	add_tuples(t_tuple t1, t_tuple t2);
-t_tuple	sub_tuples(t_tuple t1, t_tuple t2);
-t_tuple	multiply_tuple_by_scalar(t_tuple t, float scalar);
+t_tuple	add_tuple(t_tuple t1, t_tuple t2);
+t_tuple	subtract_tuple(t_tuple t1, t_tuple t2);
+t_tuple	multiply_tuple(t_tuple t, float scalar);
 
-t_tuple	new_tuple(float x, float y, float z, t_bool is_point)
-{
-	t_tuple	t;
 
-	t.x = x;
-	t.y = y;
-	t.z = z;
-	t.w = is_point;
-	return (t);
-}
-
-t_tuple	add_tuples(t_tuple t1, t_tuple t2)
+t_tuple	add_tuple(t_tuple t1, t_tuple t2)
 {
 	t_tuple	result;
 
@@ -39,7 +28,7 @@ t_tuple	add_tuples(t_tuple t1, t_tuple t2)
 	return (result);
 }
 
-t_tuple	sub_tuples(t_tuple t1, t_tuple t2)
+t_tuple	subtract_tuple(t_tuple t1, t_tuple t2)
 {
 	t_tuple	result;
 
@@ -48,10 +37,9 @@ t_tuple	sub_tuples(t_tuple t1, t_tuple t2)
 	result.z = t1.z - t2.z;
 	result.w = t1.w - t2.w;
 	return (result);
-	
 }
 
-t_tuple	multiply_tuple_by_scalar(t_tuple t, float scalar)
+t_tuple	multiply_tuple(t_tuple t, float scalar)
 {
 	t_tuple	result;
 
@@ -60,4 +48,26 @@ t_tuple	multiply_tuple_by_scalar(t_tuple t, float scalar)
 	result.z = t.z * scalar;
 	result.w = t.w;
 	return (result);
+}
+
+t_tuple	divide_tuple(t_tuple t, float scalar)
+{
+	t_tuple	result;
+
+	result.x = t.x / scalar;
+	result.y = t.y / scalar;
+	result.z = t.z / scalar;
+	result.w = t.w;
+
+	return (result);
+}
+
+float	magnitude_vector(t_tuple t)
+{
+	if (t.w == TRUE)
+	{
+		printf("❌ ERROR: The tuple is a point, not a vector.\n");
+		return (-1);
+	}
+	return (sqrt(pow(t.x, 2) + pow(t.y, 2) + pow(t.z, 2)));
 }

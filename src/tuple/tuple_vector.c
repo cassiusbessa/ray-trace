@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   tuple_vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 22:34:47 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/16 00:37:21 by caqueiro         ###   ########.fr       */
+/*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
+/*   Updated: 2025/07/29 19:54:27 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-float	magnitude_of_vector(t_tuple t)
-{
-	if (t.w == TRUE)
-	{
-		printf("❌ ERROR: The tuple is a point, not a vector.\n");
-		return (-1);
-	}
-	return (sqrt(pow(t.x, 2) + pow(t.y, 2) + pow(t.z, 2)));
-}
 
 t_tuple	normalize_vector(t_tuple t)
 {
@@ -32,7 +22,7 @@ t_tuple	normalize_vector(t_tuple t)
 		printf("❌ ERROR: The tuple is a point, not a vector.\n");
 		return (new_tuple(0, 0, 0, FALSE));
 	}
-	magnitude = magnitude_of_vector(t);
+	magnitude = magnitude_vector(t);
 	normalized.x = t.x / magnitude;
 	normalized.y = t.y / magnitude;
 	normalized.z = t.z / magnitude;
@@ -40,7 +30,7 @@ t_tuple	normalize_vector(t_tuple t)
 	return (new_tuple(normalized.x, normalized.y, normalized.z, FALSE));
 }
 
-float	vector_dot_product(t_tuple t1, t_tuple t2)
+float	vector_dot(t_tuple t1, t_tuple t2)
 {
 	if (t1.w == TRUE || t2.w == TRUE)
 	{
@@ -50,7 +40,7 @@ float	vector_dot_product(t_tuple t1, t_tuple t2)
 	return (t1.x * t2.x + t1.y * t2.y + t1.z * t2.z);
 }
 
-t_tuple	vector_cross_product(t_tuple t1, t_tuple t2)
+t_tuple	vector_cross(t_tuple t1, t_tuple t2)
 {
 	t_tuple cross;
 
