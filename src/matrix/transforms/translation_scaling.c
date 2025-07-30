@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/30 09:24:15 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:14:03 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_matrix    translation(int size, float *data)
 {
     t_matrix    matrix;
-    int         i;
+    int i;
 
     matrix = identity_matrix(size);
     if (size < 4)
@@ -37,8 +37,7 @@ t_matrix    translation(int size, float *data)
     return (matrix);
 }
 
-
-t_matrix scaling(int size, float *data)
+t_matrix    scaling(int size, float *data)
 {
     t_matrix    matrix;
     int i;
