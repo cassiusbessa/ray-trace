@@ -20,14 +20,19 @@ raytracer_c/
 │   ├── light.h
 │   └── material.h
 │
-├── src/                       # Implementações (.c)
+├── src/                       
 │   ├── tuple/                 # Módulo de tuplas
 │   │   ├── tuple_core.c       # Criação e utilidades (tuple, point, vector, etc.)
 │   │   ├── tuple_math.c       # Operações matemáticas básicas (add, subtract, etc.)
 │   │   ├── tuple_vector.c     # Operações vetoriais (normalize, dot, cross)
 │   │   └── tuple_utils.c      # Extras (comparações, validações, etc.)
 │   │
-│   ├── matrix.c
+│   ├── matrix/                            # Módulo de matrizes
+│   │   ├── matrix_core.c                  # Criação e utilidades (new_matrix, identity_matrix, print_matrix, free_matrix, equal_matrix)
+│   │   ├── matrix_math.c                  # Operações matemáticas com matrizes (matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, <livre>)
+│   │   ├── matrix_determinant.c           # Determinante e auxiliares (matrix_determinant, matrix_determinant_2x2, matrix_minor, matrix_cofactor, matrix_is_invertible)
+│   │   └── matrix_inverse.c               # Inversão de matriz (matrix_inverse)
+│   |
 │   ├── transforms.c
 │   ├── ray.c
 │   ├── sphere.c

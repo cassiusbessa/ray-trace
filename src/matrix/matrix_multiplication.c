@@ -39,29 +39,6 @@ t_matrix	matrix_multiply_by_matrix(t_matrix m1, t_matrix m2)
 	return (result);
 }
 
-static double	get_tuple_value(t_tuple t, int index)
-{
-	if (index == 0)
-		return (t.x);
-	if (index == 1)
-		return (t.y);
-	if (index == 2)
-		return (t.z);
-	return (t.w);
-}
-
-static void	set_tuple_value(t_tuple *t, int index, double value)
-{
-	if (index == 0)
-		t->x = value;
-	if (index == 1)
-		t->y = value;
-	if (index == 2)
-		t->z = value;
-	if (index == 3)
-		t->w = value;
-}
-
 t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 {
 	t_tuple	result;
@@ -84,3 +61,59 @@ t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 	}
 	return (result);
 }
+
+t_matrix    transpose_matrix(t_matrix matrix)
+{
+    t_matrix    result;
+    int         i;
+    int         j;
+
+    result = new_matrix(matrix.size, matrix.size);
+    i = 0;
+    while (i < matrix.size)
+    {
+        j = 0;
+        while (j < matrix.size)
+        {
+            result.data[i][j] = matrix.data[j][i];
+            j++;
+        }
+        i++;
+    }
+    return (result);
+}
+
+t_matrix	submatrix(t_matrix matrix, int row, int col)
+{
+	t_matrix sub;
+	int i;
+	int j;
+	int i_sub;
+	int j_sub;
+
+	sub = new_matrix(matrix.size - 1, matrix.size - 1);
+	i = -1;
+	i_sub = 0;
+	while (++i < matrix.size)
+	{
+		if (i != row)
+		{
+			j = -1;
+			j_sub = 0;
+			while (++j < matrix.size)
+			{
+				if (j != col)
+					sub.data[i_sub][j_sub++] = matrix.data[i][j];
+			}
+			i_sub++;
+		}
+	}
+	return (sub);
+}
+
+
+
+t_matrix	matrix_multiply_by_matrix(t_matrix a, t_matrix b);
+t_tuple		matrix_multiply_by_tuple(t_matrix m, t_tuple t);
+t_matrix	transpose_matrix(t_matrix matrix);
+t_matrix	submatrix(t_matrix matrix, int row, int col);

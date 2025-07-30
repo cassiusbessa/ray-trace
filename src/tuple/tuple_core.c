@@ -1,6 +1,6 @@
 #include "../../includes/miniRT.h"
 
-t_tuple	new_tuple(float x, float y, float z, t_bool is_point);
+
 
 t_tuple	new_tuple(float x, float y, float z, t_bool is_point)
 {

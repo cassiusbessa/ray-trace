@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_inverse.c                                   :+:      :+:    :+:   */
+/*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mc-m-el- <mc-m-el-@student.42.rio>         +#+  +:+       +#+        */
+/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/03/08 23:31:06 by mc-m-el-         ###   ########.fr       */
+/*   Created: 2025/02/22 17:53:26 by caqueiro          #+#    #+#             */
+/*   Updated: 2025/02/23 01:04:57 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
 
 t_matrix matrix_inverse(t_matrix matrix)
 {
@@ -39,3 +40,4 @@ t_matrix matrix_inverse(t_matrix matrix)
 	}
 	return (inv);
 }
+
