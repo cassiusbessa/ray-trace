@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/30 08:21:48 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/30 09:12:49 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
-#include <stdbool.h>
-
+# include <stdbool.h>
 
 # define EPSILON 0.0001
 
@@ -38,16 +37,15 @@ typedef struct s_tuple
 	int		w;
 }			t_tuple;
 
-
 typedef struct s_matrix
 {
 	int		size;
 	float	**data;
 }			t_matrix;
 
-
-
-//tuple functions
+// ----------------------
+// Tuple functions
+// ----------------------
 
 t_tuple		new_tuple(float x, float y, float z, t_bool is_point);
 t_tuple		add_tuple(t_tuple t1, t_tuple t2);
@@ -62,14 +60,14 @@ t_tuple		point_tuple(float x, float y, float z);
 
 float		magnitude_vector(t_tuple t);
 float		vector_dot(t_tuple t1, t_tuple t2);
-int	tuple_equal(t_tuple t1, t_tuple t2);
+int			tuple_equal(t_tuple t1, t_tuple t2);
 
-double	get_tuple_value(t_tuple t, int index);
+double		get_tuple_value(t_tuple t, int index);
+void		set_tuple_value(t_tuple *t, int index, double value);
 
-void	set_tuple_value(t_tuple *t, int index, double value);
-
-
-//matrix functions
+// ----------------------
+// Matrix functions
+// ----------------------
 
 t_matrix	identity_matrix(int size);
 t_bool		equal_matrix(t_matrix m1, t_matrix m2);
@@ -79,23 +77,25 @@ t_matrix	transpose_matrix(t_matrix matrix);
 t_matrix	submatrix(t_matrix matrix, int row, int col);
 t_matrix	matrix_inverse(t_matrix matrix);
 t_matrix	new_matrix(int rows, int cols);
-int	matrix_determinant(t_matrix matrix);
-int	matrix_minor(t_matrix matrix, int row, int col);
-int	matrix_cofactor(t_matrix matrix, int row, int col);
-int	matrix_is_invertible(t_matrix matrix);
+int			matrix_determinant(t_matrix matrix);
+int			matrix_minor(t_matrix matrix, int row, int col);
+int			matrix_cofactor(t_matrix matrix, int row, int col);
+int			matrix_is_invertible(t_matrix matrix);
 
 int			matrix_determinant_2x2(t_matrix matrix);
 void		print_matrix(t_matrix matrix);
 void		free_matrix(t_matrix matrix);
 
+// ----------------------
+// Matrix transformations
+// ----------------------
 
-
-
-
-
-
-
-
+t_matrix	translation(float x, float y, float z);
+t_matrix	scaling(float x, float y, float z);
+t_matrix	rotation_x(float r);
+t_matrix	rotation_y(float r);
+t_matrix	rotation_z(float r);
+t_matrix	shearing(float xy, float xz, float yx, float yz, float zx, float zy);
 
 
 typedef struct s_rgb

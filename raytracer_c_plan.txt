@@ -33,7 +33,11 @@ raytracer_c/
 │   │   ├── matrix_determinant.c           # Determinante e auxiliares (matrix_determinant, matrix_determinant_2x2, matrix_minor, matrix_cofactor, matrix_is_invertible)
 │   │   └── matrix_inverse.c               # Inversão de matriz (matrix_inverse)
 │   |
-│   ├── transforms.c
+│   └── transformations/              # Transformações geométricas
+│       ├── translation_scaling.c     # Transformações básicas (translation, scaling)
+│       ├── rotation.c                # Rotações (rotation_x, rotation_y, rotation_z)
+│       └── shearing.c                # Shearing (shearing)
+│   
 │   ├── ray.c
 │   ├── sphere.c
 │   ├── intersection.c
