@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 15:43:47 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:06:47 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_color calculate_diffuse(t_material material, t_color effective_color, float li
 
     return result;
 }
-
 
 t_color calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev)
 {
@@ -78,8 +77,6 @@ t_color lighting_diffuse_specular(t_material_light_params mlp, t_lighting_contex
     }
     return (result);
 }
-
-
 
 t_color lighting(t_material_light_params mlp, t_lighting_context ctx)
 {

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/31 15:38:00 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/31 17:28:01 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ typedef int	t_bool;
 // Structs
 // ----------------------
 
-typedef struct s_material_light_params {
-    t_material material;
-    t_light light;
-} t_material_light_params;
-
-typedef struct s_lighting_context {
-    t_tuple position;
-    t_tuple eyev;
-    t_tuple normalv;
-    int in_shadow;
-} t_lighting_context;
-
 typedef struct s_tuple
 {
 	float	x;
@@ -68,6 +56,7 @@ typedef struct s_ray
 typedef struct s_sphere
 {
 	t_matrix	transform;
+	t_material	material; // geralmente material faz parte da esfera
 }	t_sphere;
 
 typedef struct s_intersection
@@ -98,6 +87,47 @@ typedef struct s_material
 	float	shininess;
 }	t_material;
 
+typedef struct s_material_light_params {
+	t_material	material;
+	t_light		light;
+}	t_material_light_params;
+
+typedef struct s_lighting_context {
+	t_tuple	position;
+	t_tuple	eyev;
+	t_tuple	normalv;
+	int		in_shadow;
+}	t_lighting_context;
+
+typedef struct s_rgb
+{
+	float	r;
+	float	g;
+	float	b;
+}	t_rgb;
+
+typedef struct s_canvas
+{
+	int		width;
+	int		height;
+	t_rgb	*pixels;  // 1D array
+}	t_canvas;
+
+typedef struct s_camera
+{
+	int		hsize;
+	int		vsize;
+	float	fov;
+	t_matrix	transform;
+}	t_camera;
+
+typedef struct s_world
+{
+	t_light		light;
+	t_sphere	*objects;
+	int			object_count;
+}	t_world;
+
 // ----------------------
 // Tuple functions
 // ----------------------
@@ -106,7 +136,7 @@ t_tuple		new_tuple(float x, float y, float z, t_bool is_point);
 t_tuple		add_tuple(t_tuple t1, t_tuple t2);
 t_tuple		subtract_tuple(t_tuple t1, t_tuple t2);
 t_tuple		multiply_tuple(t_tuple t, float scalar);
-t_tuple 	negate_tuple(t_tuple t);
+t_tuple		negate_tuple(t_tuple t);
 t_tuple		divide_tuple(t_tuple t, float scalar);
 t_tuple		normalize_vector(t_tuple t);
 t_tuple		vector_cross(t_tuple t1, t_tuple t2);
@@ -146,8 +176,8 @@ void		free_matrix(t_matrix matrix);
 // Matrix transformations
 // ----------------------
 
-t_matrix    translation(int size, float *data);
-t_matrix    scaling(int size, float *data);
+t_matrix	translation(int size, float *data);
+t_matrix	scaling(int size, float *data);
 t_matrix	rotation_x(float r);
 t_matrix	rotation_y(float r);
 t_matrix	rotation_z(float r);
@@ -174,6 +204,12 @@ void		set_transform(t_sphere *s, t_matrix t);
 
 t_intersection	*intersect(t_sphere *s, t_ray r, int *count);
 t_intersection	*hit(t_intersection *xs, int count);
+int compare_intersections(const void *a, const void *b);
+static t_intersection *resize_intersections(t_intersection *arr, int *capacity);
+static int append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count);
+t_intersection *intersect_world(t_world *world, t_ray ray, int *count);
+
+
 
 // ----------------------
 // Light and Material functions
@@ -181,11 +217,10 @@ t_intersection	*hit(t_intersection *xs, int count);
 
 t_light		point_light(t_tuple position, t_color intensity);
 t_material	default_material(void);
-t_color calculate_diffuse(t_material material, t_color effective_color, float light_dot_normal);
-t_color calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
-t_color lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
-t_color lighting(t_material_light_params mlp, t_lighting_context ctx);
-
+t_color		calculate_diffuse(t_material material, t_color effective_color, float light_dot_normal);
+t_color		calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
+t_color		lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
+t_color		lighting(t_material_light_params mlp, t_lighting_context ctx);
 
 // ----------------------
 // Color functions
@@ -198,6 +233,33 @@ t_color		multiply_color_scalar(t_color c, float scalar);
 t_color		multiply_color(t_color c1, t_color c2);
 int			color_equal(t_color c1, t_color c2);
 
+// ----------------------
+// Canvas functions
+// ----------------------
+
+void		free_canvas(t_canvas *canvas);
+void		fill_black_canvas(t_canvas *canvas);
+t_canvas	*new_canvas(int width, int height);
+t_rgb		*pixel_at(t_canvas *canvas, int x, int y);
+void		write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
+int			clamp(float v);
+void		canvas_to_ppm(t_canvas *canvas, const char *filename);
+
+// ----------------------
+// Camera functions
+// ----------------------
+
+t_ray		ray_for_pixel(t_camera c, int px, int py);
+void		render(t_camera c, t_world w, t_canvas *canvas);
+
+// ----------------------
+// Ray tracing core functions
+// ----------------------
+
+t_color		shade_hit(t_world *world, t_intersection *hit, t_ray ray);
+t_color		color_at(t_world *world, t_ray ray);
+t_tuple		compute_normal(t_sphere *sphere, t_tuple point);
+int			is_shadowed(t_world *world, t_tuple point);
 
 
 
@@ -210,12 +272,19 @@ int			color_equal(t_color c1, t_color c2);
 
 
 
-typedef struct s_rgb
-{
-	float	r;
-	float	g;
-	float	b;
-}			t_rgb;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 t_rgb		new_rgb(float r, float g, float b);
 t_rgb		add_rgb(t_rgb c1, t_rgb c2);
@@ -224,17 +293,8 @@ t_rgb		multiply_rgb_by_scalar(t_rgb c, float scalar);
 t_rgb		multiply_rgb_by_rgb(t_rgb c1, t_rgb c2);
 int			equal_rgb(t_rgb c1, t_rgb c2);
 
-typedef struct s_canvas
-{
-	int		width;
-	int		height;
-	t_rgb	**pixels;
-}			t_canvas;
 
-t_canvas	*new_canvas(int width, int height);
-void		free_canvas(t_canvas *canvas);
-t_rgb		*pixel_at(t_canvas *canvas, int x, int y);
-void		write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
+
 
 typedef struct s_img
 {

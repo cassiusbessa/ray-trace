@@ -30,194 +30,260 @@ src/
 ├── ray/
 │   ├── ray.c                 # create_ray, ray_position, transform_ray
 │   ├── sphere.c              # create_sphere, set_transform, get_transform, default_sphere
-│   └── intersection.c        # create_intersection, intersect, hit, prepare_computations
+│   └── intersection.c        # create_intersection, intersect, hit, prepare_computations, compare_intersections, resize_intersections, append_intersections, intersect_world;
 │
 ├── lighting/
 │   ├── point_light.c         # create_point_light
 │   ├── default_material.c    # default_material, set_material_props
-│   └── lighting.c            # lighting_calculation, is_shadowed, reflect
+│   ├── ray_tracer_core.c     #	shade_hit, color_at, compute_normal, is_shadowed
+|   └── lighting.c            # lighting_calculation, is_shadowed, reflect
 │
 ├── color/
 │   ├── color_utils_1.c       # create_color, color_add, color_subtract
 │   └── color_utils_2.c       # color_multiply, hadamard_product, clamp_color
-
-│   ├── world.c
-│   ├── camera.c
-│   ├── canvas.c
-│   └── material.c
 │
-├── tests/                      # Testes unitários
-│   └── test_runner.c
+├── camera/       # Tudo relacionado a gerar raios e manipular a câmera
+│   ├── ray_for_pixel.c      // Função ray_for_pixel
+│   ├── render.c             // Função render (usa ray_for_pixel)
+│   └── camera_utils.c       // Futuras utilidades da câmera
 │
-├── scenes/                     # Cenas salvas
-│   └── final_scene.c
-│
-├── images/                     # Saídas .ppm
-│   └── render.ppm
-│
+├── canvas/       # Tudo sobre imagem, pixels e exportação
+│   ├── canvas.c              // create_canvas, write_pixel
+│   ├── canvas_export.c       // canvas_to_ppm e clamp
+│   └── canvas_utils.c        // Qualquer função auxiliar futura
+│   
+├── 
 ├── Makefile
 └── README.md
 ```
 
+===========================
+Sprints de Desenvolvimento
+===========================
+
+---------------------------
+Sprint 1: Tuplas e Vetores
+---------------------------
+- Implementar tuple.h/c:
+    - Funções: point(), vector(), add(), sub(), negate(), scale()
+               magnitude(), normalize(), dot(), cross()
+- Criar testes com assert em test_runner.c
+
+------------------------------
+Sprint 2: Matrizes 4x4
+------------------------------
+- Implementar matrix.h/c:
+    - Funções: identidade, multiplicação, submatriz, cofator,
+               determinante, inversa
+    - Multiplicação matriz × tupla
+- Criar testes para inversa e determinante
+
+----------------------------------
+Sprint 3: Transformações
+----------------------------------
+- Implementar transforms.h/c:
+    - Funções: translation, scaling, rotation_x, rotation_y,
+               rotation_z, shearing
+- Criar função: multiply_transform_chain()
+- Testar transformações aplicadas em tuplas
+
+-----------------------------------------
+Sprint 4: Raios e Interseções
+-----------------------------------------
+- Implementar ray.h/c:
+    - Criar raio, calcular ponto ao longo do raio (position)
+- Implementar sphere.h/c:
+    - Criar esfera, aplicar transformações
+- Implementar intersection.h/c:
+    - Funções: intersect(), hit()
+
+--------------------------------------
+Sprint 5: Luz e Materiais
+--------------------------------------
+- Implementar light.h/c:
+    - Função: point_light
+- Implementar material.h/c:
+    - Propriedades: cor base, difuso, especular, shininess
+- Implementar função: lighting() (modelo Phong)
+
+---------------------------------------
+Sprint 6: Câmera e Canvas
+---------------------------------------
+- Implementar camera.h/c:
+    - Funções: ray_for_pixel(), render()
+- Implementar canvas.h/c:
+    - Estrutura de pixels, exportação .ppm
+- Testar renderização de imagem simples
+
+-----------------------------------------------------------
+Sprint 7: Parser do Arquivo .rt e Estrutura de Cena (world)
+-----------------------------------------------------------
+- Implementar parser do arquivo .rt para:
+    - Ambient (A)
+    - Camera (C)
+    - Light (L)
+    - Objetos: Sphere (sp), Plane (pl), Cylinder (cy)
+- Criar structs da cena (t_world):
+    - Listas/arrays de objetos e luzes
+- Validar e tratar erros do .rt:
+    - Formato inválido, valores fora do padrão
+- Testar leitura de arquivos .rt reais
+
+------------------------------------------------------
+Sprint 8: Plano e Cilindro (Geometria Avançada)
+------------------------------------------------------
+- Implementar interseção para Plano (pl)
+- Implementar interseção e normais para Cilindro (cy):
+    - Considerar altura, raio, tampas
+- Suportar transformações em todos os objetos
+- Testar interseções e normais, inclusive internas
+
+-----------------------------------------------
+Sprint 9: Iluminação Completa e Sombras
+-----------------------------------------------
+- Completar modelo de iluminação:
+    - ambient, diffuse, specular
+- Implementar detecção de sombras duras: is_shadowed()
+- Aplicar sombras na renderização
+- Testar configurações variadas de luz e materiais
+
+------------------------------------------------------
+Sprint 10: Integração com MiniLibX (Janela Gráfica)
+------------------------------------------------------
+- Criar structs t_mlx e t_img
+- Implementar conversão do canvas para imagem MLX
+- Criar e exibir janela com MiniLibX
+- Adicionar eventos:
+    - Fechar com ESC ou botão de janela
+- Garantir responsividade:
+    - Minimizar, foco etc.
+- Testar renderização final na janela interativa
+
 ---
+===========================
+Funções por Arquivo
+===========================
 
-## 📋 Sprints de Desenvolvimento (7 dias)
+---------------------------
+tuple.h
+---------------------------
+t_tuple     new_tuple(float x, float y, float z, t_bool is_point);
+t_tuple     add_tuple(t_tuple t1, t_tuple t2);
+t_tuple     subtract_tuple(t_tuple t1, t_tuple t2);
+t_tuple     multiply_tuple(t_tuple t, float scalar);
+t_tuple     divide_tuple(t_tuple t, float scalar);
 
-### 🧩 Sprint 1: Tuplas e Vetores
-- [ ] `tuple.h/c`: `point()`, `vector()`, `add()`, `sub()`, `negate()`, `scale()`, `magnitude()`, `normalize()`, `dot()`, `cross()`
-- [ ] Testes com `assert` em `test_runner.c`
+t_tuple     negate_tuple(t_tuple t);
+t_tuple     normalize_vector(t_tuple t);
+t_tuple     vector_cross(t_tuple t1, t_tuple t2);
+t_tuple     vector_tuple(float x, float y, float z);
+t_tuple     point_tuple(float x, float y, float z);
 
-### 🧮 Sprint 2: Matrizes 4x4
-- [ ] `matrix.h/c`: identidade, multiplicação, submatriz, cofator, determinante, inversa
-- [ ] Multiplicação com tupla
-- [ ] Testes de inversa e determinante
+float       magnitude_vector(t_tuple t);
+float       vector_dot(t_tuple t1, t_tuple t2);
+int         tuple_equal(t_tuple t1, t_tuple t2);
+double      get_tuple_value(t_tuple t, int index);
+void        set_tuple_value(t_tuple *t, int index, double value);
 
-### 🔧 Sprint 3: Transformações
-- [ ] `transforms.h/c`: `translation`, `scaling`, `rotation_x/y/z`, `shearing`
-- [ ] `multiply_transform_chain()`
-- [ ] Testes aplicando transformações em tuplas
+---------------------------
+matrix.h
+---------------------------
+t_matrix    identity_matrix(int size);
+t_bool      equal_matrix(t_matrix m1, t_matrix m2);
+t_matrix    matrix_multiply_by_matrix(t_matrix a, t_matrix b);
+t_tuple     matrix_multiply_by_tuple(t_matrix m, t_tuple t);
+t_matrix    transpose_matrix(t_matrix matrix);
 
-### 📏 Sprint 4: Raios e Interseções
-- [ ] `ray.h/c`: criar raio, calcular ponto ao longo de raio
-- [ ] `sphere.h/c`: criar esfera, aplicar transformações
-- [ ] `intersection.h/c`: `intersect()`, `hit()`
+t_matrix    submatrix(t_matrix matrix, int row, int col);
+t_matrix    matrix_inverse(t_matrix matrix);
+t_matrix    new_matrix(int rows, int cols);
+int         matrix_determinant(t_matrix matrix);
+int         matrix_minor(t_matrix matrix, int row, int col);
 
-### 💡 Sprint 5: Luz e Materiais
-- [ ] `light.h/c`: `PointLight`
-- [ ] `material.h/c`: cor base, difuso, especular, shininess
-- [ ] `lighting()` usando modelo Phong
+int         matrix_cofactor(t_matrix matrix, int row, int col);
+int         matrix_is_invertible(t_matrix matrix);
+int         matrix_determinant_2x2(t_matrix matrix);
+void        print_matrix(t_matrix matrix);
+void        free_matrix(t_matrix matrix);
 
-### 🎥 Sprint 6: Câmera e Canvas
-- [ ] `camera.h/c`: `ray_for_pixel`, `render`
-- [ ] `canvas.h/c`: matriz de pixels, exportação `.ppm`
-- [ ] Teste de imagem simples
+---------------------------
+transforms.h
+---------------------------
+t_matrix    translation(int size, float *data);
+t_matrix    scaling(int size, float *data);
+t_matrix    rotation_x(float r);
+t_matrix    rotation_y(float r);
+t_matrix    rotation_z(float r);
+t_matrix    shearing(float xy, float xz, float yx, float yz, float zx, float zy);
 
-### 🌍 Sprint 7: Cena Final
-- [ ] `world.h/c`: organizar cena, objetos e luzes
-- [ ] `main.c`: montar cena completa
-- [ ] Exportar `render.ppm`
+---------------------------
+ray.h
+---------------------------
+t_ray       ray(t_tuple origin, t_tuple direction);
+t_tuple     position(t_ray r, float t);
+t_ray       transform_ray(t_ray r, t_matrix m);
 
----
+---------------------------
+sphere.h
+---------------------------
+t_sphere    sphere(void);
+void        set_transform(t_sphere *s, t_matrix t);
+t_tuple     compute_normal(t_sphere *sphere, t_tuple point);
 
-## 📌 Funções por Arquivo
-
-### `tuple.h`
-```c
-typedef struct s_tuple { float x, y, z, w; } t_tuple;
-t_tuple point(float x, float y, float z);
-t_tuple vector(float x, float y, float z);
-t_tuple add(t_tuple a, t_tuple b);
-t_tuple sub(t_tuple a, t_tuple b);
-t_tuple negate(t_tuple t);
-t_tuple scale(t_tuple t, float s);
-float magnitude(t_tuple t);
-t_tuple normalize(t_tuple t);
-float dot(t_tuple a, t_tuple b);
-t_tuple cross(t_tuple a, t_tuple b);
-```
-
-### `matrix.h`
-```c
-typedef struct s_matrix { float m[4][4]; } t_matrix;
-t_matrix identity_matrix();
-t_matrix multiply_matrix(t_matrix a, t_matrix b);
-t_tuple multiply_matrix_tuple(t_matrix m, t_tuple t);
-t_matrix transpose(t_matrix m);
-t_matrix inverse(t_matrix m);
-float determinant(t_matrix m);
-```
-
-### `transforms.h`
-```c
-t_matrix translation(float x, float y, float z);
-t_matrix scaling(float x, float y, float z);
-t_matrix rotation_x(float r);
-t_matrix rotation_y(float r);
-t_matrix rotation_z(float r);
-t_matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy);
-```
-
-### `ray.h`
-```c
-typedef struct s_ray { t_tuple origin; t_tuple direction; } t_ray;
-t_ray ray(t_tuple origin, t_tuple direction);
-t_tuple position(t_ray r, float t);
-t_ray transform_ray(t_ray r, t_matrix m);
-```
-
-### `sphere.h`
-```c
-typedef struct s_sphere { t_matrix transform; } t_sphere;
-t_sphere sphere();
-void set_transform(t_sphere *s, t_matrix t);
-```
-
-### `intersection.h`
-```c
-typedef struct s_intersection { float t; t_sphere *object; } t_intersection;
+---------------------------
+intersection.h
+---------------------------
 t_intersection *intersect(t_sphere *s, t_ray r, int *count);
 t_intersection *hit(t_intersection *xs, int count);
-```
 
-### `color.h`
-```c
-typedef struct s_color { float r, g, b; } t_color;
-t_color color(float r, float g, float b);
-t_color add_color(t_color a, t_color b);
-t_color mul_color(t_color a, float s);
-t_color hadamard(t_color a, t_color b);
-```
+---------------------------
+light.h
+---------------------------
+t_light     point_light(t_tuple position, t_color intensity);
 
-### `light.h`
-```c
-typedef struct s_light { t_tuple position; t_color intensity; } t_light;
-t_light point_light(t_tuple position, t_color intensity);
-```
+---------------------------
+material.h
+---------------------------
+t_material  default_material(void);
+t_color     lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
+t_color     calculate_diffuse(t_material material, t_color effective_color, float light_dot_normal);
+t_color     calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
+t_color     lighting(t_material_light_params mlp, t_lighting_context ctx);
 
-### `material.h`
-```c
-typedef struct s_material {
-  t_color color;
-  float ambient;
-  float diffuse;
-  float specular;
-  float shininess;
-} t_material;
+---------------------------
+color.h
+---------------------------
+t_color     color(float r, float g, float b);
+t_color     add_color(t_color c1, t_color c2);
+t_color     subtract_color(t_color c1, t_color c2);
+t_color     multiply_color_scalar(t_color c, float scalar);
+t_color     multiply_color(t_color c1, t_color c2);
+int         color_equal(t_color c1, t_color c2);
 
-t_color lighting(t_material m, t_light l, t_tuple pos, t_tuple eyev, t_tuple normalv, int in_shadow);
-```
+---------------------------
+canvas.h
+---------------------------
+t_canvas    *new_canvas(int width, int height);
+t_rgb       *pixel_at(t_canvas *canvas, int x, int y);
+void        write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
+void        free_canvas(t_canvas *canvas);
+void        fill_black_canvas(t_canvas *canvas);
+void        canvas_to_ppm(t_canvas *canvas, const char *filename);
+int         clamp(float v);
 
-### `camera.h`
-```c
-typedef struct s_camera {
-  int hsize, vsize;
-  float fov;
-  t_matrix transform;
-} t_camera;
-t_ray ray_for_pixel(t_camera c, int px, int py);
-void render(t_camera c, t_world w, t_canvas *canvas);
-```
+---------------------------
+camera.h
+---------------------------
+t_ray       ray_for_pixel(t_camera c, int px, int py);
+void        render(t_camera c, t_world w, t_canvas *canvas);
 
-### `canvas.h`
-```c
-typedef struct s_canvas {
-  int width, height;
-  t_color *pixels;
-} t_canvas;
-t_canvas *create_canvas(int w, int h);
-void write_pixel(t_canvas *c, int x, int y, t_color color);
-void canvas_to_ppm(t_canvas *c, const char *filename);
-```
+---------------------------
+ray_tracer_core.h
+---------------------------
+t_color     shade_hit(t_world *world, t_intersection *hit, t_ray ray);
+t_color     color_at(t_world *world, t_ray ray);
+int         is_shadowed(t_world *world, t_tuple point);
 
-### `main.c`
-```c
-// Monta a cena final com chão e esferas, aplica transformações e renderiza
-```
-
----
-
-## ✅ Testes (em `tests/test_runner.c`)
-Usar `assert()` em todos os módulos com comparações de tuplas, matrizes e cores.
 
 ---
 
@@ -240,7 +306,18 @@ clean:
 
 ---
 
-Se quiser, posso continuar agora com o **Dia 5: implementação completa de `### 💡 Sprint 5: Luz e Materiais
-- [ ] `light.h/c`: `PointLight`
-- [ ] `material.h/c`: cor base, difuso, especular, shininess
-- [ ] `lighting()` usando modelo Phong. Quer que eu avance com isso?
+Se quiser, posso continuar agora com o  ### Sprint 7: Parser do Arquivo .rt e Estrutura de Cena (world)
+-----------------------------------------------------------
+- Implementar parser do arquivo .rt para:
+    - Ambient (A)
+    - Camera (C)
+    - Light (L)
+    - Objetos: Sphere (sp), Plane (pl), Cylinder (cy)
+- Criar structs da cena (t_world):
+    - Listas/arrays de objetos e luzes
+- Validar e tratar erros do .rt:
+    - Formato inválido, valores fora do padrão
+- Testar leitura de arquivos .rt reais
+ 
+ 
+ Quero que eu avance com isso

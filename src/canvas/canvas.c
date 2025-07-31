@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   canvas.c                                           :+:      :+:    :+:   */
+/*   color_utils_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mc-m-el- <mc-m-el-@student.42.rio>         +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/05 18:47:08 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/03/05 18:47:08 by mc-m-el-         ###   ########.fr       */
+/*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
+/*   Updated: 2025/07/31 15:16:05 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-void	free_canvas(t_canvas *canvas)
+void free_canvas(t_canvas *canvas)
 {
-    int	i;
-
-    i = 0;
-    while (i < canvas->height)
-    {
-        free(canvas->pixels[i]);
-        i++;
-    }
+    if (!canvas)
+        return;
     free(canvas->pixels);
     free(canvas);
 }
@@ -46,46 +40,49 @@ void	fill_black_canvas(t_canvas *canvas)
 	}
 }
 
-t_canvas	*new_canvas(int width, int height)
+t_canvas *new_canvas(int width, int height)
 {
-	t_canvas	*canvas;
-	int			i;
+    t_canvas *canvas;
+	int i;
 
 	canvas = malloc(sizeof(t_canvas));
-	if (!canvas)
-		return (NULL);
-	canvas->width = width;
-	canvas->height = height;
-	canvas->pixels = malloc(sizeof(t_rgb *) * height);
-	if (!canvas->pixels)
+    if (!canvas)
+        return NULL;
+    canvas->width = width;
+    canvas->height = height;
+    canvas->pixels = malloc(sizeof(t_rgb) * width * height);
+    if (!canvas->pixels)
+    {
+        free(canvas);
+        return NULL;
+    }
+    i = 0;
+	while (i < width * height)
 	{
-		free(canvas);
-		return (NULL);
-	}
-	i = 0;
-	while (i < height)
-	{
-		canvas->pixels[i] = malloc(sizeof(t_rgb) * width);
-		if (!canvas->pixels[i])
-		{
-			while (--i >= 0)
-				free(canvas->pixels[i]);
-			free(canvas->pixels);
-			free(canvas);
-			return (NULL);
-		}
+		canvas->pixels[i].r = 0.0f;
+		canvas->pixels[i].g = 0.0f;
+		canvas->pixels[i].b = 0.0f;
 		i++;
 	}
-	fill_black_canvas(canvas);
-	return (canvas);
+    return (canvas);
 }
 
-t_rgb	*pixel_at(t_canvas *canvas, int x, int y)
+t_rgb *pixel_at(t_canvas *canvas, int x, int y)
 {
-    return (&canvas->pixels[y][x]);
+    t_rgb *pixel;
+
+	if (!canvas || x < 0 || x >= canvas->width || y < 0 || y >= canvas->height)
+        return NULL;
+    pixel = &canvas->pixels[y * canvas->width + x];
+	return (pixel);
 }
 
 void write_pixel(t_canvas *canvas, int x, int y, t_rgb color)
 {
-	canvas->pixels[y][x] = color;
+    t_rgb *pixel;
+
+	pixel = pixel_at(canvas, x, y);
+    if (pixel)
+        *pixel = color;
 }
+
