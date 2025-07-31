@@ -4,56 +4,55 @@
 
 ## 📦 Estrutura do Projeto
 
-```text
-raytracer_c/
-include/
+```raytracer_c/
+├── include/
 │   └── miniRT.h
 │
-src/
-├── tuple/
-│   ├── tuple_core.c          # create_tuple, point, vector, color, is_point/is_vector
-│   ├── tuple_math.c          # add_tuples, subtract_tuples, negate_tuple, multiply_tuple, divide_tuple
-│   ├── tuple_vector.c        # magnitude, normalize, dot, cross
-│   └── tuple_utils.c         # equal_tuples, is_zero_vector, is_unit_vector, is_nan, is_finite
+├── src/
+│   ├── tuple/
+│   │   ├── tuple_core.c          # create_tuple, point, vector, color, is_point/is_vector
+│   │   ├── tuple_math.c          # add_tuples, subtract_tuples, negate_tuple, multiply_tuple, divide_tuple
+│   │   ├── tuple_vector.c        # magnitude, normalize, dot, cross
+│   │   └── tuple_utils.c         # equal_tuples, is_zero_vector, is_unit_vector, is_nan, is_finite
+│   │
+│   ├── matrix/
+│   │   ├── matrix_core.c         # new_matrix, identity_matrix, free_matrix, print_matrix, equal_matrix
+│   │   ├── matrix_math.c         # matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, minor
+│   │   ├── matrix_determinant.c  # matrix_determinant, matrix_determinant_2x2, matrix_cofactor, matrix_is_invertible
+│   │   └── matrix_inverse.c      # matrix_inverse
+│   │
+│   ├── transformations/
+│   │   ├── translation_scaling.c # translation, scaling
+│   │   ├── rotation.c            # rotation_x, rotation_y, rotation_z
+│   │   └── shearing.c            # shearing
+│   │
+│   ├── ray/
+│   │   ├── ray.c                 # create_ray, ray_position, transform_ray
+│   │   ├── sphere.c              # create_sphere, set_transform, get_transform, default_sphere
+│   │   └── intersection.c        # create_intersection, intersect, hit, prepare_computations, compare_intersections, resize_intersections, append_intersections, intersect_world
+│   │
+│   ├── lighting/
+│   │   ├── point_light.c         # create_point_light
+│   │   ├── default_material.c    # default_material, set_material_props
+│   │   ├── ray_tracer_core.c     # shade_hit, color_at, compute_normal, is_shadowed
+│   │   └── lighting.c            # lighting_calculation, is_shadowed, reflect
+│   │
+│   ├── color/
+│   │   ├── color_utils_1.c       # create_color, color_add, color_subtract
+│   │   └── color_utils_2.c       # color_multiply, hadamard_product, clamp_color
+│   │
+│   ├── camera/                   # Tudo relacionado a gerar raios e manipular a câmera
+│   │   ├── ray_for_pixel.c       # Função ray_for_pixel
+│   │   ├── render.c              # Função render (usa ray_for_pixel)
+│   │   └── camera_utils.c        # Futuras utilidades da câmera
+│   │
+│   ├── canvas/                   # Tudo sobre imagem, pixels e exportação
+│   │   ├── canvas.c              # create_canvas, write_pixel
+│   │   ├── canvas_export.c       # canvas_to_ppm, clamp
+│   │   └── canvas_utils.c        # Funções auxiliares para canvas
+│   │
+│   └── Makefile
 │
-├── matrix/
-│   ├── matrix_core.c         # new_matrix, identity_matrix, free_matrix, print_matrix, equal_matrix
-│   ├── matrix_math.c         # matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, minor
-│   ├── matrix_determinant.c  # matrix_determinant, matrix_determinant_2x2, matrix_cofactor, matrix_is_invertible
-│   └── matrix_inverse.c      # matrix_inverse
-│
-├── transformations/
-│   ├── translation_scaling.c # translation, scaling
-│   ├── rotation.c            # rotation_x, rotation_y, rotation_z
-│   └── shearing.c            # shearing
-│
-├── ray/
-│   ├── ray.c                 # create_ray, ray_position, transform_ray
-│   ├── sphere.c              # create_sphere, set_transform, get_transform, default_sphere
-│   └── intersection.c        # create_intersection, intersect, hit, prepare_computations, compare_intersections, resize_intersections, append_intersections, intersect_world;
-│
-├── lighting/
-│   ├── point_light.c         # create_point_light
-│   ├── default_material.c    # default_material, set_material_props
-│   ├── ray_tracer_core.c     #	shade_hit, color_at, compute_normal, is_shadowed
-|   └── lighting.c            # lighting_calculation, is_shadowed, reflect
-│
-├── color/
-│   ├── color_utils_1.c       # create_color, color_add, color_subtract
-│   └── color_utils_2.c       # color_multiply, hadamard_product, clamp_color
-│
-├── camera/       # Tudo relacionado a gerar raios e manipular a câmera
-│   ├── ray_for_pixel.c      // Função ray_for_pixel
-│   ├── render.c             // Função render (usa ray_for_pixel)
-│   └── camera_utils.c       // Futuras utilidades da câmera
-│
-├── canvas/       # Tudo sobre imagem, pixels e exportação
-│   ├── canvas.c              // create_canvas, write_pixel
-│   ├── canvas_export.c       // canvas_to_ppm e clamp
-│   └── canvas_utils.c        // Qualquer função auxiliar futura
-│   
-├── 
-├── Makefile
 └── README.md
 ```
 
