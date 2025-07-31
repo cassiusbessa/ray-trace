@@ -6,46 +6,44 @@
 
 ```text
 raytracer_c/
-├── include/                    # Headers (.h)
-│   ├── tuple.h
-│   ├── matrix.h
-│   ├── transforms.h
-│   ├── ray.h
-│   ├── sphere.h
-│   ├── intersection.h
-│   ├── world.h
-│   ├── camera.h
-│   ├── canvas.h
-│   ├── color.h
-│   ├── light.h
-│   └── material.h
+include/
+│   └── miniRT.h
 │
-├── src/                       
-│   ├── tuple/                 # Módulo de tuplas
-│   │   ├── tuple_core.c       # Criação e utilidades (tuple, point, vector, etc.)
-│   │   ├── tuple_math.c       # Operações matemáticas básicas (add, subtract, etc.)
-│   │   ├── tuple_vector.c     # Operações vetoriais (normalize, dot, cross)
-│   │   └── tuple_utils.c      # Extras (comparações, validações, etc.)
-│   │
-│   ├── matrix/                            # Módulo de matrizes
-│   │   ├── matrix_core.c                  # Criação e utilidades (new_matrix, identity_matrix, print_matrix, free_matrix, equal_matrix)
-│   │   ├── matrix_math.c                  # Operações matemáticas com matrizes (matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, <livre>)
-│   │   ├── matrix_determinant.c           # Determinante e auxiliares (matrix_determinant, matrix_determinant_2x2, matrix_minor, matrix_cofactor, matrix_is_invertible)
-│   │   └── matrix_inverse.c               # Inversão de matriz (matrix_inverse)
-│   |
-│   └── transformations/              # Transformações geométricas
-│       ├── translation_scaling.c     # Transformações básicas (translation, scaling)
-│       ├── rotation.c                # Rotações (rotation_x, rotation_y, rotation_z)
-│       └── shearing.c                # Shearing (shearing)
-│   
-│   ├── ray.c
-│   ├── sphere.c
-│   ├── intersection.c
+src/
+├── tuple/
+│   ├── tuple_core.c          # create_tuple, point, vector, color, is_point/is_vector
+│   ├── tuple_math.c          # add_tuples, subtract_tuples, negate_tuple, multiply_tuple, divide_tuple
+│   ├── tuple_vector.c        # magnitude, normalize, dot, cross
+│   └── tuple_utils.c         # equal_tuples, is_zero_vector, is_unit_vector, is_nan, is_finite
+│
+├── matrix/
+│   ├── matrix_core.c         # new_matrix, identity_matrix, free_matrix, print_matrix, equal_matrix
+│   ├── matrix_math.c         # matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, minor
+│   ├── matrix_determinant.c  # matrix_determinant, matrix_determinant_2x2, matrix_cofactor, matrix_is_invertible
+│   └── matrix_inverse.c      # matrix_inverse
+│
+├── transformations/
+│   ├── translation_scaling.c # translation, scaling
+│   ├── rotation.c            # rotation_x, rotation_y, rotation_z
+│   └── shearing.c            # shearing
+│
+├── ray/
+│   ├── ray.c                 # create_ray, ray_position, transform_ray
+│   ├── sphere.c              # create_sphere, set_transform, get_transform, default_sphere
+│   └── intersection.c        # create_intersection, intersect, hit, prepare_computations
+│
+├── lighting/
+│   ├── point_light.c         # create_point_light
+│   ├── default_material.c    # default_material, set_material_props
+│   └── lighting.c            # lighting_calculation, is_shadowed, reflect
+│
+├── color/
+│   ├── color_utils_1.c       # create_color, color_add, color_subtract
+│   └── color_utils_2.c       # color_multiply, hadamard_product, clamp_color
+
 │   ├── world.c
 │   ├── camera.c
 │   ├── canvas.c
-│   ├── color.c
-│   ├── light.c
 │   └── material.c
 │
 ├── tests/                      # Testes unitários
@@ -242,4 +240,7 @@ clean:
 
 ---
 
-Se quiser, posso continuar agora com o **Dia 1: implementação completa de `tuple.c` e `tuple.h`**, com testes. Quer que eu avance com isso?
+Se quiser, posso continuar agora com o **Dia 5: implementação completa de `### 💡 Sprint 5: Luz e Materiais
+- [ ] `light.h/c`: `PointLight`
+- [ ] `material.h/c`: cor base, difuso, especular, shininess
+- [ ] `lighting()` usando modelo Phong. Quer que eu avance com isso?

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/30 09:12:49 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/31 15:38:00 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,74 @@ typedef int	t_bool;
 # define TRUE 1
 # define FALSE 0
 
+// ----------------------
+// Structs
+// ----------------------
+
+typedef struct s_material_light_params {
+    t_material material;
+    t_light light;
+} t_material_light_params;
+
+typedef struct s_lighting_context {
+    t_tuple position;
+    t_tuple eyev;
+    t_tuple normalv;
+    int in_shadow;
+} t_lighting_context;
+
 typedef struct s_tuple
 {
 	float	x;
 	float	y;
 	float	z;
 	int		w;
-}			t_tuple;
+}	t_tuple;
 
 typedef struct s_matrix
 {
 	int		size;
 	float	**data;
-}			t_matrix;
+}	t_matrix;
+
+typedef struct s_ray
+{
+	t_tuple origin;
+	t_tuple direction;
+}	t_ray;
+
+typedef struct s_sphere
+{
+	t_matrix	transform;
+}	t_sphere;
+
+typedef struct s_intersection
+{
+	float		t;
+	t_sphere	*object;
+}	t_intersection;
+
+typedef struct s_color
+{
+	float	r;
+	float	g;
+	float	b;
+}	t_color;
+
+typedef struct s_light
+{
+	t_tuple	position;
+	t_color	intensity;
+}	t_light;
+
+typedef struct s_material
+{
+	t_color	color;
+	float	ambient;
+	float	diffuse;
+	float	specular;
+	float	shininess;
+}	t_material;
 
 // ----------------------
 // Tuple functions
@@ -77,12 +132,13 @@ t_matrix	transpose_matrix(t_matrix matrix);
 t_matrix	submatrix(t_matrix matrix, int row, int col);
 t_matrix	matrix_inverse(t_matrix matrix);
 t_matrix	new_matrix(int rows, int cols);
+
 int			matrix_determinant(t_matrix matrix);
 int			matrix_minor(t_matrix matrix, int row, int col);
 int			matrix_cofactor(t_matrix matrix, int row, int col);
 int			matrix_is_invertible(t_matrix matrix);
-
 int			matrix_determinant_2x2(t_matrix matrix);
+
 void		print_matrix(t_matrix matrix);
 void		free_matrix(t_matrix matrix);
 
@@ -90,12 +146,68 @@ void		free_matrix(t_matrix matrix);
 // Matrix transformations
 // ----------------------
 
-t_matrix	translation(float x, float y, float z);
-t_matrix	scaling(float x, float y, float z);
+t_matrix    translation(int size, float *data);
+t_matrix    scaling(int size, float *data);
 t_matrix	rotation_x(float r);
 t_matrix	rotation_y(float r);
 t_matrix	rotation_z(float r);
 t_matrix	shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+
+// ----------------------
+// Ray functions
+// ----------------------
+
+t_ray		ray(t_tuple origin, t_tuple direction);
+t_tuple		position(t_ray r, float t);
+t_ray		transform_ray(t_ray r, t_matrix m);
+
+// ----------------------
+// Sphere functions
+// ----------------------
+
+t_sphere	sphere(void);
+void		set_transform(t_sphere *s, t_matrix t);
+
+// ----------------------
+// Intersection functions
+// ----------------------
+
+t_intersection	*intersect(t_sphere *s, t_ray r, int *count);
+t_intersection	*hit(t_intersection *xs, int count);
+
+// ----------------------
+// Light and Material functions
+// ----------------------
+
+t_light		point_light(t_tuple position, t_color intensity);
+t_material	default_material(void);
+t_color calculate_diffuse(t_material material, t_color effective_color, float light_dot_normal);
+t_color calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
+t_color lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
+t_color lighting(t_material_light_params mlp, t_lighting_context ctx);
+
+
+// ----------------------
+// Color functions
+// ----------------------
+
+t_color		color(float r, float g, float b);
+t_color		add_color(t_color c1, t_color c2);
+t_color		subtract_color(t_color c1, t_color c2);
+t_color		multiply_color_scalar(t_color c, float scalar);
+t_color		multiply_color(t_color c1, t_color c2);
+int			color_equal(t_color c1, t_color c2);
+
+
+
+
+
+
+
+
+
+
+
 
 
 typedef struct s_rgb
@@ -142,6 +254,11 @@ typedef struct s_mlx
 
 void		open_mlx_screen(t_canvas *canvas);
 void		canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
+
+
+
+
+
 
 
 #endif
