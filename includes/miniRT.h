@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/31 17:28:01 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:24:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,112 +21,143 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdbool.h>
+// ----------------------
+// Macros e Tipos Básicos
+// ----------------------
 
-# define EPSILON 0.0001
+#define EPSILON 0.0001
 
 typedef int	t_bool;
-
-# define TRUE 1
-# define FALSE 0
+#define TRUE 1
+#define FALSE 0
 
 // ----------------------
-// Structs
+// Structs Matemáticas
 // ----------------------
 
-typedef struct s_tuple
-{
-	float	x;
-	float	y;
-	float	z;
-	int		w;
-}	t_tuple;
+typedef struct s_tuple {
+	float x;
+	float y;
+	float z;
+	int   w; // 1: ponto, 0: vetor
+} t_tuple;
 
-typedef struct s_matrix
-{
-	int		size;
-	float	**data;
-}	t_matrix;
+typedef struct s_matrix {
+	int     size;
+	float **data;
+} t_matrix;
 
-typedef struct s_ray
-{
-	t_tuple origin;
-	t_tuple direction;
-}	t_ray;
+// ----------------------
+// Cores e Iluminação
+// ----------------------
 
-typedef struct s_sphere
-{
-	t_matrix	transform;
-	t_material	material; // geralmente material faz parte da esfera
-}	t_sphere;
+typedef struct s_color {
+	float r;
+	float g;
+	float b;
+} t_color;
 
-typedef struct s_intersection
-{
-	float		t;
-	t_sphere	*object;
-}	t_intersection;
+typedef struct s_light {
+	t_tuple position;
+	t_color intensity;
+} t_light;
 
-typedef struct s_color
-{
-	float	r;
-	float	g;
-	float	b;
-}	t_color;
+typedef struct s_ambient {
+	double   ratio;   // intensidade entre 0.0 e 1.0
+	t_color  color;   // cor da luz ambiente (RGB normalizado)
+} t_ambient;
 
-typedef struct s_light
-{
-	t_tuple	position;
-	t_color	intensity;
-}	t_light;
-
-typedef struct s_material
-{
-	t_color	color;
-	float	ambient;
-	float	diffuse;
-	float	specular;
-	float	shininess;
-}	t_material;
+typedef struct s_material {
+	t_color color;
+	float   ambient;
+	float   diffuse;
+	float   specular;
+	float   shininess;
+} t_material;
 
 typedef struct s_material_light_params {
-	t_material	material;
-	t_light		light;
-}	t_material_light_params;
+	t_material material;
+	t_light    light;
+} t_material_light_params;
 
 typedef struct s_lighting_context {
-	t_tuple	position;
-	t_tuple	eyev;
-	t_tuple	normalv;
-	int		in_shadow;
-}	t_lighting_context;
+	t_tuple position;
+	t_tuple eyev;
+	t_tuple normalv;
+	int     in_shadow;
+} t_lighting_context;
 
-typedef struct s_rgb
-{
-	float	r;
-	float	g;
-	float	b;
-}	t_rgb;
+// ----------------------
+// Canvas e Câmera
+// ----------------------
 
-typedef struct s_canvas
-{
-	int		width;
-	int		height;
-	t_rgb	*pixels;  // 1D array
-}	t_canvas;
+typedef struct s_rgb {
+	float r;
+	float g;
+	float b;
+} t_rgb;
 
-typedef struct s_camera
-{
-	int		hsize;
-	int		vsize;
-	float	fov;
-	t_matrix	transform;
-}	t_camera;
+typedef struct s_canvas {
+	int   width;
+	int   height;
+	t_rgb *pixels; // array 1D de pixels
+} t_canvas;
 
-typedef struct s_world
-{
-	t_light		light;
-	t_sphere	*objects;
-	int			object_count;
-}	t_world;
+typedef struct s_camera {
+	int      hsize;
+	int      vsize;
+	float    fov;
+	t_matrix transform;
+} t_camera;
+
+// ----------------------
+// Ray, Objetos e Interseções
+// ----------------------
+
+typedef struct s_ray {
+	t_tuple origin;
+	t_tuple direction;
+} t_ray;
+
+typedef struct s_sphere {
+	t_matrix   transform;
+	t_material material;
+} t_sphere;
+
+typedef struct s_intersection {
+	float      t;
+	t_sphere  *object;
+} t_intersection;
+
+// ----------------------
+// Objetos e Mundo
+// ----------------------
+
+typedef enum e_object_type {
+	SPHERE,
+	PLANE,
+	CYLINDER
+} t_object_type;
+
+typedef struct s_object {
+	t_object_type   type;
+	void           *object; // ponteiro para esfera/plano/cilindro
+	struct s_object *next;
+} t_object;
+
+typedef struct s_light_list {
+	t_light              light;
+	struct s_light_list *next;
+} t_light_list;
+
+typedef struct s_world {
+	t_ambient     ambient_light;
+	t_camera      camera;
+	t_object     *objects;      // lista ligada de objetos
+	t_light_list *lights;       // lista ligada de luzes pontuais
+} t_world;
+
+
 
 // ----------------------
 // Tuple functions
@@ -261,8 +292,24 @@ t_color		color_at(t_world *world, t_ray ray);
 t_tuple		compute_normal(t_sphere *sphere, t_tuple point);
 int			is_shadowed(t_world *world, t_tuple point);
 
+// ----------------------
+// Parser functions
+// ----------------------
 
+int     parse_rt_file(const char *filename, t_world *world);
+int     parse_ambient(const char *line, t_world *world);
+int     parse_camera(const char *line, t_world *world);
+int     parse_light(const char *line, t_world *world);
+int     parse_sphere(const char *line, t_world *world);
+int     parse_plane(const char *line, t_world *world);
+int     parse_cylinder(const char *line, t_world *world);
 
+int     line_is_empty_or_comment(const char *line);
+int     starts_with(const char *line, const char *prefix);
+char    **split_line(const char *line, char delimiter);
+void    print_error(const char *msg);
+
+void    free_parsed_world(t_world *world);
 
 
 

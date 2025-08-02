@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 21:33:29 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:00:47 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-void render(t_world w, t_canvas *canvas)
+int line_is_empty_or_comment(const char *line)
 {
-    int y;
-    int x;
-    t_ray r;
-    t_color color;
-    t_camera c;
-
-    c = w.camera;
-    y = 0;
-    while(y < c.vsize)
+    while (*line)
     {
-        x = 0;
-        while(x < c.hsize)
-        {
-            r = ray_for_pixel(c, x, y);
-            color = color_at(w, r);
-            write_pixel(canvas, x, y, color);
-            x++;
-        }
-        y++;
+        if (*line == '#')
+            return 1;
+        if (!isspace(*line))
+            return 0;
+        line++;
     }
+    return 1;
+}
+
+int starts_with(const char *line, const char *prefix)
+{
+    while (*prefix)
+    {
+        if (*line != *prefix)
+            return 0;
+        line++;
+        prefix++;
+    }
+    return 1;
+}
+
+void print_error(const char *msg)
+{
+    fprintf(stderr, "Parser Error: %s\n", msg);
 }

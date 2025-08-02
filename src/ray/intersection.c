@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:32:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/31 17:20:57 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/07/31 21:49:59 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,33 +95,49 @@ static int append_intersections(t_intersection **dst, int *total_count, int *cap
     return (*total_count);
 }
 
+
+
 t_intersection *intersect_world(t_world *world, t_ray ray, int *count)
 {
-    t_intersection *intersections;
-    int total_intersections;
-    int capacity;
-    int i;
-    int local_count;
-    t_intersection *local_intersections;
+	t_intersection *intersections;
+	int total_count;
+	int capacity;
+	int local_count;
+	t_intersection *local_intersections;
+	t_object *current;
 
-    total_intersections = 0;
-    capacity = 10;
-    intersections = malloc(sizeof(t_intersection) * capacity);
-    if (!intersections)
-    {
-        fprintf(stderr, "Failed to allocate memory for intersections\n");
-        exit(1);
-    }
-    i = 0;
-    while (i < world->object_count)
-    {
-        local_count = 0;
-        local_intersections = intersect(&world->objects[i], ray, &local_count);
-        append_intersections(&intersections, &total_intersections, &capacity, local_intersections, local_count);
-        free(local_intersections);
-        i++;
-    }
-    *count = total_intersections;
-    qsort(intersections, total_intersections, sizeof(t_intersection), compare_intersections);
-    return (intersections);
+	intersections = malloc(sizeof(t_intersection) * 10);
+	if (!intersections)
+	{
+		fprintf(stderr, "Failed to allocate memory for intersections\n");
+		exit(1);
+	}
+
+	total_count = 0;
+	capacity = 10;
+	local_count = 0;
+	local_intersections = NULL;
+	current = world->objects;
+
+	while (current)
+	{
+		local_count = 0;
+		if (current->type == SPHERE)
+	        local_intersections = intersect((t_sphere *)current->object, ray, &local_count);
+        else if (current->type == PLANE)
+	        local_intersections = intersect_plane((t_plane *)current->object, ray, &local_count);
+        else if (current->type == CYLINDER)
+	        local_intersections = intersect_cylinder((t_cylinder *)current->object, ray, &local_count);
+		if (local_intersections)
+		{
+			append_intersections(&intersections, &total_count, &capacity, local_intersections, local_count);
+			free(local_intersections);
+		}
+		current = current->next;
+	}
+
+	*count = total_count;
+	qsort(intersections, total_count, sizeof(t_intersection), compare_intersections);
+	return (intersections);
 }
+

@@ -4,7 +4,9 @@
 
 ## 📦 Estrutura do Projeto
 
-```raytracer_c/
+```
+
+raytracer_c/
 ├── include/
 │   └── miniRT.h
 │
@@ -51,9 +53,21 @@
 │   │   ├── canvas_export.c       # canvas_to_ppm, clamp
 │   │   └── canvas_utils.c        # Funções auxiliares para canvas
 │   │
+│   ├── parser/
+│   │   ├── parser.c              # Função principal do parser: abre o arquivo e chama funções específicas
+│   │   ├── parser_utils.c        # Funções auxiliares para manipulação de strings, validação, split, etc.
+│   │   ├── parse_ambient.c       # Parser para luz ambiente (A)
+│   │   ├── parse_camera.c        # Parser para câmera (C)
+│   │   ├── parse_light.c         # Parser para luz pontual (L)
+│   │   ├── parse_sphere.c        # Parser para esfera (sp)
+│   │   ├── parse_plane.c         # Parser para plano (pl)
+│   │   ├── parse_cylinder.c      # Parser para cilindro (cy)
+│   │   └── parser.h              # Prototypes e structs específicas do parser
+│   │
 │   └── Makefile
 │
 └── README.md
+
 ```
 
 ===========================
