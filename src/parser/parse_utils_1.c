@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parse_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 14:16:02 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:29:40 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int starts_with(const char *line, const char *prefix)
 
 void print_error(const char *msg)
 {
-    fprintf(stderr, "Parser Error: %s\n", msg);
+    ft_printf(stderr, "Parser Error: %s\n", msg);
 }
 
 int parse_color(const char *str, t_color *out_color)

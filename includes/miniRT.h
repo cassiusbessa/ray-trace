@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/06 14:45:25 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:35:45 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -318,12 +318,15 @@ int     starts_with(const char *line, const char *prefix);
 void    free_split(char **tokens);
 void    print_error(const char *msg);
 
-void    free_parsed_world(t_world *world);
+void free_parsed_world(t_world *world, int should_free_world);
 int     parse_vector(const char *str, t_tuple *out_vector);
+int parse_point(const char *str, t_tuple *point);
 int     parse_color(const char *str, t_color *out_color);
 int     is_normalized(t_tuple v);
 void add_object_to_world(t_world *world, t_object *new_object);
 t_object *new_cylinder(t_tuple position, t_tuple orientation, float diameter, float height, t_color color);
+t_object *create_sphere(t_tuple position, float diameter, t_color color);
+t_object *create_plane(t_tuple position, t_tuple orientation, t_color color);
 double  ft_atod(const char *nptr);
 float   deg_to_rad(float degrees);
 
