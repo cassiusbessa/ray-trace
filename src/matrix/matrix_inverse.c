@@ -41,3 +41,15 @@ t_matrix matrix_inverse(t_matrix matrix)
 	return (inv);
 }
 
+t_matrix translation_matrix(float tx, float ty, float tz)
+{
+    t_matrix	matrix;
+
+	matrix = identity_matrix(4);
+
+    matrix.data[0][3] = tx;
+    matrix.data[1][3] = ty;
+    matrix.data[2][3] = tz;
+
+    return (matrix);
+}

@@ -12,12 +12,6 @@
 
 #include "../../includes/miniRT.h"
 
-int			matrix_determinant(t_matrix matrix);
-int			matrix_determinant_2x2(t_matrix matrix);
-int			matrix_minor(t_matrix matrix, int row, int col);
-int			matrix_cofactor(t_matrix matrix, int row, int col);
-int			matrix_is_invertible(t_matrix matrix);
-
 int	matrix_determinant(t_matrix matrix)
 {
 	int		det;

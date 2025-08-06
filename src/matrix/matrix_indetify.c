@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/30 08:14:02 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 10:54:13 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,3 @@ t_bool	equal_matrix(t_matrix m1, t_matrix m2)
 	}
 	return (TRUE);
 }
-
-
-t_matrix	identity_matrix(int size);
-t_matrix	new_matrix(int rows, int cols);
-void		print_matrix(t_matrix matrix);
-void		free_matrix(t_matrix matrix);
-t_bool		equal_matrix(t_matrix m1, t_matrix m2);

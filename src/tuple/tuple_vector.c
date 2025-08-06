@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/29 19:54:27 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:11:51 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ t_tuple	normalize_vector(t_tuple t)
 		return (new_tuple(0, 0, 0, FALSE));
 	}
 	magnitude = magnitude_vector(t);
+	if (magnitude == 0.0f)
+	{
+		printf("❌ ERROR: Cannot normalize zero vector.\n");
+		return (new_tuple(0, 0, 0, FALSE));
+	}
 	normalized.x = t.x / magnitude;
 	normalized.y = t.y / magnitude;
 	normalized.z = t.z / magnitude;

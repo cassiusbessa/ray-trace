@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/05 19:48:42 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:00:20 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,6 +214,8 @@ t_matrix	rotation_x(float r);
 t_matrix	rotation_y(float r);
 t_matrix	rotation_z(float r);
 t_matrix	shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up);
+t_matrix	translation_matrix(float tx, float ty, float tz);
 
 // ----------------------
 // Ray functions
