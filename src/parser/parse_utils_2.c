@@ -6,11 +6,24 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 18:14:37 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:40:41 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
+int line_is_empty_or_comment(const char *line)
+{
+    while (*line)
+    {
+        if (*line == '#')
+            return 1;
+        if (!isspace(*line))
+            return 0;
+        line++;
+    }
+    return 1;
+}
 
 void free_parsed_world(t_world *world, int should_free_world)
 {

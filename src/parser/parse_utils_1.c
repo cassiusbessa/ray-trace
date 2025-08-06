@@ -6,24 +6,12 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 18:29:40 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:40:48 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-int line_is_empty_or_comment(const char *line)
-{
-    while (*line)
-    {
-        if (*line == '#')
-            return 1;
-        if (!isspace(*line))
-            return 0;
-        line++;
-    }
-    return 1;
-}
 
 int starts_with(const char *line, const char *prefix)
 {
@@ -101,4 +89,27 @@ int parse_vector(const char *str, t_tuple *out_vector)
     *out_vector = new_tuple(x, y, z, w);
     free_split(tokens);
     return (1);
+}
+
+int parse_point(const char *str, t_tuple *point)
+{
+    char **coords;
+    float x, y, z;
+
+    coords = ft_split(str, ',');
+    if (!coords || !coords[0] || !coords[1] || !coords[2])
+    {
+        free_split(coords);
+        return 0;
+    }
+
+    x = ft_atod(coords[0]);
+    y = ft_atod(coords[1]);
+    z = ft_atod(coords[2]);
+
+    free_split(coords);
+
+    *point = new_tuple(x, y, z, 1);
+
+    return 1;
 }

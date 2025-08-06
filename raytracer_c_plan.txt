@@ -55,7 +55,8 @@ raytracer_c/
 │   │
 │   ├── parser/
 │   │   ├── parser.c              # Função principal do parser: abre o arquivo e chama funções específicas
-│   │   ├── parser_utils.c        # Funções auxiliares para manipulação de strings, validação, split, etc.
+│   │   ├── parser_utils_1.c      # Funções auxiliares para manipulação de strings, validação, split, etc.
+│   │   ├── parser_utils_2.c      # Funções auxiliares para manipulação de strings, validação, split, etc.
 │   │   ├── parse_ambient.c       # Parser para luz ambiente (A)
 │   │   ├── parse_camera.c        # Parser para câmera (C)
 │   │   ├── parse_light.c         # Parser para luz pontual (L)

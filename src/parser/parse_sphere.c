@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 18:09:36 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 18:40:29 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,6 @@ t_object *create_sphere(t_tuple position, float diameter, t_color color)
     return (object);
 }
 
-int parse_point(const char *str, t_tuple *point)
-{
-    char **coords;
-    float x, y, z;
-
-    coords = ft_split(str, ',');
-    if (!coords || !coords[0] || !coords[1] || !coords[2])
-    {
-        free_split(coords);
-        return 0;
-    }
-
-    x = ft_atod(coords[0]);
-    y = ft_atod(coords[1]);
-    z = ft_atod(coords[2]);
-
-    free_split(coords);
-
-    *point = new_tuple(x, y, z, 1);
-
-    return 1;
-}
 
 int parse_sphere(const char *line, t_world *world)
 {
