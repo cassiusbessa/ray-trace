@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 20:00:47 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/05 18:51:48 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,4 @@ void print_error(const char *msg)
 {
     fprintf(stderr, "Parser Error: %s\n", msg);
 }
+
