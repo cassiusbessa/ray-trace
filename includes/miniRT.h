@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/06 11:00:20 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:49:50 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,8 @@ char    **split_line(const char *line, char delimiter);
 void    print_error(const char *msg);
 
 void    free_parsed_world(t_world *world);
-
+int parser_vector(const char *str, t_tuple *out_vector);
+int parser_color(const char *str, t_color *out_color);
 
 
 
