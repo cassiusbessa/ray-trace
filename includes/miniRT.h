@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/06 12:49:50 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:45:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdbool.h>
+
 // ----------------------
 // Macros e Tipos Básicos
 // ----------------------
 
 #define EPSILON 0.0001
 #define PI 3.14159265358979323846f
-
+#define HSIZE 800
+#define VSIZE 600
 typedef int	t_bool;
 #define TRUE 1
 #define FALSE 0
@@ -125,6 +127,14 @@ typedef struct s_sphere {
 	t_material material;
 } t_sphere;
 
+typedef struct s_cylinder {
+	t_tuple position;
+	t_tuple orientation;
+	float   diameter;
+	float   height;
+	t_color color;
+} t_cylinder;
+
 typedef struct s_intersection {
 	float      t;
 	t_sphere  *object;
@@ -157,8 +167,6 @@ typedef struct s_world {
 	t_object     *objects;      // lista ligada de objetos
 	t_light_list *lights;       // lista ligada de luzes pontuais
 } t_world;
-
-
 
 // ----------------------
 // Tuple functions
@@ -243,8 +251,6 @@ static t_intersection *resize_intersections(t_intersection *arr, int *capacity);
 static int append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count);
 t_intersection *intersect_world(t_world *world, t_ray ray, int *count);
 
-
-
 // ----------------------
 // Light and Material functions
 // ----------------------
@@ -309,21 +315,19 @@ int     parse_cylinder(const char *line, t_world *world);
 
 int     line_is_empty_or_comment(const char *line);
 int     starts_with(const char *line, const char *prefix);
-char    **split_line(const char *line, char delimiter);
+void    free_split(char **tokens);
 void    print_error(const char *msg);
 
 void    free_parsed_world(t_world *world);
-int parser_vector(const char *str, t_tuple *out_vector);
-int parser_color(const char *str, t_color *out_color);
+int     parse_vector(const char *str, t_tuple *out_vector);
+int     parse_color(const char *str, t_color *out_color);
+int     is_normalized(t_tuple v);
+void add_object_to_world(t_world *world, t_object *new_object);
+t_object *new_cylinder(t_tuple position, t_tuple orientation, float diameter, float height, t_color color);
+double  ft_atod(const char *nptr);
+float   deg_to_rad(float degrees);
 
-
-
-
-
-
-
-
-
+#endif
 
 
 
@@ -371,5 +375,3 @@ void		canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
 
 
 
-
-#endif

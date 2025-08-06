@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 12:14:39 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 13:15:39 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int parse_camera(const char *line, t_world *world)
     fov_rad = deg_to_rad(fov);
     direction = normalize_vector(direction);
 
-    camera.hsize = 800;
-    camera.vsize = 600;
+    camera.hsize = HSIZE;
+    camera.vsize = VSIZE;
     camera.fov = fov_rad;
     camera.transform = view_transform(position, direction, vector_tuple(0, 1, 0));
 

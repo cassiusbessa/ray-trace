@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 12:57:59 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:16:02 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void print_error(const char *msg)
     fprintf(stderr, "Parser Error: %s\n", msg);
 }
 
-int parser_color(const char *str, t_color *out_color)
+int parse_color(const char *str, t_color *out_color)
 {
     char **tokens;
     float r;
@@ -69,7 +69,7 @@ int parser_color(const char *str, t_color *out_color)
     return (1);
 }
 
-int parser_vector(const char *str, t_tuple *out_vector)
+int parse_vector(const char *str, t_tuple *out_vector)
 {
     char **tokens;
     float x;

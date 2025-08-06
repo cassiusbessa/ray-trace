@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/05 19:42:50 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:37:55 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,6 @@ void free_split(char **tokens)
     free(tokens);
 }
 
-int parser_color(const char *color_str, t_color *color)
-{
-    char **components;
-    if (!color_str || !color)
-        return 0;
-
-    components = ft_split(color_str, ',');
-    if (!components || !components[0] || !components[1] || !components[2])
-    {
-        free_split(components);
-        return 0;
-    }
-
-    color->r = ft_atoi(components[0]);
-    color->g = ft_atoi(components[1]);
-    color->b = ft_atoi(components[2]);
-
-    free_split(components);
-    return 1;
-}
 
 int parse_ambient(const char *line, t_world *world)
 {
