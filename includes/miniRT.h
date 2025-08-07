@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/07 08:35:11 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 09:56:24 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ typedef struct {
     float t2;
     int valid;  // 1 se tem solução, 0 se não tem
 } t_roots;
+
+// ----------------------
+// Graphics (MLX)
+// ----------------------
+
+typedef struct s_img {
+    void    *img_ptr;
+    char    *data;
+    int     bpp;
+    int     size_line;
+    int     endian;
+    int     width;
+    int     height;
+}   t_img;
+
+typedef struct s_mlx {
+    void    *mlx_ptr;
+    void    *win_ptr;
+    t_img   image;
+}   t_mlx;
 
 // ----------------------
 // Structs Matemáticas
@@ -359,40 +379,4 @@ t_tuple get_normal_cylinder(t_cylinder c, t_tuple point);
 t_tuple get_normal_plane(t_plane plane);
 
 #endif
-
-
-
-t_rgb		new_rgb(float r, float g, float b);
-t_rgb		add_rgb(t_rgb c1, t_rgb c2);
-t_rgb		sub_rgb(t_rgb c1, t_rgb c2);
-t_rgb		multiply_rgb_by_scalar(t_rgb c, float scalar);
-t_rgb		multiply_rgb_by_rgb(t_rgb c1, t_rgb c2);
-int			equal_rgb(t_rgb c1, t_rgb c2);
-
-
-
-
-typedef struct s_img
-{
-	void	*mlx_img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}			t_img;
-
-typedef struct s_mlx
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-}			t_mlx;
-
-void		open_mlx_screen(t_canvas *canvas);
-void		canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
-
-
-
-
-
 
