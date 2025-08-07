@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:32:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/30 18:47:40 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:09:40 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ t_ray	ray(t_tuple origin, t_tuple direction)
 
 t_tuple	position(t_ray r, float t)
 {
-	return (add(r.origin, scale(r.direction, t)));
+	return (add_tuple(r.origin, multiply_tuple(r.direction, t)));
 }
 
 t_ray	transform_ray(t_ray r, t_matrix m)
 {
 	t_ray	result;
 
-	result.origin = multiply_matrix_tuple(m, r.origin);
-	result.direction = multiply_matrix_tuple(m, r.direction);
+	result.origin = matrix_multiply_by_tuple(m, r.origin);
+	result.direction = matrix_multiply_by_tuple(m, r.direction);
 	return (result);
 }

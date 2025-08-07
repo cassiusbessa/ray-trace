@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 18:40:48 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:00:40 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int starts_with(const char *line, const char *prefix)
 
 void print_error(const char *msg)
 {
-    ft_printf(stderr, "Parser Error: %s\n", msg);
+    ft_printf("Parser Error: %s\n", msg);
 }
 
 int parse_color(const char *str, t_color *out_color)
@@ -51,7 +51,7 @@ int parse_color(const char *str, t_color *out_color)
     g = g / 255.0f;
     b = b / 255.0f;
 
-    *out_color = color(r, g, b);
+    *out_color = create_color(r, g, b);
 
     free_split(tokens);
     return (1);

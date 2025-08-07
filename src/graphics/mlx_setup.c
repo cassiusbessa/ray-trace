@@ -6,13 +6,11 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/07 09:31:22 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:43:51 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-#include "miniRT.h"
 
 t_mlx init_window(int width, int height, char *title)
 {

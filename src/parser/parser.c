@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 18:34:01 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:27:11 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int parse_rt_file(const char *filename, t_world *world)
     fd = open(filename, O_RDONLY);
     if (fd < 0)
         return (fprintf(stderr, "Error opening file: %s\n", filename), -1);
-    line_number = 0
+    line_number = 0;
     while ((line = get_next_line(fd)) != NULL)
     {
         line_number++;

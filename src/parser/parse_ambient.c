@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 14:37:55 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:26:52 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,37 @@ void free_split(char **tokens)
     free(tokens);
 }
 
-
 int parse_ambient(const char *line, t_world *world)
 {
     char **tokens;
 
     tokens = ft_split(line, ' ');
-    if (!tokens)
+    if (!tokens || !tokens[0] || !tokens[1] || !tokens[2])
     {
-        print_error("Failed to split ambient line");
+        print_error("Ambient: invalid number of parameters");
+        free_split(tokens);
         return -1;
     }
 
-    world->ambient.ratio = ft_atod(tokens[1]);
-    if (world->ambient.ratio < 0 || world->ambient.ratio > 1)
+    if (ft_strncmp(tokens[0], "A", 2) != 0)
+    {
+        print_error("Ambient: expected identifier 'A'");
+        free_split(tokens);
+        return -1;
+    }
+
+    world->ambient_light.ratio = ft_atod(tokens[1]);
+    if (world->ambient_light.ratio < 0 || world->ambient_light.ratio > 1)
     {
         print_error("Ambient light: ratio must be between 0 and 1");
-        free(tokens);
+        free_split(tokens);
         return -1;
     }
 
-    if (!parse_color(tokens[2], &world->ambient.color))
+    if (!parse_color(tokens[2], &world->ambient_light.color))
     {
         print_error("Ambient light: invalid color format");
-        free(tokens);
+        free_split(tokens);
         return -1;
     }
 

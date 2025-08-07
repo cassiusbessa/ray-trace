@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 13:15:39 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:29:50 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int parse_camera(const char *line, t_world *world)
         return (print_error("Camera: invalid number of parameters"), free_split(tokens), -1);
     if (ft_strncmp(tokens[0], "C", 2) != 0)
         return (print_error("Camera: expected identifier 'C'"), free_split(tokens), -1);
-    if(!parser_vector(tokens[1], &position))
+    if(!parse_vector(tokens[1], &position))
         return (print_error("Camera: invalid position"), free_split(tokens), -1);
-    if(!parser_vector(tokens[2], &direction))
+    if(!parse_vector(tokens[2], &direction))
         return (print_error("Camera: invalid orientation"), free_split(tokens), -1);
 
     fov = ft_atod(tokens[3]);

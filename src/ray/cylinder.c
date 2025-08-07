@@ -6,128 +6,136 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:32:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/31 21:52:01 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 13:00:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_cylinder	cylinder(void)
+t_cylinder cylinder(void)
 {
-	t_cylinder	c;
+    t_cylinder c;
 
-	c.transform = identity_matrix(4);
-	c.diameter = 1.0f;           // padrão 1
-	c.height = 1.0f;             // padrão 1
-	// eixo do cilindro no espaço local é eixo Y, então nem precisa guardar
-	// mas se quiser, pode definir:
-	// c.axis = vector(0, 1, 0);
+    c.position = point_tuple(0, 0, 0);
+    c.orientation = vector_tuple(0, 1, 0);  // eixo Y padrão
+    c.diameter = 1.0f;
+    c.height = 1.0f;
+    c.color = create_color(1, 1, 1); // branco padrão, ou o que quiser
 
-	return (c);
+    return c;
 }
 
-void	set_transform_cylinder(t_cylinder *c, t_matrix t)
+
+static int check_side_intersections(t_cylinder *cyl, t_ray ray,
+    float t0, float t1, t_intersection *xs, int idx)
 {
-	c->transform = t;
+    t_tuple axis;
+    t_tuple p0;
+    t_tuple p1;
+    float y0;
+    float y1;
+
+    axis = normalize_vector(cyl->orientation);
+
+    p0 = add_tuple(ray.origin, multiply_tuple(ray.direction, t0));
+    y0 = vector_dot(subtract_tuple(p0, cyl->position), axis);
+    if (y0 >= 0 && y0 <= cyl->height)
+    {
+        xs[idx].t = t0;
+        xs[idx].object = cyl;
+        idx++;
+    }
+
+    p1 = add_tuple(ray.origin, multiply_tuple(ray.direction, t1));
+    y1 = vector_dot(subtract_tuple(p1, cyl->position), axis);
+    if (y1 >= 0 && y1 <= cyl->height)
+    {
+        xs[idx].t = t1;
+        xs[idx].object = cyl;
+        idx++;
+    }
+    return idx;
 }
 
-t_intersection *intersect_cylinder(t_cylinder *cylinder, t_ray ray, int *count)
+
+static int solve_cylinder_quadratic(t_cylinder *cyl, t_ray ray, float *t0, float *t1)
 {
-    // 1) Transformar o raio para o espaço local do cilindro
-    t_ray r2 = transform_ray(ray, inverse(cylinder->transform));
-    
-    float radius = cylinder->diameter / 2.0f;
-    float height = cylinder->height;
+    float radius = cyl->diameter / 2.0f;
+    t_tuple axis = normalize_vector(cyl->orientation);
+    t_tuple co = subtract_tuple(ray.origin, cyl->position);
 
-    // No espaço local, cilindro centrado em (0,0,0), eixo y = (0,1,0)
-    // Eixo do cilindro
-    t_tuple axis = vector(0, 1, 0); // eixo y local
-    
-    t_tuple oc = r2.origin; // raio já está no espaço local
-    t_tuple d = r2.direction;
+    t_tuple d_proj = subtract_tuple(ray.direction,
+                                    multiply_tuple(axis, vector_dot(ray.direction, axis)));
+    t_tuple co_proj = subtract_tuple(co,
+                                     multiply_tuple(axis, vector_dot(co, axis)));
 
-    float a, b, c, discriminant;
+    float a = vector_dot(d_proj, d_proj);
+    float b = 2.0f * vector_dot(d_proj, co_proj);
+    float c = vector_dot(co_proj, co_proj) - radius * radius;
+
+    float discriminant = b * b - 4 * a * c;
+    if (discriminant < 0)
+        return 0; // sem solução
+
+    float sqrt_disc = sqrtf(discriminant);
+    *t0 = (-b - sqrt_disc) / (2 * a);
+    *t1 = (-b + sqrt_disc) / (2 * a);
+
+    return 1; // soluções válidas
+}
+
+
+static int check_cap_intersection(t_cylinder *cyl, t_ray ray,
+                                  float cap_height,
+                                  t_intersection *xs, int idx)
+{
+    float radius = cyl->diameter / 2.0f;
+    t_tuple axis = normalize_vector(cyl->orientation);
+
+    float denom = vector_dot(ray.direction, axis);
+    if (fabs(denom) < EPSILON)
+        return idx;
+
+    float t = (cap_height - vector_dot(subtract_tuple(ray.origin, cyl->position), axis)) / denom;
+    if (t < 0)
+        return idx;
+
+    t_tuple p = add_tuple(ray.origin, multiply_tuple(ray.direction, t));
+    t_tuple center = add_tuple(cyl->position, multiply_tuple(axis, cap_height));
+    t_tuple v = subtract_tuple(p, center);
+
+    if (vector_dot(v, v) <= radius * radius)
+    {
+        xs[idx].t = t;
+        xs[idx].object = cyl;
+        idx++;
+    }
+    return idx;
+}
+
+t_intersection *intersect_cylinder(t_cylinder *cyl, t_ray ray, int *count)
+{
     float t0, t1;
-    float y0, y1;
-    t_intersection *xs = malloc(4 * sizeof(t_intersection)); // lateral + tampas
-    int idx = 0;
+    *count = 0;
 
+    if (!solve_cylinder_quadratic(cyl, ray, &t0, &t1))
+        return NULL;
+
+    t_intersection *xs = malloc(4 * sizeof(t_intersection));
     if (!xs)
     {
         perror("malloc");
         exit(EXIT_FAILURE);
     }
 
-    // Projeção da direção e origem no plano perpendicular ao eixo y
-    t_tuple d_proj = sub(d, multiply(axis, dot(d, axis)));
-    t_tuple oc_proj = sub(oc, multiply(axis, dot(oc, axis)));
-
-    a = dot(d_proj, d_proj);
-    b = 2 * dot(d_proj, oc_proj);
-    c = dot(oc_proj, oc_proj) - radius * radius;
-
-    discriminant = b * b - 4 * a * c;
-
-    *count = 0;
-    if (discriminant < 0)
-    {
-        free(xs);
-        return NULL;
-    }
-
-    float sqrt_disc = sqrtf(discriminant);
-    t0 = (-b - sqrt_disc) / (2 * a);
-    t1 = (-b + sqrt_disc) / (2 * a);
-
-    // Checar interseções laterais dentro da altura
-    y0 = dot(add(oc, multiply(d, t0)), axis);
-    if (y0 >= 0 && y0 <= height)
-    {
-        xs[idx].t = t0;
-        xs[idx].object = cylinder;
-        idx++;
-    }
-    y1 = dot(add(oc, multiply(d, t1)), axis);
-    if (y1 >= 0 && y1 <= height)
-    {
-        xs[idx].t = t1;
-        xs[idx].object = cylinder;
-        idx++;
-    }
-    // Interseção com tampas
-    // Base inferior (y = 0)
-    float t_base;
-    float denom = dot(d, axis);
-    if (fabs(denom) > 1e-6)
-    {
-        t_base = (0 - dot(oc, axis)) / denom;
-        t_tuple p = add(oc, multiply(d, t_base));
-        t_tuple v = sub(p, multiply(axis, dot(p, axis))); // vetor da projeção no plano da tampa
-        if (t_base >= 0 && dot(v, v) <= radius * radius)
-        {
-            xs[idx].t = t_base;
-            xs[idx].object = cylinder;
-            idx++;
-        }
-    }
-    // Base superior (y = height)
-    if (fabs(denom) > 1e-6)
-    {
-        t_base = (height - dot(oc, axis)) / denom;
-        t_tuple p = add(oc, multiply(d, t_base));
-        t_tuple v = sub(p, multiply(axis, dot(p, axis)));
-        if (t_base >= 0 && dot(v, v) <= radius * radius)
-        {
-            xs[idx].t = t_base;
-            xs[idx].object = cylinder;
-            idx++;
-        }
-    }
+    int idx = 0;
+    idx = check_side_intersections(cyl, ray, t0, t1, xs, idx);
+    idx = check_cap_intersection(cyl, ray, 0.0f, xs, idx);
+    idx = check_cap_intersection(cyl, ray, cyl->height, xs, idx);
 
     if (idx == 0)
     {
         free(xs);
-        *count = 0;
         return NULL;
     }
 

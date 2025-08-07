@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/07 08:01:47 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:55:20 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int is_within_cylinder_height(t_tuple point, t_cylinder c, t_tuple axis)
 }
 
 // --- Interseção do raio com o corpo lateral do cilindro ---
-float intersect_cylinder(t_ray ray, t_cylinder c)
+float intersect_cylinder_simple(t_ray ray, t_cylinder c)
 {
     t_tuple co;
     t_tuple axis;
@@ -91,7 +91,7 @@ float intersect_cylinder(t_ray ray, t_cylinder c)
 }
 
 // --- Interseção do raio com um disco (tampa do cilindro) ---
-static float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius)
+float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius)
 {
     float denom;
     float t;
@@ -116,7 +116,7 @@ static float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radiu
 }
 
 // --- Interseção do raio com as tampas (discos) do cilindro ---
-static float hit_caps(t_ray ray, t_cylinder c)
+float hit_caps(t_ray ray, t_cylinder c)
 {
     t_tuple axis;
     t_tuple centers[2];
@@ -143,7 +143,7 @@ float cylinder_intersect(t_ray ray, t_cylinder c)
     float t_body;
     float t_cap;
 
-    t_body = intersect_cylinder(ray, c);  // ou hit_body, se tiver
+    t_body = intersect_cylinder_simple(ray, c);  // ou hit_body, se tiver
     t_cap = hit_caps(ray, c);
 
     if (t_body > 0 && (t_cap < 0 || t_body < t_cap))

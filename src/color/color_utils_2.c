@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 15:16:05 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:35:58 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_color	multiply_color_scalar(t_color c, float scalar)
     if (scalar < 0)
     {
         printf("❌ ERROR: Scalar value cannot be negative for color multiplication.\n");
-        return color(0, 0, 0);
+        return create_color(0, 0, 0);
     }
     color.r = c.r * scalar;
     color.g = c.g * scalar;

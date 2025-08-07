@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 17:06:47 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:59:47 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_color calculate_diffuse(t_material material, t_color effective_color, float li
     t_color result;
 
     if (light_dot_normal < 0)
-        result = color(0, 0, 0);
+        result = create_color(0, 0, 0);
     else
         result = multiply_color_scalar(effective_color, material.diffuse * light_dot_normal);
 
@@ -44,7 +44,7 @@ t_color calculate_specular(t_material material, t_light light, t_tuple reflectv,
     reflect_dot_eye = vector_dot(reflectv, eyev);
 
     if (reflect_dot_eye <= 0)
-        result = color(0, 0, 0);
+        result = create_color(0, 0, 0);
     else
         result = multiply_color_scalar(light.intensity,
             material.specular * powf(reflect_dot_eye, material.shininess));

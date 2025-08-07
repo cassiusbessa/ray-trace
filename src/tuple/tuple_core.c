@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 12:05:31 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:49:59 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int	tuple_equal(t_tuple t1, t_tuple t2)
     return (fabs(t1.x - t2.x) < EPSILON &&
             fabs(t1.y - t2.y) < EPSILON &&
             fabs(t1.z - t2.z) < EPSILON &&
-            fabs(t1.w - t2.w) < EPSILON);
+            t1.w == t2.w);
 }
+
 
 t_tuple	negate_tuple(t_tuple t)
 {

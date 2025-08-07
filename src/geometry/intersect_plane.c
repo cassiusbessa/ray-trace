@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/07 08:08:36 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:57:37 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_tuple get_normal_plane(t_plane plane)
     return normalize_vector(plane.normal);
 }
 
-float intersect_plane(t_ray ray, t_plane plane)
+float intersect_plane_simple(t_ray ray, t_plane plane)
 {
     float denom;
     float t;
@@ -26,7 +26,7 @@ float intersect_plane(t_ray ray, t_plane plane)
     denom = vector_dot(ray.direction, plane.normal);
     if (fabs(denom) < EPSILON)
         return -1;
-    diff = subtract_tuple(plane.point, ray.origin);
+    diff = subtract_tuple(plane.position, ray.origin);
     t = vector_dot(diff, plane.normal) / denom;
     if (t < EPSILON)
         return -1;

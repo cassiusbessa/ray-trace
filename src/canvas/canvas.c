@@ -31,9 +31,9 @@ void	fill_black_canvas(t_canvas *canvas)
 		j = 0;
 		while (j < canvas->width)
 		{
-			canvas->pixels[i][j].r = 0;
-			canvas->pixels[i][j].g = 0;
-			canvas->pixels[i][j].b = 0;
+			canvas->pixels[i * canvas->width + j].r = 0;
+			canvas->pixels[i * canvas->width + j].g = 0;
+			canvas->pixels[i * canvas->width + j].b = 0;
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:32:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/31 17:24:00 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:59:17 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ t_color	shade_hit(t_world *world, t_intersection *hit, t_ray ray)
 	t_lighting_context		ctx;
 	t_color					result;
 
-	material = &hit->object->material;
+	t_sphere *sphere = (t_sphere *)hit->object; // Cast necessário
+	material = &sphere->material;
+
 	position_pt = position(ray, hit->t);
-	normalv = compute_normal(hit->object, position_pt);
+	normalv = compute_normal(sphere, position_pt); // Passa o sphere com cast
 	eyev = negate_tuple(ray.direction);
 	in_shadow = is_shadowed(world, position_pt);
 
 	mlp.material = *material;
-	mlp.light = world->light;
+	mlp.light = world->lights->light; // Corrige tipo
 
 	ctx.position = position_pt;
 	ctx.eyev = eyev;
@@ -40,6 +42,7 @@ t_color	shade_hit(t_world *world, t_intersection *hit, t_ray ray)
 	result = lighting(mlp, ctx);
 	return (result);
 }
+
 
 
 t_color	color_at(t_world *world, t_ray ray)
@@ -55,7 +58,7 @@ t_color	color_at(t_world *world, t_ray ray)
 	if (hit_intersec)
 		result = shade_hit(world, hit_intersec, ray);
 	else
-		result = color(0, 0, 0); // cor do fundo
+		result = create_color(0, 0, 0); // cor do fundo
 	free(intersections);
 	return (result);
 }
@@ -90,7 +93,8 @@ int	is_shadowed(t_world *world, t_tuple point)
 	t_intersection	*hit_intersec;
 	int				shadowed;
 
-	lightv = subtract_tuple(world->light.position, point);
+	lightv = subtract_tuple(world->lights->light.position, point);
+
 	distance = magnitude_vector(lightv);
 	direction = normalize_vector(lightv);
 	r = ray(point, direction);

@@ -6,13 +6,13 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 15:11:04 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:35:39 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_color	color(float r, float g, float b)
+t_color	create_color(float r, float g, float b)
 {
 	t_color	color;
 

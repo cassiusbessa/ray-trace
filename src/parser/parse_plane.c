@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/08/06 17:39:58 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:28:53 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,31 @@
 
 t_object *create_plane(t_tuple position, t_tuple orientation, t_color color)
 {
-    t_plane *plane;
-    t_object *object;
+	t_plane *plane;
+	t_object *object;
 
-    plane = malloc(sizeof(t_plane));
-    if (!plane)
-        return (NULL);
+	plane = malloc(sizeof(t_plane));
+	if (!plane)
+		return (NULL);
 
-    plane->position = position;
-    plane->orientation = orientation;
-    plane->color = color;
+	plane->position = position;
+	plane->normal = orientation; // ✅ usar 'normal'
+	plane->color = color;        // ✅ garantir que 'color' exista na struct
 
-    object = malloc(sizeof(t_object));
-    if (!object)
-    {
-        free(plane);
-        return (NULL);
-    }
+	object = malloc(sizeof(t_object));
+	if (!object)
+	{
+		free(plane);
+		return (NULL);
+	}
 
-    object->type = PLANE;
-    object->object = plane;
-    object->next = NULL;
+	object->type = PLANE;
+	object->object = plane;
+	object->next = NULL;
 
-    return (object);
+	return (object);
 }
+
 
 int parse_plane(const char *line, t_world *world)
 {

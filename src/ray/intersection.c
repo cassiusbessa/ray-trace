@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:32:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/07/31 21:49:59 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:07:06 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ t_intersection	*intersect(t_sphere *s, t_ray r, int *count)
 	float		a, b, c, discriminant;
 	t_intersection	*xs;
 
-	r2 = transform_ray(r, inverse(s->transform));
-	sphere_to_ray = sub(r2.origin, point(0, 0, 0));
-	a = dot(r2.direction, r2.direction);
-	b = 2 * dot(r2.direction, sphere_to_ray);
-	c = dot(sphere_to_ray, sphere_to_ray) - 1;
+	r2 = transform_ray(r, matrix_inverse(s->transform));
+	sphere_to_ray = subtract_tuple(r2.origin, point_tuple(0, 0, 0));
+	a = vector_dot(r2.direction, r2.direction);
+	b = 2 * vector_dot(r2.direction, sphere_to_ray);
+	c = vector_dot(sphere_to_ray, sphere_to_ray) - 1;
 	discriminant = b * b - 4 * a * c;
 
 	if (discriminant < 0)
@@ -66,7 +66,8 @@ int compare_intersections(const void *a, const void *b)
         return (1);
     return (0);
 }
-static t_intersection *resize_intersections(t_intersection *arr, int *capacity)
+
+t_intersection *resize_intersections(t_intersection *arr, int *capacity)
 {
     *capacity *= 2;
     t_intersection *new_arr;
@@ -80,7 +81,7 @@ static t_intersection *resize_intersections(t_intersection *arr, int *capacity)
     return (new_arr);
 }
 
-static int append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count)
+int append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count)
 {
     int i;
     
@@ -96,48 +97,52 @@ static int append_intersections(t_intersection **dst, int *total_count, int *cap
 }
 
 
-
 t_intersection *intersect_world(t_world *world, t_ray ray, int *count)
 {
-	t_intersection *intersections;
-	int total_count;
-	int capacity;
-	int local_count;
-	t_intersection *local_intersections;
-	t_object *current;
+    t_intersection *intersections;
+    int total_count;
+    int capacity;
+    int local_count;
+    t_intersection *local_intersections;
+    t_object *current;
 
-	intersections = malloc(sizeof(t_intersection) * 10);
-	if (!intersections)
-	{
-		fprintf(stderr, "Failed to allocate memory for intersections\n");
-		exit(1);
-	}
+    intersections = malloc(sizeof(t_intersection) * 10);
+    if (!intersections)
+    {
+        fprintf(stderr, "Failed to allocate memory for intersections\n");
+        exit(1);
+    }
 
-	total_count = 0;
-	capacity = 10;
-	local_count = 0;
-	local_intersections = NULL;
-	current = world->objects;
+    total_count = 0;
+    capacity = 10;
+    local_count = 0;
+    local_intersections = NULL;
+    current = world->objects;
 
-	while (current)
-	{
-		local_count = 0;
-		if (current->type == SPHERE)
-	        local_intersections = intersect((t_sphere *)current->object, ray, &local_count);
+    while (current)
+    {
+        local_count = 0;
+        if (current->type == SPHERE)
+        {
+            local_intersections = intersect((t_sphere *)current->object, ray, &local_count);
+        }
         else if (current->type == PLANE)
-	        local_intersections = intersect_plane((t_plane *)current->object, ray, &local_count);
+        {
+            local_intersections = intersect_plane((t_plane *)current->object, ray, &local_count);
+        }
         else if (current->type == CYLINDER)
-	        local_intersections = intersect_cylinder((t_cylinder *)current->object, ray, &local_count);
-		if (local_intersections)
-		{
-			append_intersections(&intersections, &total_count, &capacity, local_intersections, local_count);
-			free(local_intersections);
-		}
-		current = current->next;
-	}
+        {
+            local_intersections = intersect_cylinder((t_cylinder *)current->object, ray, &local_count);
+        }
+        if (local_intersections)
+        {
+            append_intersections(&intersections, &total_count, &capacity, local_intersections, local_count);
+            free(local_intersections);
+        }
+        current = current->next;
+    }
 
-	*count = total_count;
-	qsort(intersections, total_count, sizeof(t_intersection), compare_intersections);
-	return (intersections);
+    *count = total_count;
+    qsort(intersections, total_count, sizeof(t_intersection), compare_intersections);
+    return (intersections);
 }
-

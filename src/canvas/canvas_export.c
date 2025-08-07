@@ -6,14 +6,14 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 23:31:06 by mc-m-el-          #+#    #+#             */
-/*   Updated: 2025/07/31 16:15:05 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:50:36 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 
-static int clamp(float v)
+int clamp(float v)
 {
     if (v < 0.0f) return 0;
     if (v > 1.0f) return 255;

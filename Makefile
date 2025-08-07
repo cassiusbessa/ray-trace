@@ -3,20 +3,21 @@ NAME = miniRT
 
 # Compilador e flags
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iinclude -Iminilibx -Iutils/libft
+CFLAGS = -Wall -Wextra -Werror -Iinclude -Iincludes/minilibx-linux -Iutils/libft
 
 # Diretórios
 SRC_DIR = src
 OBJ_DIR = obj
-MLX_DIR = minilibx
+MLX_DIR = includes/minilibx-linux
+
 LIBFT_DIR = utils/libft
 
 # Bibliotecas
 LIBFT = $(LIBFT_DIR)/libft.a
-MLX_LIB = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lXrandr -lXrender
+MLX_LIB = $(MLX_DIR)/libmlx.a -lXext -lX11 -lm -lXrandr -lXrender
 
 # Busca todos os .c em subdiretórios de src/
-SRCS = $(shell find $(SRC_DIR) -name "*.c") Main.c
+SRCS = $(shell find $(SRC_DIR) -name "*.c")
 OBJS = $(SRCS:.c=.o)
 OBJS := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
@@ -44,6 +45,7 @@ $(MLX_DIR):
 # Limpeza de objetos
 clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean
+	@$(MAKE) -C $(MLX_DIR) clean
 	@rm -rf $(OBJ_DIR)
 	@echo "🧹 Objetos removidos"
 

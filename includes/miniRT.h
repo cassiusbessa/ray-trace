@@ -6,14 +6,14 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/07 09:56:24 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:57:27 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../minilibx-linux/mlx.h"
+# include "./minilibx-linux/mlx.h"
 # include "../utils/libft/libft.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -21,6 +21,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdbool.h>
+#include <ctype.h>
 
 // ----------------------
 // Macros e Tipos Básicos
@@ -86,6 +87,7 @@ typedef struct s_color {
 	float b;
 } t_color;
 
+
 typedef struct s_light {
 	t_tuple position;
 	t_color intensity;
@@ -149,9 +151,13 @@ typedef struct s_ray {
 } t_ray;
 
 typedef struct s_sphere {
+	t_tuple    position;
+	float      diameter;
+	t_color    color;
 	t_matrix   transform;
 	t_material material;
 } t_sphere;
+
 
 typedef struct s_cylinder {
 	t_tuple position;
@@ -164,6 +170,7 @@ typedef struct s_cylinder {
 typedef struct s_plane {
 	t_tuple position;
 	t_tuple normal;
+	t_color  color; 
 	t_matrix transform;
 } t_plane;
 
@@ -279,6 +286,7 @@ void		set_transform(t_sphere *s, t_matrix t);
 t_intersection	*intersect(t_sphere *s, t_ray r, int *count);
 t_intersection	*intersect_plane(t_plane *plane, t_ray ray, int *count);
 t_intersection	*intersect_cylinder(t_cylinder *cylinder, t_ray ray, int *count);
+float intersect_plane_simple(t_ray ray, t_plane plane);
 
 t_intersection	*hit(t_intersection *xs, int count);
 int				compare_intersections(const void *a, const void *b);
@@ -296,12 +304,13 @@ t_color		calculate_diffuse(t_material material, t_color effective_color, float l
 t_color		calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
 t_color		lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
 t_color		lighting(t_material_light_params mlp, t_lighting_context ctx);
+t_rgb color_to_rgb(t_color c);
 
 // ----------------------
 // Color functions
 // ----------------------
 
-t_color		color(float r, float g, float b);
+t_color		create_color(float r, float g, float b);
 t_color		add_color(t_color c1, t_color c2);
 t_color		subtract_color(t_color c1, t_color c2);
 t_color		multiply_color_scalar(t_color c, float scalar);
@@ -371,12 +380,18 @@ float   deg_to_rad(float degrees);
 
 t_roots solve_quadratic(float a, float b, float c);
 int is_within_cylinder_height(t_tuple point, t_cylinder c, t_tuple axis);
-float intersect_cylinder(t_ray ray, t_cylinder c);
+float intersect_cylinder_simple(t_ray ray, t_cylinder c);
 float cylinder_intersect(t_ray ray, t_cylinder c);
 float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius);
 float hit_caps(t_ray ray, t_cylinder c);
 t_tuple get_normal_cylinder(t_cylinder c, t_tuple point);
 t_tuple get_normal_plane(t_plane plane);
+
+
+t_rgb canvas_get_pixel(t_canvas *canvas, int x, int y);
+int	handle_keypress(int keycode, t_mlx *mlx);
+int	handle_close(t_mlx *mlx);
+void draw_canvas_to_image(t_canvas *canvas, t_img *img);
 
 #endif
 
