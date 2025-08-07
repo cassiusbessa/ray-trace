@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/07 08:06:18 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 08:35:11 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef int	t_bool;
 #define TRUE 1
 #define FALSE 0
 
-
 typedef struct {
     float t1;
     float t2;
     int valid;  // 1 se tem solução, 0 se não tem
 } t_roots;
+
 // ----------------------
 // Structs Matemáticas
 // ----------------------
@@ -141,9 +141,15 @@ typedef struct s_cylinder {
 	t_color color;
 } t_cylinder;
 
+typedef struct s_plane {
+	t_tuple position;
+	t_tuple normal;
+	t_matrix transform;
+} t_plane;
+
 typedef struct s_intersection {
 	float      t;
-	t_sphere  *object;
+	void      *object; // pode apontar para esfera, plano, cilindro
 } t_intersection;
 
 // ----------------------
@@ -251,11 +257,14 @@ void		set_transform(t_sphere *s, t_matrix t);
 // ----------------------
 
 t_intersection	*intersect(t_sphere *s, t_ray r, int *count);
+t_intersection	*intersect_plane(t_plane *plane, t_ray ray, int *count);
+t_intersection	*intersect_cylinder(t_cylinder *cylinder, t_ray ray, int *count);
+
 t_intersection	*hit(t_intersection *xs, int count);
-int compare_intersections(const void *a, const void *b);
-static t_intersection *resize_intersections(t_intersection *arr, int *capacity);
-static int append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count);
-t_intersection *intersect_world(t_world *world, t_ray ray, int *count);
+int				compare_intersections(const void *a, const void *b);
+t_intersection	*resize_intersections(t_intersection *arr, int *capacity);
+int				append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count);
+t_intersection	*intersect_world(t_world *world, t_ray ray, int *count);
 
 // ----------------------
 // Light and Material functions
@@ -296,7 +305,7 @@ void		canvas_to_ppm(t_canvas *canvas, const char *filename);
 // ----------------------
 
 t_ray		ray_for_pixel(t_camera c, int px, int py);
-void		render(t_camera c, t_world w, t_canvas *canvas);
+void render(t_world w, t_canvas *canvas);
 
 // ----------------------
 // Ray tracing core functions
@@ -324,18 +333,17 @@ int     starts_with(const char *line, const char *prefix);
 void    free_split(char **tokens);
 void    print_error(const char *msg);
 
-void free_parsed_world(t_world *world, int should_free_world);
+void    free_parsed_world(t_world *world, int should_free_world);
 int     parse_vector(const char *str, t_tuple *out_vector);
-int parse_point(const char *str, t_tuple *point);
+int     parse_point(const char *str, t_tuple *point);
 int     parse_color(const char *str, t_color *out_color);
 int     is_normalized(t_tuple v);
-void add_object_to_world(t_world *world, t_object *new_object);
+void    add_object_to_world(t_world *world, t_object *new_object);
 t_object *new_cylinder(t_tuple position, t_tuple orientation, float diameter, float height, t_color color);
 t_object *create_sphere(t_tuple position, float diameter, t_color color);
 t_object *create_plane(t_tuple position, t_tuple orientation, t_color color);
 double  ft_atod(const char *nptr);
 float   deg_to_rad(float degrees);
-
 
 // ----------------------
 // Geometry functions
@@ -344,26 +352,13 @@ float   deg_to_rad(float degrees);
 t_roots solve_quadratic(float a, float b, float c);
 int is_within_cylinder_height(t_tuple point, t_cylinder c, t_tuple axis);
 float intersect_cylinder(t_ray ray, t_cylinder c);
-static float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius);
-static float hit_caps(t_ray ray, t_cylinder c);
 float cylinder_intersect(t_ray ray, t_cylinder c);
+float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius);
+float hit_caps(t_ray ray, t_cylinder c);
 t_tuple get_normal_cylinder(t_cylinder c, t_tuple point);
-
-t_vector get_normal_plane(t_plane plane);
-t_tuple	get_normal_cylinder(t_cylinder c, t_tuple point);
-
+t_tuple get_normal_plane(t_plane plane);
 
 #endif
-
-
-
-
-
-
-
-
-
-
 
 
 
