@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/06 18:35:45 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/07 08:06:18 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ typedef int	t_bool;
 #define TRUE 1
 #define FALSE 0
 
+
+typedef struct {
+    float t1;
+    float t2;
+    int valid;  // 1 se tem solução, 0 se não tem
+} t_roots;
 // ----------------------
 // Structs Matemáticas
 // ----------------------
@@ -329,6 +335,23 @@ t_object *create_sphere(t_tuple position, float diameter, t_color color);
 t_object *create_plane(t_tuple position, t_tuple orientation, t_color color);
 double  ft_atod(const char *nptr);
 float   deg_to_rad(float degrees);
+
+
+// ----------------------
+// Geometry functions
+// ----------------------
+
+t_roots solve_quadratic(float a, float b, float c);
+int is_within_cylinder_height(t_tuple point, t_cylinder c, t_tuple axis);
+float intersect_cylinder(t_ray ray, t_cylinder c);
+static float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius);
+static float hit_caps(t_ray ray, t_cylinder c);
+float cylinder_intersect(t_ray ray, t_cylinder c);
+t_tuple get_normal_cylinder(t_cylinder c, t_tuple point);
+
+t_vector get_normal_plane(t_plane plane);
+t_tuple	get_normal_cylinder(t_cylinder c, t_tuple point);
+
 
 #endif
 

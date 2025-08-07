@@ -11,60 +11,65 @@ raytracer_c/
 │   └── miniRT.h
 │
 ├── src/
-│   ├── tuple/
-│   │   ├── tuple_core.c          # create_tuple, point, vector, color, is_point/is_vector
-│   │   ├── tuple_math.c          # add_tuples, subtract_tuples, negate_tuple, multiply_tuple, divide_tuple
-│   │   ├── tuple_vector.c        # magnitude, normalize, dot, cross
-│   │   └── tuple_utils.c         # equal_tuples, is_zero_vector, is_unit_vector, is_nan, is_finite
-│   │
-│   ├── matrix/
-│   │   ├── matrix_core.c         # new_matrix, identity_matrix, free_matrix, print_matrix, equal_matrix
-│   │   ├── matrix_math.c         # matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, minor
-│   │   ├── matrix_determinant.c  # matrix_determinant, matrix_determinant_2x2, matrix_cofactor, matrix_is_invertible
-│   │   └── matrix_inverse.c      # matrix_inverse
-│   │
-│   ├── transformations/
-│   │   ├── translation_scaling.c # translation, scaling
-│   │   ├── rotation.c            # rotation_x, rotation_y, rotation_z
-│   │   └── shearing.c            # shearing
-│   │
-│   ├── ray/
-│   │   ├── ray.c                 # create_ray, ray_position, transform_ray
-│   │   ├── sphere.c              # create_sphere, set_transform, get_transform, default_sphere
-│   │   └── intersection.c        # create_intersection, intersect, hit, prepare_computations, compare_intersections, resize_intersections, append_intersections, intersect_world
-│   │
-│   ├── lighting/
-│   │   ├── point_light.c         # create_point_light
-│   │   ├── default_material.c    # default_material, set_material_props
-│   │   ├── ray_tracer_core.c     # shade_hit, color_at, compute_normal, is_shadowed
-│   │   └── lighting.c            # lighting_calculation, is_shadowed, reflect
-│   │
-│   ├── color/
-│   │   ├── color_utils_1.c       # create_color, color_add, color_subtract
-│   │   └── color_utils_2.c       # color_multiply, hadamard_product, clamp_color
-│   │
 │   ├── camera/                   # Tudo relacionado a gerar raios e manipular a câmera
+│   │   ├── camera_utils.c        # Futuras utilidades da câmera
 │   │   ├── ray_for_pixel.c       # Função ray_for_pixel
-│   │   ├── render.c              # Função render (usa ray_for_pixel)
-│   │   └── camera_utils.c        # Futuras utilidades da câmera
-│   │
+│   │   └── render.c              # Função render (usa ray_for_pixel)
+│
 │   ├── canvas/                   # Tudo sobre imagem, pixels e exportação
 │   │   ├── canvas.c              # create_canvas, write_pixel
 │   │   ├── canvas_export.c       # canvas_to_ppm, clamp
 │   │   └── canvas_utils.c        # Funções auxiliares para canvas
-│   │
+│
+│   ├── color/
+│   │   ├── color_utils_1.c       # create_color, color_add, color_subtract
+│   │   └── color_utils_2.c       # color_multiply, hadamard_product, clamp_color
+│
+│   ├── geometry/                 # Lógica de interseção para objetos geométricos
+│   │   ├── intersect_cylinder.c  # intersect_cylinder, hit_caps, get_normal_cylinder
+│   │   └── intersect_plane.c     # intersect_plane, get_normal_plane
+│
+│   ├── lighting/
+│   │   ├── default_material.c    # default_material, set_material_props
+│   │   ├── lighting.c            # lighting_calculation, is_shadowed, reflect
+│   │   ├── point_light.c         # create_point_light
+│   │   └── ray_tracer_core.c     # shade_hit, color_at, compute_normal, is_shadowed
+│
+│   ├── matrix/
+│   │   ├── matrix_core.c         # new_matrix, identity_matrix, free_matrix, print_matrix, equal_matrix
+│   │   ├── matrix_determinant.c  # matrix_determinant, matrix_determinant_2x2, matrix_cofactor, matrix_is_invertible
+│   │   ├── matrix_inverse.c      # matrix_inverse
+│   │   └── matrix_math.c         # matrix_multiply_by_matrix, matrix_multiply_by_tuple, transpose_matrix, submatrix, minor
+│
 │   ├── parser/
-│   │   ├── parser.c              # Função principal do parser: abre o arquivo e chama funções específicas
-│   │   ├── parser_utils_1.c      # Funções auxiliares para manipulação de strings, validação, split, etc.
-│   │   ├── parser_utils_2.c      # Funções auxiliares para manipulação de strings, validação, split, etc.
 │   │   ├── parse_ambient.c       # Parser para luz ambiente (A)
 │   │   ├── parse_camera.c        # Parser para câmera (C)
-│   │   ├── parse_light.c         # Parser para luz pontual (L)
-│   │   ├── parse_sphere.c        # Parser para esfera (sp)
-│   │   ├── parse_plane.c         # Parser para plano (pl)
 │   │   ├── parse_cylinder.c      # Parser para cilindro (cy)
-│   │   └── parser.h              # Prototypes e structs específicas do parser
-│   │
+│   │   ├── parse_light.c         # Parser para luz pontual (L)
+│   │   ├── parse_plane.c         # Parser para plano (pl)
+│   │   ├── parse_sphere.c        # Parser para esfera (sp)
+│   │   ├── parser.c              # Função principal do parser
+│   │   ├── parser.h              # Prototypes e structs específicas do parser
+│   │   ├── parser_utils_1.c      # Funções auxiliares (split, validação, etc.)
+│   │   └── parser_utils_2.c      # Funções auxiliares (validação, conversão, etc.)
+│
+│   ├── ray/
+│   │   ├── intersection.c        # create_intersection, intersect, hit, prepare_computations, etc.
+│   │   ├── ray.c                 # create_ray, ray_position, transform_ray
+│   │   ├── sphere.c              # create_sphere, set_transform, get_transform, default_sphere
+│   │   └── world.c               # intersect_world, lighting, etc. (se existir)
+│
+│   ├── transformations/
+│   │   ├── rotation.c            # rotation_x, rotation_y, rotation_z
+│   │   ├── shearing.c            # shearing
+│   │   └── translation_scaling.c # translation, scaling
+│
+│   ├── tuple/
+│   │   ├── tuple_core.c          # create_tuple, point, vector, color, is_point/is_vector
+│   │   ├── tuple_math.c          # add_tuples, subtract_tuples, negate_tuple, multiply_tuple, divide_tuple
+│   │   ├── tuple_utils.c         # equal_tuples, is_zero_vector, is_unit_vector, is_nan, is_finite
+│   │   └── tuple_vector.c        # magnitude, normalize, dot, cross
+│
 │   └── Makefile
 │
 └── README.md
@@ -177,127 +182,183 @@ Sprint 10: Integração com MiniLibX (Janela Gráfica)
 ===========================
 Funções por Arquivo
 ===========================
+// ----------------------
+// Tuple functions
+// ----------------------
 
----------------------------
-tuple.h
----------------------------
-t_tuple     new_tuple(float x, float y, float z, t_bool is_point);
-t_tuple     add_tuple(t_tuple t1, t_tuple t2);
-t_tuple     subtract_tuple(t_tuple t1, t_tuple t2);
-t_tuple     multiply_tuple(t_tuple t, float scalar);
-t_tuple     divide_tuple(t_tuple t, float scalar);
+t_tuple		new_tuple(float x, float y, float z, t_bool is_point);
+t_tuple		add_tuple(t_tuple t1, t_tuple t2);
+t_tuple		subtract_tuple(t_tuple t1, t_tuple t2);
+t_tuple		multiply_tuple(t_tuple t, float scalar);
+t_tuple		negate_tuple(t_tuple t);
+t_tuple		divide_tuple(t_tuple t, float scalar);
+t_tuple		normalize_vector(t_tuple t);
+t_tuple		vector_cross(t_tuple t1, t_tuple t2);
+t_tuple		vector_tuple(float x, float y, float z);
+t_tuple		point_tuple(float x, float y, float z);
 
-t_tuple     negate_tuple(t_tuple t);
-t_tuple     normalize_vector(t_tuple t);
-t_tuple     vector_cross(t_tuple t1, t_tuple t2);
-t_tuple     vector_tuple(float x, float y, float z);
-t_tuple     point_tuple(float x, float y, float z);
+float		magnitude_vector(t_tuple t);
+float		vector_dot(t_tuple t1, t_tuple t2);
+int			tuple_equal(t_tuple t1, t_tuple t2);
 
-float       magnitude_vector(t_tuple t);
-float       vector_dot(t_tuple t1, t_tuple t2);
-int         tuple_equal(t_tuple t1, t_tuple t2);
-double      get_tuple_value(t_tuple t, int index);
-void        set_tuple_value(t_tuple *t, int index, double value);
+double		get_tuple_value(t_tuple t, int index);
+void		set_tuple_value(t_tuple *t, int index, double value);
 
----------------------------
-matrix.h
----------------------------
-t_matrix    identity_matrix(int size);
-t_bool      equal_matrix(t_matrix m1, t_matrix m2);
-t_matrix    matrix_multiply_by_matrix(t_matrix a, t_matrix b);
-t_tuple     matrix_multiply_by_tuple(t_matrix m, t_tuple t);
-t_matrix    transpose_matrix(t_matrix matrix);
+// ----------------------
+// Matrix functions
+// ----------------------
 
-t_matrix    submatrix(t_matrix matrix, int row, int col);
-t_matrix    matrix_inverse(t_matrix matrix);
-t_matrix    new_matrix(int rows, int cols);
-int         matrix_determinant(t_matrix matrix);
-int         matrix_minor(t_matrix matrix, int row, int col);
+t_matrix	identity_matrix(int size);
+t_bool		equal_matrix(t_matrix m1, t_matrix m2);
+t_matrix	matrix_multiply_by_matrix(t_matrix a, t_matrix b);
+t_tuple		matrix_multiply_by_tuple(t_matrix m, t_tuple t);
+t_matrix	transpose_matrix(t_matrix matrix);
+t_matrix	submatrix(t_matrix matrix, int row, int col);
+t_matrix	matrix_inverse(t_matrix matrix);
+t_matrix	new_matrix(int rows, int cols);
 
-int         matrix_cofactor(t_matrix matrix, int row, int col);
-int         matrix_is_invertible(t_matrix matrix);
-int         matrix_determinant_2x2(t_matrix matrix);
-void        print_matrix(t_matrix matrix);
-void        free_matrix(t_matrix matrix);
+int			matrix_determinant(t_matrix matrix);
+int			matrix_minor(t_matrix matrix, int row, int col);
+int			matrix_cofactor(t_matrix matrix, int row, int col);
+int			matrix_is_invertible(t_matrix matrix);
+int			matrix_determinant_2x2(t_matrix matrix);
 
----------------------------
-transforms.h
----------------------------
-t_matrix    translation(int size, float *data);
-t_matrix    scaling(int size, float *data);
-t_matrix    rotation_x(float r);
-t_matrix    rotation_y(float r);
-t_matrix    rotation_z(float r);
-t_matrix    shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+void		print_matrix(t_matrix matrix);
+void		free_matrix(t_matrix matrix);
 
----------------------------
-ray.h
----------------------------
-t_ray       ray(t_tuple origin, t_tuple direction);
-t_tuple     position(t_ray r, float t);
-t_ray       transform_ray(t_ray r, t_matrix m);
+// ----------------------
+// Matrix transformations
+// ----------------------
 
----------------------------
-sphere.h
----------------------------
-t_sphere    sphere(void);
-void        set_transform(t_sphere *s, t_matrix t);
-t_tuple     compute_normal(t_sphere *sphere, t_tuple point);
+t_matrix	translation(int size, float *data);
+t_matrix	scaling(int size, float *data);
+t_matrix	rotation_x(float r);
+t_matrix	rotation_y(float r);
+t_matrix	rotation_z(float r);
+t_matrix	shearing(float xy, float xz, float yx, float yz, float zx, float zy);
+t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up);
+t_matrix	translation_matrix(float tx, float ty, float tz);
 
----------------------------
-intersection.h
----------------------------
-t_intersection *intersect(t_sphere *s, t_ray r, int *count);
-t_intersection *hit(t_intersection *xs, int count);
+// ----------------------
+// Ray functions
+// ----------------------
 
----------------------------
-light.h
----------------------------
-t_light     point_light(t_tuple position, t_color intensity);
+t_ray		ray(t_tuple origin, t_tuple direction);
+t_tuple		position(t_ray r, float t);
+t_ray		transform_ray(t_ray r, t_matrix m);
 
----------------------------
-material.h
----------------------------
-t_material  default_material(void);
-t_color     lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
-t_color     calculate_diffuse(t_material material, t_color effective_color, float light_dot_normal);
-t_color     calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
-t_color     lighting(t_material_light_params mlp, t_lighting_context ctx);
+// ----------------------
+// Sphere functions
+// ----------------------
 
----------------------------
-color.h
----------------------------
-t_color     color(float r, float g, float b);
-t_color     add_color(t_color c1, t_color c2);
-t_color     subtract_color(t_color c1, t_color c2);
-t_color     multiply_color_scalar(t_color c, float scalar);
-t_color     multiply_color(t_color c1, t_color c2);
-int         color_equal(t_color c1, t_color c2);
+t_sphere	sphere(void);
+void		set_transform(t_sphere *s, t_matrix t);
 
----------------------------
-canvas.h
----------------------------
-t_canvas    *new_canvas(int width, int height);
-t_rgb       *pixel_at(t_canvas *canvas, int x, int y);
-void        write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
-void        free_canvas(t_canvas *canvas);
-void        fill_black_canvas(t_canvas *canvas);
-void        canvas_to_ppm(t_canvas *canvas, const char *filename);
-int         clamp(float v);
+// ----------------------
+// Intersection functions
+// ----------------------
 
----------------------------
-camera.h
----------------------------
-t_ray       ray_for_pixel(t_camera c, int px, int py);
-void        render(t_camera c, t_world w, t_canvas *canvas);
+t_intersection	*intersect(t_sphere *s, t_ray r, int *count);
+t_intersection	*hit(t_intersection *xs, int count);
+int compare_intersections(const void *a, const void *b);
+static t_intersection *resize_intersections(t_intersection *arr, int *capacity);
+static int append_intersections(t_intersection **dst, int *total_count, int *capacity, t_intersection *src, int src_count);
+t_intersection *intersect_world(t_world *world, t_ray ray, int *count);
 
----------------------------
-ray_tracer_core.h
----------------------------
-t_color     shade_hit(t_world *world, t_intersection *hit, t_ray ray);
-t_color     color_at(t_world *world, t_ray ray);
-int         is_shadowed(t_world *world, t_tuple point);
+// ----------------------
+// Light and Material functions
+// ----------------------
 
+t_light		point_light(t_tuple position, t_color intensity);
+t_material	default_material(void);
+t_color		calculate_diffuse(t_material material, t_color effective_color, float light_dot_normal);
+t_color		calculate_specular(t_material material, t_light light, t_tuple reflectv, t_tuple eyev);
+t_color		lighting_diffuse_specular(t_material_light_params mlp, t_lighting_context ctx);
+t_color		lighting(t_material_light_params mlp, t_lighting_context ctx);
+
+// ----------------------
+// Color functions
+// ----------------------
+
+t_color		color(float r, float g, float b);
+t_color		add_color(t_color c1, t_color c2);
+t_color		subtract_color(t_color c1, t_color c2);
+t_color		multiply_color_scalar(t_color c, float scalar);
+t_color		multiply_color(t_color c1, t_color c2);
+int			color_equal(t_color c1, t_color c2);
+
+// ----------------------
+// Canvas functions
+// ----------------------
+
+void		free_canvas(t_canvas *canvas);
+void		fill_black_canvas(t_canvas *canvas);
+t_canvas	*new_canvas(int width, int height);
+t_rgb		*pixel_at(t_canvas *canvas, int x, int y);
+void		write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
+int			clamp(float v);
+void		canvas_to_ppm(t_canvas *canvas, const char *filename);
+
+// ----------------------
+// Camera functions
+// ----------------------
+
+t_ray		ray_for_pixel(t_camera c, int px, int py);
+void		render(t_camera c, t_world w, t_canvas *canvas);
+
+// ----------------------
+// Ray tracing core functions
+// ----------------------
+
+t_color		shade_hit(t_world *world, t_intersection *hit, t_ray ray);
+t_color		color_at(t_world *world, t_ray ray);
+t_tuple		compute_normal(t_sphere *sphere, t_tuple point);
+int			is_shadowed(t_world *world, t_tuple point);
+
+// ----------------------
+// Parser functions
+// ----------------------
+
+int     parse_rt_file(const char *filename, t_world *world);
+int     parse_ambient(const char *line, t_world *world);
+int     parse_camera(const char *line, t_world *world);
+int     parse_light(const char *line, t_world *world);
+int     parse_sphere(const char *line, t_world *world);
+int     parse_plane(const char *line, t_world *world);
+int     parse_cylinder(const char *line, t_world *world);
+
+int     line_is_empty_or_comment(const char *line);
+int     starts_with(const char *line, const char *prefix);
+void    free_split(char **tokens);
+void    print_error(const char *msg);
+
+void free_parsed_world(t_world *world, int should_free_world);
+int     parse_vector(const char *str, t_tuple *out_vector);
+int parse_point(const char *str, t_tuple *point);
+int     parse_color(const char *str, t_color *out_color);
+int     is_normalized(t_tuple v);
+void add_object_to_world(t_world *world, t_object *new_object);
+t_object *new_cylinder(t_tuple position, t_tuple orientation, float diameter, float height, t_color color);
+t_object *create_sphere(t_tuple position, float diameter, t_color color);
+t_object *create_plane(t_tuple position, t_tuple orientation, t_color color);
+double  ft_atod(const char *nptr);
+float   deg_to_rad(float degrees);
+
+
+// ----------------------
+// Geometry functions
+// ----------------------
+
+t_roots solve_quadratic(float a, float b, float c);
+int is_within_cylinder_height(t_tuple point, t_cylinder c, t_tuple axis);
+float intersect_cylinder(t_ray ray, t_cylinder c);
+static float intersect_disk(t_ray ray, t_tuple center, t_tuple axis, float radius);
+static float hit_caps(t_ray ray, t_cylinder c);
+float cylinder_intersect(t_ray ray, t_cylinder c);
+t_tuple get_normal_cylinder(t_cylinder c, t_tuple point);
+
+t_vector get_normal_plane(t_plane plane);
+t_tuple	get_normal_cylinder(t_cylinder c, t_tuple point);
 
 ---
 
@@ -320,18 +381,15 @@ clean:
 
 ---
 
-Se quiser, posso continuar agora com o  ### Sprint 7: Parser do Arquivo .rt e Estrutura de Cena (world)
------------------------------------------------------------
-- Implementar parser do arquivo .rt para:
-    - Ambient (A)
-    - Camera (C)
-    - Light (L)
-    - Objetos: Sphere (sp), Plane (pl), Cylinder (cy)
-- Criar structs da cena (t_world):
-    - Listas/arrays de objetos e luzes
-- Validar e tratar erros do .rt:
-    - Formato inválido, valores fora do padrão
-- Testar leitura de arquivos .rt reais
+Se quiser, posso continuar agora com o  ------------------------------------------------------
+Sprint 8: Plano e Cilindro (Geometria Avançada)
+------------------------------------------------------
+- Implementar interseção para Plano (pl)
+- Implementar interseção e normais para Cilindro (cy):
+    - Considerar altura, raio, tampas
+- Suportar transformações em todos os objetos
+- Testar interseções e normais, inclusive internas
+
  
  
- Quero que eu avance com isso
+ Quero que eu avance com isso porem desejo que voc crie uma forma de me explicar com detalhes e me ensinar o que eu estou fazendo, se preocupe por cada detalhe e cada instrução na sprint 8, use todo conhecimento acima para conseguir essa tarefa
