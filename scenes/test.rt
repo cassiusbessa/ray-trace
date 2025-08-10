@@ -1,0 +1,10 @@
+# Exemplo básico de cena miniRT
+
+# Câmera
+C 0,0,0 0,0,1 70
+
+# Luz
+L 10,10,10 0.7 255,255,255
+
+# Esfera
+sp 0,0,20 5 255,0,0

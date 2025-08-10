@@ -1,0 +1,44 @@
+# Binários e arquivos de build
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
+*.dylib
+*.obj
+*.elf
+
+# Diretórios de build
+/build/
+/bin/
+/dist/
+/Debug/
+/Release/
+
+# Arquivos de log ou temporários
+*.log
+*.tmp
+*.swp
+*.bak
+*~
+
+# Arquivos gerados pelo programa
+/images/*.ppm
+*.ppm
+
+# Arquivos de configuração locais
+.env
+.env.local
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de testes temporários
+/tests/*.out
+/tests/*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
