@@ -3,12 +3,10 @@
 void	free_canvas(t_canvas *canvas)
 {
     int	i;
-    int j;
 
     i = 0;
     while (i < canvas->height)
     {
-        j = 0;
         free(canvas->pixels[i]);
         i++;
     }

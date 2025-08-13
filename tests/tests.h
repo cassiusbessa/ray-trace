@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/23 01:16:18 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/08/13 20:27:58 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int     identity_matrix_tests(void);
 int     rotate_matrix_tests(void);
 int     test_determinant_2x2_matrix(void);
 int     test_submatrix(void);
+int     test_minor_matrix(void);
 
 #endif
