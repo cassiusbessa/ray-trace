@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 16:22:47 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:07:00 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ int     run_test_scaling(void);
 int     run_test_rotation(void);
 int     run_test_shearing(void);
 int     run_test_chained_transformations(void);
+int     run_test_ray(void);
 
 #endif

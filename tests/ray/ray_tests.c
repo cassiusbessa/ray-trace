@@ -31,7 +31,6 @@ static int test_ray_position(void)
 
     p = ray_position(r, 0);
     errors += test_check(equal_tuples(p, point(2, 3, 4)), "position at t=0 should be the origin of the ray");
-    // errors += test_check_tuple(p, point(2, 3, 4), "position at t=0");
 
     p = ray_position(r, 1);
     errors += test_check(equal_tuples(p, point(3, 3, 4)), "position at t=1 should be one unit in the direction of the ray");
@@ -53,9 +52,9 @@ int run_test_ray(void)
     errors += test_ray_position();
 
     if (errors == 0)
-        test_success("✅ Ray tests passed!");
+        printf("\n🎉 Ray tests fine!\n");
     else
-        test_failure("❌ Ray tests failed.");
+        printf("\n❌ Ray tests failed.\n");
 
     return errors;
 }

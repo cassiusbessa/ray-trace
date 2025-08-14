@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   translation_point_test.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:05:12 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 16:00:42 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:08:01 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.h"
-
-#define TRUE 1
-#define FALSE 0
 
 static int test_translation_matrix(void)
 {
@@ -70,13 +67,9 @@ int run_test_translation_point(void)
     errors += test_translation_matrix();
     errors += test_translation_inverse();
     if (errors == 0)
-    {
         test_success("Translation point tests passed!");
-    }
     else
-    {
         test_failure("Translation point tests failed.");
-    }
     
     return (errors);
 }
