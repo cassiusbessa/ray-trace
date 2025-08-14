@@ -20,8 +20,8 @@ static t_matrix matrix_a(void)
 static int test_cofactor_matrix1(void)
 {
     t_matrix    matrix;
-    int         cofactor;
-    int         expected_cofactor;
+    double         cofactor;
+    double         expected_cofactor;
     int         errors;
 
     matrix = matrix_a();
@@ -31,7 +31,7 @@ static int test_cofactor_matrix1(void)
     errors += test_check_double(cofactor, expected_cofactor, "cofactor_matrix");
     if (cofactor != expected_cofactor)
     {
-        printf("Error: cofactor_matrix() returned %d, expected %d\n", cofactor, expected_cofactor);
+        printf("Error: cofactor_matrix() returned %f, expected %f\n", cofactor, expected_cofactor);
         errors++;
     }
     free_matrix(matrix);
@@ -41,8 +41,8 @@ static int test_cofactor_matrix1(void)
 static int test_cofactor_matrix2(void)
 {
     t_matrix    matrix;
-    int         cofactor;
-    int         expected_cofactor;
+    double         cofactor;
+    double         expected_cofactor;
     int         errors;
 
     matrix = matrix_a();
@@ -52,7 +52,7 @@ static int test_cofactor_matrix2(void)
     errors += test_check_double(cofactor, expected_cofactor, "cofactor_matrix");
     if (cofactor != expected_cofactor)
     {
-        printf("Error: cofactor_matrix() returned %d, expected %d\n", cofactor, expected_cofactor);
+        printf("Error: cofactor_matrix() returned %f, expected %f\n", cofactor, expected_cofactor);
         errors++;
     }
     free_matrix(matrix);

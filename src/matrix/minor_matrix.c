@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   minor_matrix.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 14:08:04 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 19:59:45 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../includes/miniRT.h"
 
 #include "../../includes/miniRT.h"
 

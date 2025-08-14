@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 20:21:29 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/13 20:36:14 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 20:02:34 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static t_matrix matrix_a(void)
 int test_minor_matrix(void)
 {
     t_matrix    matrix;
-    int         minor;
-    int         expected_minor;
+    double         minor;
+    double         expected_minor;
     int         errors;
 
     matrix = matrix_a();
@@ -41,11 +41,10 @@ int test_minor_matrix(void)
     expected_minor = 25;
     errors = 0;
     errors += test_check_double(minor, expected_minor, "minor_matrix");
-    if (minor != expected_minor)
-    {
-        printf("Error: minor_matrix() returned %d, expected %d\n", minor, expected_minor);
-        errors++;
-    }
+    if (errors)
+        test_failure("minor_matrix");
+    else
+        test_success("minor_matrix");
     free_matrix(matrix);
     return (errors);
 }
