@@ -81,7 +81,8 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/transformation/scaling.c \
             $(CORE_DIR)/transformation/rotation.c \
             $(CORE_DIR)/transformation/shearing.c \
-            $(CORE_DIR)/ray/ray.c 
+            $(CORE_DIR)/ray/ray.c \
+            $(CORE_DIR)/ray/ray_utils.c
 
 TEST_SRCS += $(CORE_SRCS)
 

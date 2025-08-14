@@ -47,6 +47,7 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(TRANSF_DIR)/rotation.c \
 			  $(TRANSF_DIR)/shearing.c \
 			  $(RAY_DIR)/ray.c \
+			  $(RAY_DIR)/ray_utils.c \
 			  src/thick.c
 
 # Arquivos de objeto
