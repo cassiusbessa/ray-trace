@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 20:33:24 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/13 21:22:49 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,7 @@ t_matrix	transpose_matrix(t_matrix matrix);
 int			matrix_determinant_2x2(t_matrix matrix);
 t_matrix	submatrix(t_matrix matrix, int row, int col);
 int			minor_matrix(t_matrix matrix, int row, int col);
+int			cofactor_matrix(t_matrix matrix, int row, int col);
+int			determinant_matrix(t_matrix a);
 
 #endif

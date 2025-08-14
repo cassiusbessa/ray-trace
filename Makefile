@@ -35,6 +35,8 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(MATRIX_DIR)/matrix_multiply.c \
 			  $(MATRIX_DIR)/matrix_rotate.c \
 			  $(MATRIX_DIR)/minor_matrix.c \
+			  $(MATRIX_DIR)/cofactor_matrix.c \
+			  $(MATRIX_DIR)/matrix_determinant.c \
 			  $(MLX_DIR)/open_mlx_screen.c \
 			  $(MLX_DIR)/canvas_to_mlx_image.c \
 			  src/thick.c

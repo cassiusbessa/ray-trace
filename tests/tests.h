@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 20:27:58 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/13 21:33:28 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ int		all_multiply_matrix_by_matrix_tests(void);
 int     test_multiply_matrix_by_tuple(void);
 int     identity_matrix_tests(void);
 int     rotate_matrix_tests(void);
-int     test_determinant_2x2_matrix(void);
 int     test_submatrix(void);
 int     test_minor_matrix(void);
+int     test_cofactor_matrix(void);
+int     test_determinant_matrix(void);
 
 #endif

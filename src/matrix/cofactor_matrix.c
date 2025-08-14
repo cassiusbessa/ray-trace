@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests.c                                            :+:      :+:    :+:   */
+/*   cofactor_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 20:54:51 by cassius          ###   ########.fr       */
+/*   Created: 2025/08/13 20:41:07 by cassius           #+#    #+#             */
+/*   Updated: 2025/08/13 20:50:15 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#include "../../includes/miniRT.h"
 
-int    main(void)
+int cofactor_matrix(t_matrix matrix, int row, int col)
 {
-    int errors;
+    int minor;
 
-    errors = 0;
-    errors += tuple_tests();
-    errors += vector_tests();
-    errors += all_rgb_tests();
-    errors += canvas_tests();
-    errors += all_matrix_tests();
-    if (errors == 0)
-        ft_printf("\n🎉 All tests fine!\n");
-    else
-        ft_printf("\n❌ %d tests failed.\n", errors);
-    return (0);
+    minor = minor_matrix(matrix, row, col);
+    if ((row + col) % 2 == 0)
+        return (minor);
+    return (-minor);
 }
