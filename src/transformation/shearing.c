@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minor_matrix.c                                     :+:      :+:    :+:   */
+/*   shearing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 14:08:04 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 16:08:11 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-#include "../../includes/miniRT.h"
-
-double minor_matrix(t_matrix matrix, int row, int col)
+t_matrix shearing_matrix(float xy, float xz, float yx, float yz, float zx, float zy)
 {
-    t_matrix sub;
-    double det;
+    t_matrix matrix;
 
-    // Cria a submatriz removendo a linha 'row' e a coluna 'col'
-    sub = submatrix(matrix, row, col);
+    matrix = identity_matrix(4); // Começa com matriz identidade 4x4
 
-    // Calcula o determinante da submatriz
-    det = determinant_matrix(sub);
+    // Define os valores de cisalhamento
+    matrix.data[0][1] = xy; // x move em proporção a y
+    matrix.data[0][2] = xz; // x move em proporção a z
+    matrix.data[1][0] = yx; // y move em proporção a x
+    matrix.data[1][2] = yz; // y move em proporção a z
+    matrix.data[2][0] = zx; // z move em proporção a x
+    matrix.data[2][1] = zy; // z move em proporção a y
 
-    // Libera a memória da submatriz
-    free_matrix(sub);
-
-    // Retorna o determinante como double
-    return det;
+    return matrix;
 }

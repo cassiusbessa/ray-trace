@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 17:53:26 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/23 01:04:57 by caqueiro         ###   ########.fr       */
+/*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
+/*   Updated: 2025/08/14 14:07:57 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,33 @@ t_matrix	identity_matrix(int size)
 	return (matrix);
 }
 
-t_bool	equal_matrix(t_matrix m1, t_matrix m2)
+t_bool equal_matrix(t_matrix m1, t_matrix m2)
 {
-	int	i;
-	int	j;
+    int i;
+    int j;
+    float diff;
 
-	if (m1.size != m2.size)
-		return (FALSE);
-	i = 0;
-	while (i < m1.size)
-	{
-		j = 0;
-		while (j < m1.size)
-		{
-			if (m1.data[i][j] != m2.data[i][j])
-				return (FALSE);
-			j++;
-		}
-		i++;
-	}
-	return (TRUE);
+    if (m1.size != m2.size)
+        return FALSE;
+
+    i = 0;
+    while (i < m1.size)
+    {
+        j = 0;
+        while (j < m1.size)
+        {
+            diff = m1.data[i][j] - m2.data[i][j];
+            if (diff < 0)
+                diff = -diff;
+            if (diff > EPSILON)
+                return FALSE;
+            j++;
+        }
+        i++;
+    }
+    return TRUE;
 }
+
 
 int	matrix_determinant_2x2(t_matrix matrix)
 {

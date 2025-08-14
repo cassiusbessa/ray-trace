@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 20:54:51 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 14:42:26 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int    main(void)
     errors += all_rgb_tests();
     errors += canvas_tests();
     errors += all_matrix_tests();
+    errors += all_transformation_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

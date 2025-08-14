@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minor_matrix.c                                     :+:      :+:    :+:   */
+/*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 14:08:04 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 17:59:04 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-#include "../../includes/miniRT.h"
-
-double minor_matrix(t_matrix matrix, int row, int col)
+// Cria um novo raio a partir de uma origem e direção
+t_ray create_ray(t_tuple origin, t_tuple direction)
 {
-    t_matrix sub;
-    double det;
+    t_ray result;
 
-    // Cria a submatriz removendo a linha 'row' e a coluna 'col'
-    sub = submatrix(matrix, row, col);
+    result.origin = origin;
+    result.direction = direction;
 
-    // Calcula o determinante da submatriz
-    det = determinant_matrix(sub);
+    return (result);
+}
 
-    // Libera a memória da submatriz
-    free_matrix(sub);
+// Calcula a posição de um ponto ao longo do raio para um parâmetro t
+t_tuple ray_position(t_ray r, float t)
+{
+    t_tuple result;
 
-    // Retorna o determinante como double
-    return det;
+    result = add_tuples(r.origin, multiply_tuple_by_scalar(r.direction, t));
+
+    return (result);
 }

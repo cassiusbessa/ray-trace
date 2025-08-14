@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_tests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:56:04 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 21:32:07 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 15:22:19 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,9 @@ int all_matrix_tests(void)
     errors += test_submatrix();
     errors += test_minor_matrix();
     errors += test_cofactor_matrix();
+    errors += invertible_matrix_tests();
     if (errors == 0)
-        ft_printf("\n🎉 All matrix tests fine!\n");
+        ft_printf("\n🎉 All matrix tests fine!\n\n");
     else
         ft_printf("\n❌ %d matrix tests failed.\n", errors);
     return (errors);

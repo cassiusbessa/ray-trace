@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 21:33:28 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 16:22:47 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTS_H
 # define TESTS_H
+
+#define TRUE 1
+#define FALSE 0
 
 # include "../includes/miniRT.h"
 
@@ -51,5 +54,15 @@ int     test_submatrix(void);
 int     test_minor_matrix(void);
 int     test_cofactor_matrix(void);
 int     test_determinant_matrix(void);
+int     invertible_matrix_tests(void);
+
+
+int     run_test_translation_point(void);
+int     run_test_translation_vector(void);
+int     all_transformation_tests(void);
+int     run_test_scaling(void);
+int     run_test_rotation(void);
+int     run_test_shearing(void);
+int     run_test_chained_transformations(void);
 
 #endif

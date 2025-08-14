@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minor_matrix.c                                     :+:      :+:    :+:   */
+/*   ray_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 14:08:04 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 18:03:28 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-#include "../../includes/miniRT.h"
-
-double minor_matrix(t_matrix matrix, int row, int col)
+int equal_rays(t_ray r1, t_ray r2)
 {
-    t_matrix sub;
-    double det;
-
-    // Cria a submatriz removendo a linha 'row' e a coluna 'col'
-    sub = submatrix(matrix, row, col);
-
-    // Calcula o determinante da submatriz
-    det = determinant_matrix(sub);
-
-    // Libera a memória da submatriz
-    free_matrix(sub);
-
-    // Retorna o determinante como double
-    return det;
+    return equal_tuples(r1.origin, r2.origin) &&
+           equal_tuples(r1.direction, r2.direction);
 }

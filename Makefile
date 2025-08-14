@@ -10,6 +10,8 @@ RGB_DIR		= src/rgb
 CANVAS_DIR  = src/canvas
 MATRIX_DIR  = src/matrix
 MLX_DIR		= src/mlx_adapter
+TRANSF_DIR	= src/transformation
+RAY_DIR		= src/ray
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
 
@@ -37,8 +39,14 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(MATRIX_DIR)/minor_matrix.c \
 			  $(MATRIX_DIR)/cofactor_matrix.c \
 			  $(MATRIX_DIR)/matrix_determinant.c \
+			  $(MATRIX_DIR)/matrix_invertible.c \
 			  $(MLX_DIR)/open_mlx_screen.c \
 			  $(MLX_DIR)/canvas_to_mlx_image.c \
+			  $(TRANSF_DIR)/translation.c \
+			  $(TRANSF_DIR)/scaling.c \
+			  $(TRANSF_DIR)/rotation.c \
+			  $(TRANSF_DIR)/shearing.c \
+			  $(RAY_DIR)/ray.c \
 			  src/thick.c
 
 # Arquivos de objeto

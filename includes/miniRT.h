@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/13 21:22:49 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 18:10:49 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include "../utils/libft/libft.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
@@ -22,6 +22,8 @@
 # include <stdio.h>
 
 # define EPSILON 0.0001
+#define TRUE 1
+#define FALSE 0
 
 typedef int	t_bool;
 
@@ -71,6 +73,7 @@ t_canvas	*new_canvas(int width, int height);
 void		free_canvas(t_canvas *canvas);
 t_rgb		*pixel_at(t_canvas *canvas, int x, int y);
 void		write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
+t_bool equal_tuples(t_tuple t1, t_tuple t2);
 
 typedef struct s_img
 {
@@ -107,8 +110,37 @@ t_tuple		matrix_multiply_by_tuple(t_matrix m, t_tuple t);
 t_matrix	transpose_matrix(t_matrix matrix);
 int			matrix_determinant_2x2(t_matrix matrix);
 t_matrix	submatrix(t_matrix matrix, int row, int col);
-int			minor_matrix(t_matrix matrix, int row, int col);
-int			cofactor_matrix(t_matrix matrix, int row, int col);
-int			determinant_matrix(t_matrix a);
+double			minor_matrix(t_matrix matrix, int row, int col);
+double			cofactor_matrix(t_matrix matrix, int row, int col);
+float			determinant_matrix(t_matrix a);
+int			is_invertible(t_matrix matrix);
+t_matrix	invert_matrix(t_matrix matrix);
+
+
+t_tuple point(float x, float y, float z);
+t_tuple vector(float x, float y, float z);
+t_matrix translation_matrix(float x, float y, float z);
+t_matrix scaling_matrix(float x, float y, float z);
+
+
+t_matrix rotation_x_matrix(float radians);
+t_matrix rotation_y_matrix(float radians);
+t_matrix rotation_z_matrix(float radians);
+
+t_matrix shearing_matrix(float xy, float xz, float yx, float yz, float zx, float zy);
+
+
+typedef struct s_ray
+{
+    t_tuple origin;
+    t_tuple direction;
+} t_ray;
+
+t_ray create_ray(t_tuple origin, t_tuple direction);
+t_tuple ray_position(t_ray r, float t);
+t_bool equal_rays(t_ray r1, t_ray r2);
+
+
+
 
 #endif

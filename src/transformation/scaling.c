@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minor_matrix.c                                     :+:      :+:    :+:   */
+/*   scaling.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 14:08:04 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:15:04 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-#include "../../includes/miniRT.h"
-
-double minor_matrix(t_matrix matrix, int row, int col)
+t_matrix scaling_matrix(float x, float y, float z)
 {
-    t_matrix sub;
-    double det;
+    t_matrix matrix;
 
-    // Cria a submatriz removendo a linha 'row' e a coluna 'col'
-    sub = submatrix(matrix, row, col);
+    matrix = identity_matrix(4);
+    matrix.data[0][0] = x; // escala X
+    matrix.data[1][1] = y; // escala Y
+    matrix.data[2][2] = z; // escala Z
 
-    // Calcula o determinante da submatriz
-    det = determinant_matrix(sub);
-
-    // Libera a memória da submatriz
-    free_matrix(sub);
-
-    // Retorna o determinante como double
-    return det;
+    return (matrix);
 }

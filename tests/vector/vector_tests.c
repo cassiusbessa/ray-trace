@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector_tests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 23:23:01 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/08 23:56:46 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:21:57 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int vector_tests(void)
     errors += all_vector_dot_product_tests();
     errors += all_vector_cross_product_tests();
     if (errors == 0)
-        ft_printf("\n🎉 All vector tests fine!\n");
+        ft_printf("🎉 All vector tests fine!\n\n");
     else
-        ft_printf("\n❌ %d vector tests failed.\n", errors);
+        ft_printf("\n❌ %d vector tests failed.\n\n", errors);
     return (errors);
 }

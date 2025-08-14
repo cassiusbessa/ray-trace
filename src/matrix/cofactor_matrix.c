@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   cofactor_matrix.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 20:41:07 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/13 20:50:15 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 13:09:27 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-int cofactor_matrix(t_matrix matrix, int row, int col)
+double cofactor_matrix(t_matrix matrix, int row, int col)
 {
-    int minor;
+    double minor;
+    double cofactor;
 
-    minor = minor_matrix(matrix, row, col);
+    minor = minor_matrix(matrix, row, col);  // calcula o menor
     if ((row + col) % 2 == 0)
-        return (minor);
-    return (-minor);
+        cofactor = minor;
+    else
+        cofactor = -minor;
+
+    return cofactor;
 }

@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_determinant.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 21:01:26 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/13 21:45:22 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 13:11:27 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-int determinant_matrix(t_matrix a)
+float determinant_matrix(t_matrix a)
 {
-    int det;
+    float det;
     int col;
-    
-    det = 0;
+    float cof;
+
+    det = 0.0f;
 
     if (a.size == 1)
         return a.data[0][0];
@@ -29,7 +30,8 @@ int determinant_matrix(t_matrix a)
         col = 0;
         while (col < a.size) 
         {
-            det += a.data[0][col] * cofactor_matrix(a, 0, col);
+            cof = cofactor_matrix(a, 0, col);
+            det += a.data[0][col] * cof;
             col++;
         }
     }
