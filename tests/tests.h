@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/15 09:13:26 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/15 10:04:21 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int     run_test_chained_transformations(void);
 int     run_test_ray(void);
 int     run_test_sphere(void);
 int     run_test_intersections(void);
+int     run_test_hit(void);
 
 #endif

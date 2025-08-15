@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 09:25:17 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/15 10:14:13 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,29 @@ t_intersections intersections(t_intersection i1, t_intersection i2)
     xs.count = 2;
     return xs;
 }
+
+t_intersections intersections_n(int count, ...)
+{
+    va_list args;
+    t_intersections xs;
+    int i;
+
+    xs.list = malloc(count * sizeof(t_intersection));
+    if (!xs.list)
+    {
+        xs.count = 0;
+        return xs;
+    }
+
+    xs.count = count;
+    va_start(args, count);
+    for (i = 0; i < count; i++)
+        xs.list[i] = va_arg(args, t_intersection);
+    va_end(args);
+
+    return xs;
+}
+
 
 int intersect_object(t_ray *ray, t_object *obj, t_intersection *out)
 {
