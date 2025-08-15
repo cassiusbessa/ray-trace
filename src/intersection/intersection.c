@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.c                                              :+:      :+:    :+:   */
+/*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 20:23:13 by cassius          ###   ########.fr       */
+/*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
+/*   Updated: 2025/08/14 21:27:28 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-// Cria um novo raio a partir de uma origem e direção
-t_ray create_ray(t_tuple origin, t_tuple direction)
+t_intersection  new_intersection(int count, float enter, float exit)
 {
-    t_ray result;
+    t_intersection  result;
 
-    result.origin = origin;
-    result.direction = direction;
-
+    result.count = count;
+    result.enter = enter;
+    result.exit = exit;
     return (result);
 }
 
-// Calcula a posição de um ponto ao longo do raio para um parâmetro t
-t_tuple ray_position(t_ray r, float t)
+t_bool equal_intersections(t_intersection i1, t_intersection i2)
 {
-    t_tuple result;
-
-    result = add_tuples(r.origin, multiply_tuple_by_scalar(r.direction, t));
-
-    return (result);
+    return (i1.count == i2.count && i1.enter == i2.enter && i1.exit == i2.exit);
 }

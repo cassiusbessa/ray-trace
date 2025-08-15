@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 18:10:49 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/14 21:34:49 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,35 @@ typedef struct s_ray
 t_ray create_ray(t_tuple origin, t_tuple direction);
 t_tuple ray_position(t_ray r, float t);
 t_bool equal_rays(t_ray r1, t_ray r2);
+
+typedef struct s_intersection
+{
+    float count;
+    float enter;
+    float exit;
+} t_intersection;
+
+t_intersection  new_intersection(int count, float enter, float exit);
+t_bool equal_intersections(t_intersection i1, t_intersection i2);
+
+typedef struct s_quad
+{
+	int		count;
+	float	x1;
+	float	x2;
+}			t_quad;
+
+t_quad	ft_quadratic(float a, float b, float c);
+t_intersection	ft_quad_to_intersection(t_quad q);
+
+typedef struct s_sphere
+{
+	t_tuple center;
+	float radius;
+} t_sphere;
+
+t_sphere new_sphere(t_tuple center, float radius);
+t_intersection	intersect_ray_sphere(t_ray ray, t_sphere sphere);
 
 
 

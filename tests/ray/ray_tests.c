@@ -41,6 +41,11 @@ static int test_ray_position(void)
     p = ray_position(r, 2.5);
     errors += test_check(equal_tuples(p, point(4.5, 3, 4)), "position at t=2.5 should be correct");
 
+    if (errors == 0)
+        printf("\n🎉 Ray position tests fine!\n");
+    else
+        printf("\n❌ Ray position tests failed.\n");
+
     return errors;
 }
 

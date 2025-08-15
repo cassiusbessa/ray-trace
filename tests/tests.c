@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 20:11:06 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 21:32:45 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int    main(void)
     errors += all_matrix_tests();
     errors += all_transformation_tests();
     errors += run_test_ray();
+    errors += run_test_sphere();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

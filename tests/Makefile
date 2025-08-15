@@ -16,6 +16,7 @@ CANVAS_TESTS  = $(TEST_DIR)/canvas
 MATRIX_TESTS  = $(TEST_DIR)/matrix
 TRANSF_TESTS  = $(TEST_DIR)/transformation
 RAY_DIR      = $(TEST_DIR)/ray
+SPHERE_TESTS  = $(TEST_DIR)/sphere
 LIBFT_DIR     = ../utils/libft
 CORE_DIR      = ../src
 MINILIBX_DIR  = ../includes/minilibx-linux
@@ -59,6 +60,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(TRANSF_TESTS)/shearing_tests.c \
             $(TRANSF_TESTS)/test_chained_transformations.c \
             $(RAY_DIR)/ray_tests.c \
+            $(SPHERE_TESTS)/sphere_tests.c \
             $(TEST_DIR)/tests.c
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
@@ -82,7 +84,10 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/transformation/rotation.c \
             $(CORE_DIR)/transformation/shearing.c \
             $(CORE_DIR)/ray/ray.c \
-            $(CORE_DIR)/ray/ray_utils.c
+            $(CORE_DIR)/ray/ray_utils.c \
+            $(CORE_DIR)/sphere/sphere.c \
+            $(CORE_DIR)/intersection/intersection.c \
+            $(CORE_DIR)/utils/solve_quadratic.c \
 
 TEST_SRCS += $(CORE_SRCS)
 
