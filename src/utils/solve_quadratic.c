@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:02:46 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/14 21:26:35 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 22:17:09 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,16 @@ t_quad	ft_quadratic(float a, float b, float c)
 	return (result);
 }
 
+//Livro considera que a quantidade de pontos sempre vai ser 2, mesmo que seja tangente
 t_intersection	ft_quad_to_intersection(t_quad q)
 {
 	t_intersection	result;
 
-    result = new_intersection(q.count, q.x1, q.x2);
+    if (q.count == 0)
+    {
+        result = new_intersection(0, 0.0, 0.0);
+        return (result);
+    }
+    result = new_intersection(2, q.x1, q.x2);
 	return (result);
 }
