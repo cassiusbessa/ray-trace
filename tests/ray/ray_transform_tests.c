@@ -1,5 +1,4 @@
 #include "../tests.h"
-#include "../../includes/miniRT.h"
 
 static int test_ray_translation(void)
 {

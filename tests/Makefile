@@ -62,7 +62,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(TRANSF_TESTS)/shearing_tests.c \
             $(TRANSF_TESTS)/test_chained_transformations.c \
             $(RAY_DIR)/ray_tests.c \
-            $(RAY_DIR)/ray_tests_2.c \
+            $(RAY_DIR)/ray_transform_tests.c \
             $(SPHERE_TESTS)/sphere_tests.c \
             $(SPHERE_TESTS)/intersections_sphere_test.c \
             $(SPHERE_TESTS)/sphere_transform_tests.c \
