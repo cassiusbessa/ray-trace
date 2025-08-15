@@ -62,8 +62,10 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(TRANSF_TESTS)/shearing_tests.c \
             $(TRANSF_TESTS)/test_chained_transformations.c \
             $(RAY_DIR)/ray_tests.c \
+            $(RAY_DIR)/ray_tests_2.c \
             $(SPHERE_TESTS)/sphere_tests.c \
             $(SPHERE_TESTS)/intersections_sphere_test.c \
+            $(SPHERE_TESTS)/sphere_transform_tests.c \
             $(HIT_TESTS)/hit_tests.c \
             $(TEST_DIR)/tests.c
 
@@ -93,6 +95,7 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/intersection/intersection.c \
             $(CORE_DIR)/intersection/hit.c \
             $(CORE_DIR)/utils/solve_quadratic.c \
+            $(CORE_DIR)/objects/object.c \
             
 
 TEST_SRCS += $(CORE_SRCS)

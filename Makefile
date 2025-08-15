@@ -15,6 +15,7 @@ RAY_DIR		= src/ray
 SPHERE_DIR  = src/sphere
 INTERSECTION_DIR = src/intersection
 UTILS_DIR   = src/utils
+OBJS_DIR    = src/objects
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
 
@@ -54,6 +55,7 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(SPHERE_DIR)/sphere.c \
 			  $(INTERSECTION_DIR)/intersection.c \
 			  $(UTILS_DIR)/solve_quadratic.c \
+			  $(OBJS_DIR)/object.c \
 			  src/thick.c
 
 # Arquivos de objeto

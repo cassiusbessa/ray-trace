@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/15 10:16:17 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:36:09 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ typedef struct s_ray
 t_ray		create_ray(t_tuple origin, t_tuple direction);
 t_tuple		ray_position(t_ray r, float t);
 t_bool		equal_rays(t_ray r1, t_ray r2);
+t_ray transform_ray(t_ray r, t_matrix m);
+
 
 /* ************************************************************************** */
 /*                               Objects                                      */
@@ -193,7 +195,7 @@ t_intersection	new_intersection(int count, float enter, float exit, void *object
 t_bool			equal_intersections(t_intersection i1, t_intersection i2);
 t_intersections	intersections(t_intersection i1, t_intersection i2);
 t_intersection	hit(t_intersections xs);
-t_intersections intersections_n(int count, ...);
+t_intersections intersections_create(int count, t_intersection *list);
 
 /* ************************************************************************** */
 /*                               Quadratic Solver                             */
@@ -209,6 +211,7 @@ typedef struct s_quad
 t_quad			ft_quadratic(float a, float b, float c);
 t_intersection	ft_quad_to_intersection(t_quad q, void *object);
 
+
 /* ************************************************************************** */
 /*                               Spheres                                      */
 /* ************************************************************************** */
@@ -217,11 +220,19 @@ typedef struct s_sphere
 {
 	t_tuple center;
 	float radius;
+	t_matrix transform;
 }	t_sphere;
 
 t_sphere		new_sphere(t_tuple center, float radius);
 t_intersection	intersect_ray_sphere(t_ray ray, t_sphere *sphere);
 int				intersect_sphere(t_ray *ray, t_object *obj, t_intersection *out);
+void set_object_transform(t_object *obj, t_matrix m);
 
+t_bool float_equal(float a, float b);
+
+int intersect_object(t_ray *ray, t_object *obj, t_intersection *out);
+t_intersections intersect_sphere_all(t_ray *ray, t_object *obj);
+
+t_quad solve_quadratic_for_sphere(t_ray ray, t_sphere *sphere);
 
 #endif

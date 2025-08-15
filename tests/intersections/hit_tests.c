@@ -6,7 +6,10 @@ static int test_hit_all_positive(void)
     t_sphere s = new_sphere(point(0,0,0), 1);
     t_intersection i1 = new_intersection(1, 1.0f, 1.0f, &s);
     t_intersection i2 = new_intersection(1, 2.0f, 2.0f, &s);
-    t_intersections xs = intersections_n(2, i2, i1);
+    
+    t_intersection list[2] = { i2, i1 };
+    t_intersections xs = intersections_create(2, list);
+
 
     t_intersection i = hit(xs);
 
@@ -22,7 +25,9 @@ static int test_hit_some_negative(void)
     t_sphere s = new_sphere(point(0,0,0), 1);
     t_intersection i1 = new_intersection(1, -1.0f, -1.0f, &s);
     t_intersection i2 = new_intersection(1, 1.0f, 1.0f, &s);
-    t_intersections xs = intersections_n(2, i2, i1);
+
+    t_intersection list[2] = { i2, i1 };
+    t_intersections xs = intersections_create(2, list);
 
     t_intersection i = hit(xs);
 
@@ -38,7 +43,9 @@ static int test_hit_all_negative(void)
     t_sphere s = new_sphere(point(0,0,0), 1);
     t_intersection i1 = new_intersection(1, -2.0f, -2.0f, &s);
     t_intersection i2 = new_intersection(1, -1.0f, -1.0f, &s);
-    t_intersections xs = intersections_n(2, i2, i1);
+    t_intersection list[2] = { i2, i1 };
+    t_intersections xs = intersections_create(2, list);
+
 
     t_intersection i = hit(xs);
 
@@ -57,7 +64,9 @@ static int test_hit_lowest_nonnegative(void)
     t_intersection i3 = new_intersection(1, -3.0f, -3.0f, &s);
     t_intersection i4 = new_intersection(1, 2.0f, 2.0f, &s);
 
-    t_intersections xs = intersections_n(4, i1, i2, i3, i4);
+    t_intersection list[4] = { i1, i2, i3, i4 };
+    t_intersections xs = intersections_create(4, list);
+
 
     t_intersection i = hit(xs);
 

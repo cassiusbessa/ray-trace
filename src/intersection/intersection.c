@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 10:14:13 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/15 15:39:02 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ t_intersection  new_intersection(int count, float enter, float exit, void *objec
     return (result);
 }
 
-static t_bool float_equal(float a, float b)
-{
-    return (fabsf(a - b) < EPSILON);
-}
+
 
 t_bool equal_intersections(t_intersection i1, t_intersection i2)
 {
@@ -45,27 +42,7 @@ t_intersections intersections(t_intersection i1, t_intersection i2)
     return xs;
 }
 
-t_intersections intersections_n(int count, ...)
-{
-    va_list args;
-    t_intersections xs;
-    int i;
 
-    xs.list = malloc(count * sizeof(t_intersection));
-    if (!xs.list)
-    {
-        xs.count = 0;
-        return xs;
-    }
-
-    xs.count = count;
-    va_start(args, count);
-    for (i = 0; i < count; i++)
-        xs.list[i] = va_arg(args, t_intersection);
-    va_end(args);
-
-    return xs;
-}
 
 
 int intersect_object(t_ray *ray, t_object *obj, t_intersection *out)
@@ -80,6 +57,47 @@ int intersect_object(t_ray *ray, t_object *obj, t_intersection *out)
         return intersect_cylinder(ray, obj, out);*/
     return 0;
 }
+
+t_intersections intersect_object_all(t_ray *ray, t_object *obj)
+{
+    t_intersections empty;
+
+    empty.count = 0;
+    empty.list = NULL;
+
+    if (!ray || !obj || !obj->data)
+        return empty;
+
+    if (obj->type == SPHERE)
+        return intersect_sphere_all(ray, obj); // retorna t_intersections
+
+    /*else if (obj->type == PLANE)
+        return intersect_plane_all(ray, obj);
+    else if (obj->type == CYLINDER)
+        return intersect_cylinder_all(ray, obj);*/
+
+    return empty;
+}
+
+t_intersections intersections_create(int count, t_intersection *list)
+{
+    t_intersections xs;
+
+    xs.list = malloc(count * sizeof(t_intersection));
+    if (!xs.list)
+    {
+        xs.count = 0;
+        return xs;
+    }
+
+    xs.count = count;
+    for (int i = 0; i < count; i++)
+        xs.list[i] = list[i];
+
+    return xs;
+}
+
+
 
 /*
 [ Criar raio ] 

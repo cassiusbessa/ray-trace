@@ -6,11 +6,16 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:02:46 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 09:38:06 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/15 12:26:12 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
+t_bool float_equal(float a, float b)
+{
+    return (fabsf(a - b) < EPSILON);
+}
 
 static float	ft_discriminant(float a, float b, float c)
 {
@@ -57,4 +62,17 @@ t_intersection	ft_quad_to_intersection(t_quad q, void *object)
     }
     result = new_intersection(2, q.x1, q.x2, object);
 	return (result);
+}
+t_quad solve_quadratic_for_sphere(t_ray ray, t_sphere *sphere)
+{
+    (void)sphere; // evita warning de parâmetro não usado
+
+    t_tuple sphere_to_ray;
+    float a, b, c;
+
+    sphere_to_ray = sub_tuples(ray.origin, point(0, 0, 0));
+    a = vector_dot_product(ray.direction, ray.direction);
+    b = 2.0f * vector_dot_product(ray.direction, sphere_to_ray);
+    c = vector_dot_product(sphere_to_ray, sphere_to_ray) - 1.0f; // esfera unitária
+    return ft_quadratic(a, b, c);
 }
