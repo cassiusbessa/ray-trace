@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:20:09 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/14 22:17:50 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/14 22:26:56 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ static int test_intersect_ray_sphere(void)
     intersection = intersect_ray_sphere(ray, sphere);
     result = new_intersection(2, 5.0, 5.0);
     errors += test_check(equal_intersections(intersection, result), "Ray should intersect sphere at two points (tangential)");
+    ray = create_ray(point(0, 2, -5), vector(0, 0 ,1));
+    intersection = intersect_ray_sphere(ray, sphere);
+    result = new_intersection(0, 0.0, 0.0);
+    errors += test_check(equal_intersections(intersection, result), "Ray should not intersect sphere");
+    ray = create_ray(point(0, 0, 0), vector(0, 0 , 1));
+    intersection = intersect_ray_sphere(ray, sphere);
+    result = new_intersection(2, -1.0, 1.0);
+    errors += test_check(equal_intersections(intersection, result), "Ray should intersect sphere at two points(inside)");
 
     return errors;
 }
