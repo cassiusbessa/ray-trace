@@ -57,9 +57,9 @@ int run_test_ray(void)
     errors += test_ray_position();
 
     if (errors == 0)
-        printf("\n🎉 Ray tests fine!\n");
+        printf("\n🎉 Ray tests fine!\n\n");
     else
-        printf("\n❌ Ray tests failed.\n");
+        printf("\n❌ Ray tests failed.\n\n");
 
     return errors;
 }
