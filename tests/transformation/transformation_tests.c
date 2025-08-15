@@ -13,8 +13,8 @@ int all_transformation_tests(void)
     errors += run_test_shearing();
     errors += run_test_chained_transformations();
     if (errors == 0)
-        ft_printf("\n🎉 All transformation tests fine!\n");
+        ft_printf("\n🎉 All transformation tests fine!\n\n");
     else
-        ft_printf("\n❌ %d transformation tests failed.\n", errors);
+        ft_printf("\n❌ %d transformation tests failed.\n\n", errors);
     return (errors);
 }

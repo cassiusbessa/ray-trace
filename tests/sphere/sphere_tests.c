@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_tests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:20:09 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/14 22:32:48 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/15 09:22:03 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,47 @@ static int test_intersect_ray_sphere(void)
     t_ray ray;
     t_sphere sphere;
 
-    ray = create_ray(point(0, 0, -5), vector(0, 0 ,1));
-    sphere = new_sphere(point(0, 0, 0), 1);
-    intersection = intersect_ray_sphere(ray, sphere);
-    result = new_intersection(2, 4.0, 6.0);
-    errors += test_check(equal_intersections(intersection, result), "Ray should intersect sphere at two points");
-    ray = create_ray(point(0, 1, -5), vector(0, 0 ,1));
-    intersection = intersect_ray_sphere(ray, sphere);
-    result = new_intersection(2, 5.0, 5.0);
-    errors += test_check(equal_intersections(intersection, result), "Ray should intersect sphere at two points (tangential)");
-    ray = create_ray(point(0, 2, -5), vector(0, 0 ,1));
-    intersection = intersect_ray_sphere(ray, sphere);
-    result = new_intersection(0, 0.0, 0.0);
-    errors += test_check(equal_intersections(intersection, result), "Ray should not intersect sphere");
-    ray = create_ray(point(0, 0, 0), vector(0, 0 , 1));
-    intersection = intersect_ray_sphere(ray, sphere);
-    result = new_intersection(2, -1.0, 1.0);
-    errors += test_check(equal_intersections(intersection, result), "Ray should intersect sphere at two points(inside)");
-    ray = create_ray(point(0, 0, 5), vector(0, 0 ,1));
-    intersection = intersect_ray_sphere(ray, sphere);
-    result = new_intersection(2, -6.0f, -4.0f);
-    errors += test_check(equal_intersections(intersection, result), "Ray should intersect sphere at two points(behind)");
+    // Cria esfera
+    sphere = new_sphere((t_tuple){0, 0, 0, 1}, 1.0f);
+
+    // Caso 1: Raio intersecta esfera em dois pontos
+    ray = create_ray(point(0, 0, -5), vector(0, 0, 1));
+    intersection = intersect_ray_sphere(ray, &sphere);
+    result = new_intersection(2, 4.0f, 6.0f, &sphere);
+    errors += test_check(equal_intersections(intersection, result),
+        "Ray should intersect sphere at two points");
+
+    // Caso 2: Raio tangencia esfera
+    ray = create_ray(point(0, 1, -5), vector(0, 0, 1));
+    intersection = intersect_ray_sphere(ray, &sphere);
+    result = new_intersection(2, 5.0f, 5.0f, &sphere);
+    errors += test_check(equal_intersections(intersection, result),
+        "Ray should intersect sphere at two points (tangential)");
+
+    // Caso 3: Raio perde a esfera
+    ray = create_ray(point(0, 2, -5), vector(0, 0, 1));
+    intersection = intersect_ray_sphere(ray, &sphere);
+    result = new_intersection(0, 0.0f, 0.0f, NULL);
+    errors += test_check(equal_intersections(intersection, result),
+        "Ray should not intersect sphere");
+
+    // Caso 4: Raio começa dentro da esfera
+    ray = create_ray(point(0, 0, 0), vector(0, 0, 1));
+    intersection = intersect_ray_sphere(ray, &sphere);
+    result = new_intersection(2, -1.0f, 1.0f, &sphere);
+    errors += test_check(equal_intersections(intersection, result),
+        "Ray should intersect sphere at two points (inside)");
+
+    // Caso 5: Esfera está atrás do raio
+    ray = create_ray(point(0, 0, 5), vector(0, 0, 1));
+    intersection = intersect_ray_sphere(ray, &sphere);
+    result = new_intersection(2, -6.0f, -4.0f, &sphere);
+    errors += test_check(equal_intersections(intersection, result),
+        "Ray should intersect sphere at two points (behind)");
 
     return errors;
 }
+
 
 int run_test_sphere(void)
 {

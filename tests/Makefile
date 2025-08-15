@@ -61,6 +61,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(TRANSF_TESTS)/test_chained_transformations.c \
             $(RAY_DIR)/ray_tests.c \
             $(SPHERE_TESTS)/sphere_tests.c \
+            $(SPHERE_TESTS)/intersections_sphere_test.c \
             $(TEST_DIR)/tests.c
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \

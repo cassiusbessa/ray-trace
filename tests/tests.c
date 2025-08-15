@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 21:32:45 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/15 09:40:46 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int    main(void)
     errors += all_transformation_tests();
     errors += run_test_ray();
     errors += run_test_sphere();
+    errors += run_test_intersections();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

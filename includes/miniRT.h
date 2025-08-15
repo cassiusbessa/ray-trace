@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 23:10:50 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/15 09:38:12 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,14 +140,34 @@ t_ray create_ray(t_tuple origin, t_tuple direction);
 t_tuple ray_position(t_ray r, float t);
 t_bool equal_rays(t_ray r1, t_ray r2);
 
+typedef enum e_object_type
+{
+    SPHERE,
+    PLANE,
+    CYLINDER
+} t_object_type;
+
+typedef struct s_object
+{
+    t_object_type type;
+    void *data; // ponteiro para t_sphere, t_plane, etc.
+} t_object;
+
 typedef struct s_intersection
 {
     float count;
     float enter;
     float exit;
+	void *object;
 } t_intersection;
 
-t_intersection  new_intersection(int count, float enter, float exit);
+typedef struct s_intersections
+{
+    t_intersection *list;
+    int count;
+} t_intersections;
+
+t_intersection  new_intersection(int count, float enter, float exit, void *object);
 t_bool equal_intersections(t_intersection i1, t_intersection i2);
 
 typedef struct s_quad
@@ -158,7 +178,7 @@ typedef struct s_quad
 }			t_quad;
 
 t_quad	ft_quadratic(float a, float b, float c);
-t_intersection	ft_quad_to_intersection(t_quad q);
+t_intersection	ft_quad_to_intersection(t_quad q, void *object);
 
 typedef struct s_sphere
 {
@@ -167,8 +187,10 @@ typedef struct s_sphere
 } t_sphere;
 
 t_sphere new_sphere(t_tuple center, float radius);
-t_intersection	intersect_ray_sphere(t_ray ray, t_sphere sphere);
-
+t_intersection	intersect_ray_sphere(t_ray ray, t_sphere *sphere);
+t_intersections intersections(t_intersection i1, t_intersection i2);
+int intersect_sphere(t_ray *ray, t_object *obj, t_intersection *out);
+t_intersection  new_intersection(int count, float enter, float exit, void *object);
 
 
 

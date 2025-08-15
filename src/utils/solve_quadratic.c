@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_quadratic.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:02:46 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/14 22:17:09 by cassius          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_quadratic.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yourlogin <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 22:05:00 by yourlogin         #+#    #+#             */
-/*   Updated: 2025/08/14 22:05:00 by yourlogin        ###   ########.fr       */
+/*   Updated: 2025/08/15 09:38:06 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +46,15 @@ t_quad	ft_quadratic(float a, float b, float c)
 }
 
 //Livro considera que a quantidade de pontos sempre vai ser 2, mesmo que seja tangente
-t_intersection	ft_quad_to_intersection(t_quad q)
+t_intersection	ft_quad_to_intersection(t_quad q, void *object)
 {
 	t_intersection	result;
 
     if (q.count == 0)
     {
-        result = new_intersection(0, 0.0, 0.0);
+        result = new_intersection(0, 0.0f, 0.0f, NULL);
         return (result);
     }
-    result = new_intersection(2, q.x1, q.x2);
+    result = new_intersection(2, q.x1, q.x2, object);
 	return (result);
 }

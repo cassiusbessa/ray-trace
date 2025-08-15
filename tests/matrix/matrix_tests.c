@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 16:56:04 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 15:22:19 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/15 08:16:54 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ int all_matrix_tests(void)
     if (errors == 0)
         ft_printf("\n🎉 All matrix tests fine!\n\n");
     else
-        ft_printf("\n❌ %d matrix tests failed.\n", errors);
+        ft_printf("\n❌ %d matrix tests failed.\n\n", errors);
     return (errors);
 }
