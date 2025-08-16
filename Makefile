@@ -14,8 +14,9 @@ TRANSF_DIR	= src/transformation
 RAY_DIR		= src/ray
 SPHERE_DIR  = src/sphere
 INTERSECTION_DIR = src/intersection
-UTILS_DIR   = src/utils
 OBJS_DIR    = src/objects
+NORMAL_DIR  = src/normal
+UTILS_DIR   = src/utils
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
 
@@ -54,6 +55,7 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(RAY_DIR)/ray_utils.c \
 			  $(SPHERE_DIR)/sphere.c \
 			  $(INTERSECTION_DIR)/intersection.c \
+			  $(NORMAL_DIR)/normal.c \
 			  $(UTILS_DIR)/solve_quadratic.c \
 			  $(OBJS_DIR)/object.c \
 			  src/thick.c
