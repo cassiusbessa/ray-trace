@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 20:32:16 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 21:05:00 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 19:30:14 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ static int test_normal_sphere(void)
     o.data = &s;
     n = normal_at(o, point(1, 0, 0));
     errors += test_check(equal_tuples(n, vector(1, 0, 0)), "Normal at point (1, 0, 0) should be (1, 0, 0)");
+    n = normal_at(o, point(0, 1, 0));
+    errors += test_check(equal_tuples(n, vector(0, 1, 0)), "Normal at point (0, 1, 0) should be (0, 1, 0)");
+    n = normal_at(o, point(0, 0, 1));
+    errors += test_check(equal_tuples(n, vector(0, 0, 1)), "Normal at point (0, 0, 1) should be (0, 0, 1)");
+    n = normal_at(o, point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+    errors += test_check(equal_tuples(n, vector(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3)), "Normal at point (sqrt(3)/3, sqrt(3)/3, sqrt(3)/3) should be (sqrt(3)/3, sqrt(3)/3, sqrt(3)/3)");
 
     return (errors);
 }
