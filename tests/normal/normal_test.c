@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 20:32:16 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/18 19:30:14 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 19:34:10 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,30 @@ static int test_normal_sphere(void)
     return (errors);
 }
 
+static int test_normal_is_normalized_vector(void)
+{
+    t_object o;
+    t_sphere s;
+    t_tuple n;
+    t_tuple n2;
+    int errors = 0;
+
+    s = new_sphere(point(0, 0, 0), 1);
+    o.type = SPHERE;
+    o.data = &s;
+    n = normal_at(o, point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+    n2 = normalize_vector(n);
+    errors += test_check(equal_tuples(n2, vector(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3)), "Normal at point (sqrt(3)/3, sqrt(3)/3, sqrt(3)/3) should be (sqrt(3)/3, sqrt(3)/3, sqrt(3)/3)");
+
+    return (errors);
+}
+
 int run_normal_tests(void)
 {
     int errors = 0;
 
     errors += test_normal_sphere();
+    errors += test_normal_is_normalized_vector();
 
     if (errors)
         test_failure("Normal tests failed");
