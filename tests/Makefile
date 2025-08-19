@@ -8,19 +8,20 @@ CFLAGS  = -Wall -Wextra -Werror -I../include
 RM      = rm -f
 
 # Diretórios
-TEST_DIR      = .
-TUPLE_TESTS   = $(TEST_DIR)/tuple
-VECTOR_TESTS  = $(TEST_DIR)/vector
-RGB_TESTS     = $(TEST_DIR)/rgb
-CANVAS_TESTS  = $(TEST_DIR)/canvas
-MATRIX_TESTS  = $(TEST_DIR)/matrix
-TRANSF_TESTS  = $(TEST_DIR)/transformation
-RAY_DIR       = $(TEST_DIR)/ray
-SPHERE_TESTS  = $(TEST_DIR)/sphere
-HIT_TESTS     = $(TEST_DIR)/intersections
-NORMAL_TESTS  = $(TEST_DIR)/normal
-REFLECT_TESTS = $(TEST_DIR)/reflect
-LIGHT_TESTS   = $(TEST_DIR)/light
+TEST_DIR       = .
+TUPLE_TESTS    = $(TEST_DIR)/tuple
+VECTOR_TESTS   = $(TEST_DIR)/vector
+RGB_TESTS      = $(TEST_DIR)/rgb
+CANVAS_TESTS   = $(TEST_DIR)/canvas
+MATRIX_TESTS   = $(TEST_DIR)/matrix
+TRANSF_TESTS   = $(TEST_DIR)/transformation
+RAY_DIR        = $(TEST_DIR)/ray
+SPHERE_TESTS   = $(TEST_DIR)/sphere
+HIT_TESTS      = $(TEST_DIR)/intersections
+NORMAL_TESTS   = $(TEST_DIR)/normal
+REFLECT_TESTS  = $(TEST_DIR)/reflect
+LIGHT_TESTS    = $(TEST_DIR)/light
+LIGHTING_TESTS = $(TEST_DIR)/lighting
 MATERIAL_TESTS = $(TEST_DIR)/material
 
 LIBFT_DIR     = ../utils/libft
@@ -75,6 +76,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(REFLECT_TESTS)/reflect_test.c \
             $(LIGHT_TESTS)/light_test.c \
             $(MATERIAL_TESTS)/material_test.c \
+            $(LIGHTING_TESTS)/lighting_test.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
@@ -106,6 +108,7 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/normal/normal.c \
             $(CORE_DIR)/reflect/reflect.c \
             $(CORE_DIR)/light/light.c \
+            $(CORE_DIR)/light/lighting.c \
             $(CORE_DIR)/material/material.c \
             $(CORE_DIR)/utils/solve_quadratic.c \
             

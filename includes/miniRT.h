@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/18 22:43:56 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/19 08:27:05 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,9 @@ typedef struct s_point_light
 
 t_point_light new_point_light(t_tuple position, t_rgb intensity);
 
+t_tuple negate_vector(t_tuple v);
+t_rgb clamp_color(t_rgb c);
 
+t_rgb lighting(t_material m, t_point_light light, t_tuple position, t_tuple eyev);
 
 #endif

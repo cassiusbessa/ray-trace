@@ -1,88 +1,98 @@
-# Definição de variáveis
-CC          = cc -g
-CFLAGS      = -Wall -Wextra -Werror
-RM          = rm -f
+# ===========================================
+# Makefile para projeto miniRT (Linux/WSL)
+# ===========================================
 
-# Caminhos
-TUPLE_DIR   = src/tuple
-VECTOR_DIR  = src/vector
-RGB_DIR		= src/rgb
-CANVAS_DIR  = src/canvas
-MATRIX_DIR  = src/matrix
-MLX_DIR		= src/mlx_adapter
-TRANSF_DIR	= src/transformation
-RAY_DIR		= src/ray
-SPHERE_DIR  = src/sphere
+# Compilador e flags
+CC      = cc -g
+CFLAGS  = -Wall -Wextra -Werror
+RM      = rm -f
+
+# Diretórios
+TUPLE_DIR      = src/tuple
+VECTOR_DIR     = src/vector
+RGB_DIR        = src/rgb
+CANVAS_DIR     = src/canvas
+MATRIX_DIR     = src/matrix
+MLX_DIR        = src/mlx_adapter
+TRANSF_DIR     = src/transformation
+RAY_DIR        = src/ray
+SPHERE_DIR     = src/sphere
 INTERSECTION_DIR = src/intersection
-OBJS_DIR    = src/objects
-NORMAL_DIR  = src/normal
-REFLECT_DIR = src/reflect
-LIGHT_DIR   = src/light
-MATERIAL_DIR = src/material
-UTILS_DIR   = src/utils
-INCLUDE_DIR = include
-LIBFT_DIR   = utils/libft
+OBJS_DIR       = src/objects
+NORMAL_DIR     = src/normal
+REFLECT_DIR    = src/reflect
+LIGHT_DIR      = src/light
+MATERIAL_DIR   = src/material
+UTILS_DIR      = src/utils
+INCLUDE_DIR    = include
+LIBFT_DIR      = utils/libft
+MINILIBX_DIR   = minilibx-linux
 
-TESTS_DIR   = tests
+TESTS_DIR      = tests
 
 # Nome do executável
-MINIRT      = miniRT
+MINIRT         = miniRT
 
-# Biblioteca auxiliar
-LIBFT       = $(LIBFT_DIR)/libft.a
+# Bibliotecas
+LIBFT          = $(LIBFT_DIR)/libft.a
+MINILIBX       = $(MINILIBX_DIR)/libmlx_Linux.a
 
-MINILIBX = minilibx-linux/libmlx_Linux.a
+# Arquivos fontes
+SRCS = $(TUPLE_DIR)/tuple.c \
+       $(TUPLE_DIR)/tuple_utils.c \
+       $(TUPLE_DIR)/vector.c \
+       $(RGB_DIR)/rgb.c \
+       $(RGB_DIR)/rgb_utils.c \
+       $(CANVAS_DIR)/canvas.c \
+       $(MATRIX_DIR)/matrix.c \
+       $(MATRIX_DIR)/matrix_utils.c \
+       $(MATRIX_DIR)/matrix_multiply.c \
+       $(MATRIX_DIR)/matrix_rotate.c \
+       $(MATRIX_DIR)/minor_matrix.c \
+       $(MATRIX_DIR)/cofactor_matrix.c \
+       $(MATRIX_DIR)/matrix_determinant.c \
+       $(MATRIX_DIR)/matrix_invertible.c \
+       $(MLX_DIR)/open_mlx_screen.c \
+       $(MLX_DIR)/canvas_to_mlx_image.c \
+       $(TRANSF_DIR)/translation.c \
+       $(TRANSF_DIR)/scaling.c \
+       $(TRANSF_DIR)/rotation.c \
+       $(TRANSF_DIR)/shearing.c \
+       $(RAY_DIR)/ray.c \
+       $(RAY_DIR)/ray_utils.c \
+       $(SPHERE_DIR)/sphere.c \
+       $(INTERSECTION_DIR)/intersection.c \
+       $(OBJS_DIR)/object.c \
+       $(NORMAL_DIR)/normal.c \
+       $(REFLECT_DIR)/reflect.c \
+       $(LIGHT_DIR)/light.c \
+       $(LIGHT_DIR)/lighting.c \
+       $(MATERIAL_DIR)/material.c \
+       $(UTILS_DIR)/solve_quadratic.c \
+       src/thick.c
 
-# Arquivos de fontes do miniRT
-SRCS        = $(TUPLE_DIR)/tuple.c \
-              $(TUPLE_DIR)/tuple_utils.c \
-			  $(TUPLE_DIR)/vector.c \
-			  $(RGB_DIR)/rgb.c \
-			  $(RGB_DIR)/rgb_utils.c \
-			  $(CANVAS_DIR)/canvas.c \
-			  $(MATRIX_DIR)/matrix.c \
-			  $(MATRIX_DIR)/matrix_utils.c \
-			  $(MATRIX_DIR)/matrix_multiply.c \
-			  $(MATRIX_DIR)/matrix_rotate.c \
-			  $(MATRIX_DIR)/minor_matrix.c \
-			  $(MATRIX_DIR)/cofactor_matrix.c \
-			  $(MATRIX_DIR)/matrix_determinant.c \
-			  $(MATRIX_DIR)/matrix_invertible.c \
-			  $(MLX_DIR)/open_mlx_screen.c \
-			  $(MLX_DIR)/canvas_to_mlx_image.c \
-			  $(TRANSF_DIR)/translation.c \
-			  $(TRANSF_DIR)/scaling.c \
-			  $(TRANSF_DIR)/rotation.c \
-			  $(TRANSF_DIR)/shearing.c \
-			  $(RAY_DIR)/ray.c \
-			  $(RAY_DIR)/ray_utils.c \
-			  $(SPHERE_DIR)/sphere.c \
-			  $(INTERSECTION_DIR)/intersection.c \
-			  $(NORMAL_DIR)/normal.c \
-			  $(REFLECT_DIR)/reflect.c \
-			  $(LIGHT_DIR)/light.c \
-			  $(MATERIAL_DIR)/material.c \
-			  $(UTILS_DIR)/solve_quadratic.c \
-			  $(OBJS_DIR)/object.c \
-			  src/thick.c
+# Objetos
+OBJS = $(SRCS:.c=.o)
 
-# Arquivos de objeto
-OBJS         = $(SRCS:.c=.o)
+# ===========================================
+# Regras
+# ===========================================
 
-# Regra padrão para compilação de .c em .o
+# Compilar .c em .o
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
-# Compilar o miniRT
+# Executável principal
 $(MINIRT): $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@make -C minilibx-linux
-	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) -o $(MINIRT) -Imlx_linux -lXext -lX11 -lreadline -lm
+	@make -C $(MINILIBX_DIR)
+	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) -o $(MINIRT) -I$(INCLUDE_DIR) -I$(MINILIBX_DIR) -lXext -lX11 -lreadline -lm
 	@printf "\e[92;5;118m    - Executable ready.\n\e[0m"
 
+# Compilar tudo
 all: $(MINIRT)
 
-# Chamar Makefile de testes
+# Testes
 test:
 	@$(MAKE) -C $(TESTS_DIR) run
 
@@ -104,4 +114,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test test_leaks

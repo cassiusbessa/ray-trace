@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 18:06:22 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/19 08:08:28 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,9 @@ t_bool equal_tuples(t_tuple t1, t_tuple t2)
     if (t1.w != t2.w) // w é int, não precisa de EPSILON
         return FALSE;
     return TRUE;
+}
+
+t_tuple negate_vector(t_tuple v)
+{
+    return (vector(-v.x, -v.y, -v.z));
 }

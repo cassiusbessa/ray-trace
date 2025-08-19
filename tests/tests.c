@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/18 23:15:02 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/19 07:52:07 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int    main(void)
     errors += run_reflect_tests();
     errors += run_light_tests();
     errors += run_material_tests();
+    errors += run_lighting_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else
