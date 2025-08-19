@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 12:12:54 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/18 22:37:31 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_sphere new_sphere(t_tuple center, float radius)
     sphere.center = center;
     sphere.radius = radius;
 	sphere.transform = identity_matrix(4);
+    sphere.material = new_material_default();
 
     return sphere;
 }

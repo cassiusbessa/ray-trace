@@ -1,23 +1,20 @@
 #include "../tests.h"
 
-// Testa a transformação padrão de uma esfera via objeto
 static int test_sphere_default_transform(void)
 {
     int errors = 0;
 
-    t_sphere *s_data = malloc(sizeof(t_sphere));
-    *s_data = new_sphere(point(0, 0, 0), 1.0f);
+    t_sphere s_data = new_sphere(point(0, 0, 0), 1.0f);
 
     t_object s_obj;
     s_obj.type = SPHERE;
-    s_obj.data = s_data;
+    s_obj.data = &s_data;  // ponteiro para variável local
 
     errors += test_check(
         equal_matrix(((t_sphere *)s_obj.data)->transform, identity_matrix(4)),
         "Default sphere transform should be identity"
     );
 
-    free(s_data);
     return errors;
 }
 

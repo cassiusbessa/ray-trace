@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/18 21:13:34 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 22:43:56 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,11 +216,25 @@ t_intersection	ft_quad_to_intersection(t_quad q, void *object);
 /*                               Spheres                                      */
 /* ************************************************************************** */
 
+
+typedef struct s_material
+{
+	t_rgb color;
+	float ambient;
+	float diffuse;
+	float specular;
+	float shininess;
+}	t_material;
+
+t_material new_material_default(void);
+t_bool equal_materials(t_material m1, t_material m2);
+
 typedef struct s_sphere
 {
 	t_tuple center;
 	float radius;
 	t_matrix transform;
+	t_material material;
 }	t_sphere;
 
 t_sphere		new_sphere(t_tuple center, float radius);
@@ -246,5 +260,7 @@ typedef struct s_point_light
 }	t_point_light;
 
 t_point_light new_point_light(t_tuple position, t_rgb intensity);
+
+
 
 #endif

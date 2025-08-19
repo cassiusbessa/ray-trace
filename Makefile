@@ -18,6 +18,7 @@ OBJS_DIR    = src/objects
 NORMAL_DIR  = src/normal
 REFLECT_DIR = src/reflect
 LIGHT_DIR   = src/light
+MATERIAL_DIR = src/material
 UTILS_DIR   = src/utils
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
@@ -60,6 +61,7 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(NORMAL_DIR)/normal.c \
 			  $(REFLECT_DIR)/reflect.c \
 			  $(LIGHT_DIR)/light.c \
+			  $(MATERIAL_DIR)/material.c \
 			  $(UTILS_DIR)/solve_quadratic.c \
 			  $(OBJS_DIR)/object.c \
 			  src/thick.c

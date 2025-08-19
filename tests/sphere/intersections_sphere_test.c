@@ -8,7 +8,7 @@ static int test_intersection_encapsulates_t_and_object(void)
 {
     int errors = 0;
 
-    t_sphere s = new_sphere((t_tuple){0, 0, 0, 1}, 1.0f);
+    t_sphere s = new_sphere(point(0, 0, 0), 1.0f);
 
     t_intersection i = new_intersection(1, 3.5f, 0.0f, (void *)&s);
 
@@ -24,7 +24,7 @@ static int test_aggregating_intersections(void)
 {
     int errors = 0;
 
-    t_sphere s = new_sphere((t_tuple){0, 0, 0, 1}, 1.0f);
+    t_sphere s = new_sphere(point(0, 0, 0), 1.0f);
 
     t_intersection i1 = new_intersection(1, 1.0f, 0.0f, (void *)&s);
     t_intersection i2 = new_intersection(1, 2.0f, 0.0f, (void *)&s);
@@ -44,7 +44,7 @@ static int test_intersect_sets_object(void)
 {
     int errors = 0;
 
-    t_sphere s = new_sphere((t_tuple){0, 0, 0, 1}, 1.0f);
+    t_sphere s = new_sphere(point(0, 0, 0), 1.0f);
     t_ray r = create_ray(point(0, 0, -5), vector(0, 0, 1));
 
     t_intersection i1 = intersect_ray_sphere(r, &s); // primeiro hit
