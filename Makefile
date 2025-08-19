@@ -16,6 +16,7 @@ SPHERE_DIR  = src/sphere
 INTERSECTION_DIR = src/intersection
 OBJS_DIR    = src/objects
 NORMAL_DIR  = src/normal
+REFLECT_DIR = src/reflect
 UTILS_DIR   = src/utils
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft

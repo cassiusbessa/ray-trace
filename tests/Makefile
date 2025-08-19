@@ -19,6 +19,7 @@ RAY_DIR       = $(TEST_DIR)/ray
 SPHERE_TESTS  = $(TEST_DIR)/sphere
 HIT_TESTS     = $(TEST_DIR)/intersections
 NORMAL_TESTS  = $(TEST_DIR)/normal
+REFLECT_TESTS = $(TEST_DIR)/reflect
 
 LIBFT_DIR     = ../utils/libft
 CORE_DIR      = ../src
@@ -69,7 +70,8 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(SPHERE_TESTS)/sphere_transform_tests.c \
             $(HIT_TESTS)/hit_tests.c \
             $(NORMAL_TESTS)/normal_test.c \
-            $(TEST_DIR)/tests.c
+            $(REFLECT_TESTS)/reflect_test.c \
+            $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/tuple/tuple_utils.c \
@@ -98,7 +100,9 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/intersection/hit.c \
             $(CORE_DIR)/objects/object.c \
             $(CORE_DIR)/normal/normal.c \
+            $(CORE_DIR)/reflect/reflect.c \
             $(CORE_DIR)/utils/solve_quadratic.c \
+            
             
 
 TEST_SRCS += $(CORE_SRCS)

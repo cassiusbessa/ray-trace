@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/15 20:52:43 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 20:57:26 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,5 +236,6 @@ t_intersections intersect_sphere_all(t_ray *ray, t_object *obj);
 t_quad solve_quadratic_for_sphere(t_ray ray, t_sphere *sphere);
 
 t_tuple	normal_at(t_object o, t_tuple p);
+t_tuple reflect(t_tuple v, t_tuple n);
 
 #endif

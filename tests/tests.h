@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/15 20:42:22 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 20:59:52 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int     run_test_hit(void);
 int     run_ray_tests(void);
 int     run_sphere_transform_tests(void);
 int     run_normal_tests(void);
+int     run_reflect_tests(void);
 
 #endif
