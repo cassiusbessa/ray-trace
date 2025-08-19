@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/18 20:57:26 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 21:13:34 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,5 +237,14 @@ t_quad solve_quadratic_for_sphere(t_ray ray, t_sphere *sphere);
 
 t_tuple	normal_at(t_object o, t_tuple p);
 t_tuple reflect(t_tuple v, t_tuple n);
+
+
+typedef struct s_point_light
+{
+	t_tuple position;
+	t_rgb intensity;
+}	t_point_light;
+
+t_point_light new_point_light(t_tuple position, t_rgb intensity);
 
 #endif

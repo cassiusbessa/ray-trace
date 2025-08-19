@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/18 21:00:09 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 21:41:10 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int    main(void)
     errors += run_sphere_transform_tests();
     errors += run_normal_tests();
     errors += run_reflect_tests();
+    errors += run_light_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

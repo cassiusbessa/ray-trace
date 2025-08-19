@@ -17,6 +17,7 @@ INTERSECTION_DIR = src/intersection
 OBJS_DIR    = src/objects
 NORMAL_DIR  = src/normal
 REFLECT_DIR = src/reflect
+LIGHT_DIR   = src/light
 UTILS_DIR   = src/utils
 INCLUDE_DIR = include
 LIBFT_DIR   = utils/libft
@@ -57,6 +58,8 @@ SRCS        = $(TUPLE_DIR)/tuple.c \
 			  $(SPHERE_DIR)/sphere.c \
 			  $(INTERSECTION_DIR)/intersection.c \
 			  $(NORMAL_DIR)/normal.c \
+			  $(REFLECT_DIR)/reflect.c \
+			  $(LIGHT_DIR)/light.c \
 			  $(UTILS_DIR)/solve_quadratic.c \
 			  $(OBJS_DIR)/object.c \
 			  src/thick.c
