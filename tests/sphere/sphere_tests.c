@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:20:09 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/18 23:02:10 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/18 23:18:38 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,33 @@ static int test_default_material_sphere(void)
     return errors;
 }
 
+static int  test_assign_material_sphere(void)
+{
+    int errors = 0;
+    t_sphere sphere;
+    t_material new_material;
+
+    sphere = new_sphere(point(0, 0, 0), 1.0f);
+    new_material = new_material_default();
+    new_material.color = new_rgb(0.5f, 0.5f, 0.5f);
+    sphere.material = new_material;
+    errors += test_check(equal_materials(sphere.material, new_material),
+        "Sphere material should be assigned correctly");
+
+    if (errors)
+        test_failure("Sphere assign material test failed");
+    else
+        test_success("Sphere assign material test passed");
+    return errors;
+}
+
 
 int run_test_sphere(void)
 {
     int errors = 0;
     errors += test_intersect_ray_sphere();
     errors += test_default_material_sphere();
+    errors += test_assign_material_sphere();
     if (errors)
         test_failure("Sphere tests failed");
     else
