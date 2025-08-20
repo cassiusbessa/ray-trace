@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 08:27:05 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:01:01 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,4 +266,42 @@ t_rgb clamp_color(t_rgb c);
 
 t_rgb lighting(t_material m, t_point_light light, t_tuple position, t_tuple eyev);
 
+typedef struct s_point_light_node
+{
+	struct s_point_light_node *prev;
+	t_point_light light;
+	struct s_point_light_node *next;
+}	t_point_light_node;
+
+typedef struct s_point_light_list
+{
+	t_point_light_node *head;
+	t_point_light_node *tail;
+	int count;
+}	t_point_light_list;
+
+typedef struct s_object_node
+{
+	struct s_object_node *prev;
+	t_object object;
+	struct s_object_node *next;
+}	t_object_node;
+
+typedef struct s_object_list
+{
+	t_object_node *head;
+	t_object_node *tail;
+	int count;
+}	t_object_list;
+
+typedef struct s_world
+{
+	t_point_light_list *lights;
+	t_object_list *objects;
+}	t_world;
+
+t_world new_world(void);
+void add_object_to_world(t_world *world, t_object object);
+void add_light_to_world(t_world *world, t_point_light light);
+t_world default_world(void);
 #endif

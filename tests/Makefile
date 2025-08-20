@@ -23,6 +23,7 @@ REFLECT_TESTS  = $(TEST_DIR)/reflect
 LIGHT_TESTS    = $(TEST_DIR)/light
 LIGHTING_TESTS = $(TEST_DIR)/lighting
 MATERIAL_TESTS = $(TEST_DIR)/material
+WORLD_TESTS    = $(TEST_DIR)/world
 
 LIBFT_DIR     = ../utils/libft
 CORE_DIR      = ../src
@@ -77,6 +78,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(LIGHT_TESTS)/light_test.c \
             $(MATERIAL_TESTS)/material_test.c \
             $(LIGHTING_TESTS)/lighting_test.c \
+            $(WORLD_TESTS)/world_test.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
@@ -110,6 +112,7 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/light/light.c \
             $(CORE_DIR)/light/lighting.c \
             $(CORE_DIR)/material/material.c \
+            $(CORE_DIR)/world/world.c \
             $(CORE_DIR)/utils/solve_quadratic.c \
             
             
