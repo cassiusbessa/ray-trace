@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 21:01:01 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/19 21:32:35 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,4 +304,5 @@ t_world new_world(void);
 void add_object_to_world(t_world *world, t_object object);
 void add_light_to_world(t_world *world, t_point_light light);
 t_world default_world(void);
+void    free_world(t_world *world);
 #endif

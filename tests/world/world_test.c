@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:12:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/19 21:06:01 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/19 21:14:04 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int test_world_default_creation(void)
     errors += test_check(world.lights != NULL, "World should have a light initially");
     errors += test_check(world.lights->count == 1, "World should have a light initially");
     errors += test_check(world.lights->head != NULL, "World should have a light initially");
+    free_world(&world);
     if (errors)
         test_failure("World default creation failed");
     else
