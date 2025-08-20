@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_quadratic.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:02:46 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 12:26:12 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/19 22:10:17 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ t_quad	ft_quadratic(float a, float b, float c)
 	return (result);
 }
 
-// Livro considera que a quantidade de pontos sempre vai ser 2,
-	mesmo que seja tangente
 t_intersection	ft_quad_to_intersection(t_quad q, void *object)
 {
 	t_intersection	result;

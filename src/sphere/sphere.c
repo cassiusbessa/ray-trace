@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/18 22:37:31 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/19 22:09:48 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ static t_intersections	init_intersections(void)
 }*/
 t_intersections	intersect_sphere_all(t_ray *ray, t_object *obj)
 {
+	t_sphere	*sphere;
+	t_intersections	xs;
+	t_ray			local_ray;
+	t_quad			q;
+
 	sphere = (t_sphere *)obj->data;
 	xs.count = 0;
 	xs.list = NULL;
