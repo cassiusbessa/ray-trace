@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 21:32:35 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/19 23:22:53 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,13 +197,31 @@ typedef struct s_intersections
 	int							count;
 }								t_intersections;
 
+typedef struct s_intersection_node
+{
+	float						t;
+	struct s_intersection_node	*next;
+	void						*object;
+}								t_intersection_node;
+
+typedef struct s_intersection_list
+{
+	t_intersection_node			*head;
+	t_intersection_node			*tail;
+	int							count;
+}								t_intersection_list;
+
+t_intersection_list	*new_intersection_list(void);
+void	free_intersection_list(t_intersection_list *list);
+void add_intersection_to_list(t_intersection_list *list, t_intersection i);
+
 t_intersection					new_intersection(int count, float enter,
 									float exit, void *object);
 t_bool							equal_intersections(t_intersection i1,
 									t_intersection i2);
 t_intersections					intersections(t_intersection i1,
 									t_intersection i2);
-t_intersection					hit(t_intersections xs);
+t_intersection_node					*hit(t_intersection_list l);
 t_intersections					intersections_create(int count,
 									t_intersection *list);
 

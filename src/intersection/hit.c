@@ -3,35 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/15 10:03:26 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/19 23:22:59 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_intersection	hit(t_intersections xs)
+t_intersection_node	*hit(t_intersection_list l)
 {
-	t_intersection	result;
-	int				found;
-	int				i;
+    t_intersection_node	*hit;
 
-	result = new_intersection(0, 0.0f, 0.0f, NULL);
-	i = 0;
-	found = 0;
-	while (i < xs.count)
-	{
-		if (xs.list[i].enter >= 0.0f)
-		{
-			if (!found || xs.list[i].enter < result.enter)
-			{
-				result = xs.list[i];
-				found = 1;
-			}
-		}
-		i++;
-	}
-	return (result);
+    hit = NULL;
+    while (l.head)
+    {
+        if (l.head->t >= 0.0f)
+        {
+            if (!hit || l.head->t < hit->t)
+                hit = l.head;
+        }
+        l.head = l.head->next;
+    }
+    return (hit);
 }

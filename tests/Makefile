@@ -106,6 +106,7 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/sphere/sphere.c \
             $(CORE_DIR)/intersection/intersection.c \
             $(CORE_DIR)/intersection/hit.c \
+            $(CORE_DIR)/intersection/intersection_list.c \
             $(CORE_DIR)/objects/object.c \
             $(CORE_DIR)/normal/normal.c \
             $(CORE_DIR)/reflect/reflect.c \

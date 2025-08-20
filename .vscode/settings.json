@@ -8,7 +8,8 @@
     "math.h": "c",
     "stdio.h": "c",
     "mlx.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "type_traits": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

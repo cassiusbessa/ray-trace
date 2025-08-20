@@ -63,6 +63,7 @@ SRCS = $(TUPLE_DIR)/tuple.c \
        $(RAY_DIR)/ray_utils.c \
        $(SPHERE_DIR)/sphere.c \
        $(INTERSECTION_DIR)/intersection.c \
+       $(INTERSECTION_DIR)/intersection_list.c \
        $(OBJS_DIR)/object.c \
        $(NORMAL_DIR)/normal.c \
        $(REFLECT_DIR)/reflect.c \
