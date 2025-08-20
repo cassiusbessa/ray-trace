@@ -12,14 +12,14 @@
 
 #include "../../includes/miniRT.h"
 
-t_matrix translation_matrix(float x, float y, float z)
+t_matrix	translation_matrix(float x, float y, float z)
 {
-    t_matrix matrix;
+	t_matrix matrix;
 
-    matrix = identity_matrix(4);
-    matrix.data[0][3] = x;
-    matrix.data[1][3] = y;
-    matrix.data[2][3] = z;
+	matrix = identity_matrix(4);
+	matrix.data[0][3] = x;
+	matrix.data[1][3] = y;
+	matrix.data[2][3] = z;
 
-    return (matrix);
+	return (matrix);
 }

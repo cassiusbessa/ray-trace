@@ -13,22 +13,20 @@
 #include "../../includes/miniRT.h"
 
 // Cria um novo raio a partir de uma origem e direção
-t_ray create_ray(t_tuple origin, t_tuple direction)
+t_ray	create_ray(t_tuple origin, t_tuple direction)
 {
-    t_ray result;
+	t_ray	result;
 
-    result.origin = origin;
-    result.direction = direction;
-
-    return (result);
+	result.origin = origin;
+	result.direction = direction;
+	return (result);
 }
 
 // Calcula a posição de um ponto ao longo do raio para um parâmetro t
-t_tuple ray_position(t_ray r, float t)
+t_tuple	ray_position(t_ray r, float t)
 {
-    t_tuple result;
+	t_tuple	result;
 
-    result = add_tuples(r.origin, multiply_tuple_by_scalar(r.direction, t));
-
-    return (result);
+	result = add_tuples(r.origin, multiply_tuple_by_scalar(r.direction, t));
+	return (result);
 }

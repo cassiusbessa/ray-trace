@@ -50,33 +50,31 @@ t_matrix	identity_matrix(int size)
 	return (matrix);
 }
 
-t_bool equal_matrix(t_matrix m1, t_matrix m2)
+t_bool	equal_matrix(t_matrix m1, t_matrix m2)
 {
-    int i;
-    int j;
-    float diff;
+	int		i;
+	int		j;
+	float	diff;
 
-    if (m1.size != m2.size)
-        return FALSE;
-
-    i = 0;
-    while (i < m1.size)
-    {
-        j = 0;
-        while (j < m1.size)
-        {
-            diff = m1.data[i][j] - m2.data[i][j];
-            if (diff < 0)
-                diff = -diff;
-            if (diff > EPSILON)
-                return FALSE;
-            j++;
-        }
-        i++;
-    }
-    return TRUE;
+	if (m1.size != m2.size)
+		return (FALSE);
+	i = 0;
+	while (i < m1.size)
+	{
+		j = 0;
+		while (j < m1.size)
+		{
+			diff = m1.data[i][j] - m2.data[i][j];
+			if (diff < 0)
+				diff = -diff;
+			if (diff > EPSILON)
+				return (FALSE);
+			j++;
+		}
+		i++;
+	}
+	return (TRUE);
 }
-
 
 int	matrix_determinant_2x2(t_matrix matrix)
 {

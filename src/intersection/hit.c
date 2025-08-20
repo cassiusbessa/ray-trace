@@ -12,27 +12,26 @@
 
 #include "../../includes/miniRT.h"
 
-t_intersection hit(t_intersections xs)
+t_intersection	hit(t_intersections xs)
 {
-    t_intersection result;
-    int found;
-    int i;
+	t_intersection	result;
+	int				found;
+	int				i;
 
-    result = new_intersection(0, 0.0f, 0.0f, NULL);
-    i =0;
-    found = 0;
-    while(i < xs.count)
-    {
-        if (xs.list[i].enter >= 0.0f)
-        {
-            if (!found || xs.list[i].enter < result.enter)
-            {
-                result = xs.list[i];
-                found = 1;
-            }
-        }
-        i++;
-    }
-    return (result);
+	result = new_intersection(0, 0.0f, 0.0f, NULL);
+	i = 0;
+	found = 0;
+	while (i < xs.count)
+	{
+		if (xs.list[i].enter >= 0.0f)
+		{
+			if (!found || xs.list[i].enter < result.enter)
+			{
+				result = xs.list[i];
+				found = 1;
+			}
+		}
+		i++;
+	}
+	return (result);
 }
-

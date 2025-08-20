@@ -12,7 +12,7 @@
 
 #include "../../includes/miniRT.h"
 
-t_point_light new_point_light(t_tuple position, t_rgb intensity)
+t_point_light	new_point_light(t_tuple position, t_rgb intensity)
 {
 	t_point_light light;
 

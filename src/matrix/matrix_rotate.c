@@ -12,23 +12,23 @@
 
 #include "../../includes/miniRT.h"
 
-t_matrix    transpose_matrix(t_matrix matrix)
+t_matrix	transpose_matrix(t_matrix matrix)
 {
-    t_matrix    result;
-    int         i;
-    int         j;
+	t_matrix result;
+	int i;
+	int j;
 
-    result = new_matrix(matrix.size, matrix.size);
-    i = 0;
-    while (i < matrix.size)
-    {
-        j = 0;
-        while (j < matrix.size)
-        {
-            result.data[i][j] = matrix.data[j][i];
-            j++;
-        }
-        i++;
-    }
-    return (result);
+	result = new_matrix(matrix.size, matrix.size);
+	i = 0;
+	while (i < matrix.size)
+	{
+		j = 0;
+		while (j < matrix.size)
+		{
+			result.data[i][j] = matrix.data[j][i];
+			j++;
+		}
+		i++;
+	}
+	return (result);
 }

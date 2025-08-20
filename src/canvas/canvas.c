@@ -2,16 +2,16 @@
 
 void	free_canvas(t_canvas *canvas)
 {
-    int	i;
+	int	i;
 
-    i = 0;
-    while (i < canvas->height)
-    {
-        free(canvas->pixels[i]);
-        i++;
-    }
-    free(canvas->pixels);
-    free(canvas);
+	i = 0;
+	while (i < canvas->height)
+	{
+		free(canvas->pixels[i]);
+		i++;
+	}
+	free(canvas->pixels);
+	free(canvas);
 }
 
 void	fill_black_canvas(t_canvas *canvas)
@@ -70,10 +70,10 @@ t_canvas	*new_canvas(int width, int height)
 
 t_rgb	*pixel_at(t_canvas *canvas, int x, int y)
 {
-    return (&canvas->pixels[y][x]);
+	return (&canvas->pixels[y][x]);
 }
 
-void write_pixel(t_canvas *canvas, int x, int y, t_rgb color)
+void	write_pixel(t_canvas *canvas, int x, int y, t_rgb color)
 {
 	canvas->pixels[y][x] = color;
 }

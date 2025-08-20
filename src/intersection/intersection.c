@@ -12,138 +12,126 @@
 
 #include "../../includes/miniRT.h"
 
-t_intersection  new_intersection(int count, float enter, float exit, void *object)
+t_intersection	new_intersection(int count, float enter, float exit,
+		void *object)
 {
-    t_intersection  result;
+	t_intersection	result;
 
-    result.count = count;
-    result.enter = enter;
-    result.exit = exit;
-    result.object = object;
-    return (result);
+	result.count = count;
+	result.enter = enter;
+	result.exit = exit;
+	result.object = object;
+	return (result);
 }
 
-
-
-t_bool equal_intersections(t_intersection i1, t_intersection i2)
+t_bool	equal_intersections(t_intersection i1, t_intersection i2)
 {
-    return (i1.count == i2.count
-        && float_equal(i1.enter, i2.enter)
-        && float_equal(i1.exit, i2.exit));
+	return (i1.count == i2.count && float_equal(i1.enter, i2.enter)
+		&& float_equal(i1.exit, i2.exit));
 }
 
-t_intersections intersections(t_intersection i1, t_intersection i2)
+t_intersections	intersections(t_intersection i1, t_intersection i2)
 {
-    t_intersections xs;
-    xs.list = malloc(2 * sizeof(t_intersection));
-    xs.list[0] = i1;
-    xs.list[1] = i2;
-    xs.count = 2;
-    return xs;
+	t_intersections	xs;
+
+	xs.list = malloc(2 * sizeof(t_intersection));
+	xs.list[0] = i1;
+	xs.list[1] = i2;
+	xs.count = 2;
+	return (xs);
 }
 
-
-
-
-int intersect_object(t_ray *ray, t_object *obj, t_intersection *out)
+int	intersect_object(t_ray *ray, t_object *obj, t_intersection *out)
 {
-    if (!obj)
-        return 0;
-    if (obj->type == SPHERE)
-        return intersect_sphere(ray, obj, out);
-    /*if (obj->type == PLANE)
-        return intersect_plane(ray, obj, out);
-    if (obj->type == CYLINDER)
-        return intersect_cylinder(ray, obj, out);*/
-    return 0;
+	if (!obj)
+		return (0);
+	if (obj->type == SPHERE)
+		return (intersect_sphere(ray, obj, out));
+	/*if (obj->type == PLANE)
+		return (intersect_plane(ray, obj, out));
+	if (obj->type == CYLINDER)
+		return (intersect_cylinder(ray, obj, out));*/
+	return (0);
 }
 
-t_intersections intersect_object_all(t_ray *ray, t_object *obj)
+t_intersections	intersect_object_all(t_ray *ray, t_object *obj)
 {
-    t_intersections empty;
+	t_intersections	empty;
 
-    empty.count = 0;
-    empty.list = NULL;
-
-    if (!ray || !obj || !obj->data)
-        return empty;
-
-    if (obj->type == SPHERE)
-        return intersect_sphere_all(ray, obj); // retorna t_intersections
-
-    /*else if (obj->type == PLANE)
-        return intersect_plane_all(ray, obj);
-    else if (obj->type == CYLINDER)
-        return intersect_cylinder_all(ray, obj);*/
-
-    return empty;
+	empty.count = 0;
+	empty.list = NULL;
+	if (!ray || !obj || !obj->data)
+		return (empty);
+	if (obj->type == SPHERE)
+		return (intersect_sphere_all(ray, obj)); // retorna t_intersections
+	/*else if (obj->type == PLANE)
+		return (intersect_plane_all(ray, obj));
+	else if (obj->type == CYLINDER)
+		return (intersect_cylinder_all(ray, obj));*/
+	return (empty);
 }
 
-t_intersections intersections_create(int count, t_intersection *list)
+t_intersections	intersections_create(int count, t_intersection *list)
 {
-    t_intersections xs;
+	t_intersections	xs;
 
-    xs.list = malloc(count * sizeof(t_intersection));
-    if (!xs.list)
-    {
-        xs.count = 0;
-        return xs;
-    }
-
-    xs.count = count;
-    for (int i = 0; i < count; i++)
-        xs.list[i] = list[i];
-
-    return xs;
+	xs.list = malloc(count * sizeof(t_intersection));
+	if (!xs.list)
+	{
+		xs.count = 0;
+		return (xs);
+	}
+	xs.count = count;
+	for (int i = 0; i < count; i++)
+		xs.list[i] = list[i];
+	return (xs);
 }
-
-
 
 /*
-[ Criar raio ] 
-    |
-    v
+[ Criar raio ]
+	|
+	v
 [ Criar objeto ]
-    |
-    v
+	|
+	v
 [ intersect_object(ray, obj, &hit) ]   <-- função genérica
-    |
-    |-- Se obj->type == SPHERE --> [ intersect_sphere(ray, obj, &hit) ]
-    |                               |
-    |                               v
-    |                         [ intersect_ray_sphere(ray, t_sphere *) ]
-    |                               |
-    |                               v
-    |                        [ ft_quadratic(a,b,c) ]
-    |                               |
-    |                               v
-    |                         [ new_intersection(count, t1, t2, object) ]
-    |                               |
-    |                               v
-    |                       retorna t_intersection para intersect_sphere
-    |
-    |-- Se obj->type == PLANE  --> [ intersect_plane(...) ]
-    |
-    |-- Se obj->type == CYLINDER --> [ intersect_cylinder(...) ]
-    |
-    v
+	|
+	|-- Se obj->type == SPHERE --> [ intersect_sphere(ray, obj, &hit) ]
+	|                               |
+	|                               v
+	|                         [ intersect_ray_sphere(ray, t_sphere *) ]
+	|                               |
+	|                               v
+	|                        [ ft_quadratic(a,b,c) ]
+	|                               |
+	|                               v
+	|                         [ new_intersection(count, t1, t2, object) ]
+	|                               |
+	|                               v
+	|                       retorna t_intersection para intersect_sphere
+	|
+	|-- Se obj->type == PLANE  --> [ intersect_plane(...) ]
+	|
+	|-- Se obj->type == CYLINDER --> [ intersect_cylinder(...) ]
+	|
+	v
 [ retorna t_intersection preenchido ]
-    |
-    v
+	|
+	v
 [ t_intersection contém ]
-    - count (0,1,2)
-    - enter (t1)
-    - exit (t2)
-    - object (ponteiro para t_object ou t_sphere)
+	- count (0,1,2)
+	- enter (t1)
+	- exit (t2)
+	- object (ponteiro para t_object ou t_sphere)
 
 
 [ intersect_object(ray, obj1, &hit1) ]
 [ intersect_object(ray, obj2, &hit2) ]
-          |
-          v
+			|
+			v
 [ intersections(hit1, hit2) ]  --> t_intersections
-          |
-          v
+			|
+			v
 [ xs.list[0] = hit1, xs.list[1] = hit2 ]
 [ xs.count = 2 ]
 
@@ -174,5 +162,6 @@ object → ponteiro para o objeto atingido
 
 Para múltiplos objetos, podemos agrupar os resultados em t_intersections.
 
-A partir desses dados, é possível determinar qual objeto é visível, calcular cores, sombras e reflexões.
+A partir desses dados, é possível determinar qual objeto é visível,
+	calcular cores, sombras e reflexões.
 */

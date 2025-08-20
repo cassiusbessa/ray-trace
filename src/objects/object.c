@@ -12,13 +12,11 @@
 
 #include "../../includes/miniRT.h"
 
-
-void set_object_transform(t_object *obj, t_matrix m)
+void	set_object_transform(t_object *obj, t_matrix m)
 {
-    if (!obj || !obj->data)
-        return;
-
-    if (obj->type == SPHERE)
-        ((t_sphere *)obj->data)->transform = m;
-    // else if (obj->type == PLANE) ...
+	if (!obj || !obj->data)
+		return ;
+	if (obj->type == SPHERE)
+		((t_sphere *)obj->data)->transform = m;
+	// else if (obj->type == PLANE) ...
 }

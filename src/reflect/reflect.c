@@ -12,14 +12,11 @@
 
 #include "../../includes/miniRT.h"
 
-t_tuple reflect(t_tuple v, t_tuple n)
+t_tuple	reflect(t_tuple v, t_tuple n)
 {
-    float dot_product;
-    
-    dot_product = vector_dot_product(v, n);
-    return vector(
-        v.x - 2 * dot_product * n.x,
-        v.y - 2 * dot_product * n.y,
-        v.z - 2 * dot_product * n.z
-    );
+	float dot_product;
+
+	dot_product = vector_dot_product(v, n);
+	return (vector(v.x - 2 * dot_product * n.x, v.y - 2 * dot_product * n.y, v.z
+			- 2 * dot_product * n.z));
 }

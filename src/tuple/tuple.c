@@ -48,7 +48,6 @@ t_tuple	sub_tuples(t_tuple t1, t_tuple t2)
 	result.z = t1.z - t2.z;
 	result.w = t1.w - t2.w;
 	return (result);
-
 }
 
 t_tuple	multiply_tuple_by_scalar(t_tuple t, float scalar)
@@ -61,4 +60,3 @@ t_tuple	multiply_tuple_by_scalar(t_tuple t, float scalar)
 	result.w = t.w;
 	return (result);
 }
-

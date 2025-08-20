@@ -12,7 +12,6 @@
 
 #include "../../includes/miniRT.h"
 
-
 int	rgb_to_int(t_rgb *color)
 {
 	int	r;
@@ -46,12 +45,13 @@ void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data)
 		while (x < canvas->width)
 		{
 			color = rgb_to_int(pixel_at(canvas, x, y));
-			*(unsigned int *)(data->img.addr + ((canvas->height - 1 - y) * data->img.line_len + x
-						* (data->img.bpp / 8))) = color;
+			*(unsigned int *)(data->img.addr + ((canvas->height - 1 - y)
+						* data->img.line_len + x * (data->img.bpp
+							/ 8))) = color;
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,
+		0);
 }
-

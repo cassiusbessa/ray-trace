@@ -12,41 +12,39 @@
 
 #include "../../includes/miniRT.h"
 
-t_matrix rotation_x_matrix(float radians)
+t_matrix	rotation_x_matrix(float radians)
 {
-    t_matrix matrix;
+	t_matrix	matrix;
 
-    matrix = identity_matrix(4);
-    matrix.data[1][1] = cos(radians);
-    matrix.data[1][2] = -sin(radians);
-    matrix.data[2][1] = sin(radians);
-    matrix.data[2][2] = cos(radians);
-
-    return (matrix);
+	matrix = identity_matrix(4);
+	matrix.data[1][1] = cos(radians);
+	matrix.data[1][2] = -sin(radians);
+	matrix.data[2][1] = sin(radians);
+	matrix.data[2][2] = cos(radians);
+	return (matrix);
 }
 
-t_matrix rotation_y_matrix(float radians)
+t_matrix	rotation_y_matrix(float radians)
 {
-    t_matrix matrix;
+	t_matrix	matrix;
 
-    matrix = identity_matrix(4);
-    matrix.data[0][0] = cos(radians);
-    matrix.data[0][2] = sin(radians);
-    matrix.data[2][0] = -sin(radians);
-    matrix.data[2][2] = cos(radians);
-
-    return (matrix);
+	matrix = identity_matrix(4);
+	matrix.data[0][0] = cos(radians);
+	matrix.data[0][2] = sin(radians);
+	matrix.data[2][0] = -sin(radians);
+	matrix.data[2][2] = cos(radians);
+	return (matrix);
 }
 
-t_matrix rotation_z_matrix(float radians)
+t_matrix	rotation_z_matrix(float radians)
 {
-    t_matrix matrix;
+	t_matrix matrix;
 
-    matrix = identity_matrix(4);
-    matrix.data[0][0] = cos(radians);
-    matrix.data[0][1] = -sin(radians);
-    matrix.data[1][0] = sin(radians);
-    matrix.data[1][1] = cos(radians);
+	matrix = identity_matrix(4);
+	matrix.data[0][0] = cos(radians);
+	matrix.data[0][1] = -sin(radians);
+	matrix.data[1][0] = sin(radians);
+	matrix.data[1][1] = cos(radians);
 
-    return (matrix);
+	return (matrix);
 }
