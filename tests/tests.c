@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 20:22:48 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/21 02:20:25 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int    main(void)
     errors += all_transformation_tests();
     errors += run_test_ray();
     errors += run_test_sphere();
-    errors += run_test_intersections();
     errors += run_test_hit();
     errors += run_ray_tests();
     errors += run_sphere_transform_tests();

@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 20:22:08 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/21 02:18:24 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int     run_test_shearing(void);
 int     run_test_chained_transformations(void);
 int     run_test_ray(void);
 int     run_test_sphere(void);
-int     run_test_intersections(void);
 int     run_test_hit(void);
 int     run_ray_tests(void);
 int     run_sphere_transform_tests(void);

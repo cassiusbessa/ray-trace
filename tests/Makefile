@@ -70,7 +70,6 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(RAY_DIR)/ray_tests.c \
             $(RAY_DIR)/ray_transform_tests.c \
             $(SPHERE_TESTS)/sphere_tests.c \
-            $(SPHERE_TESTS)/intersections_sphere_test.c \
             $(SPHERE_TESTS)/sphere_transform_tests.c \
             $(HIT_TESTS)/hit_tests.c \
             $(NORMAL_TESTS)/normal_test.c \

@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 22:14:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/19 23:25:09 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/21 01:56:40 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,29 @@ static void add_node_ordered(float t, t_intersection_list *list, t_object *o)
 
 void add_intersection_to_list(t_intersection_list *list, t_intersection i)
 {
-    add_node_ordered(i.enter, list, i.object);
-    add_node_ordered(i.exit, list, i.object);
+    if (i.count == 1)
+        add_node_ordered(i.enter, list, i.object);
+    else if (i.count == 2)
+    {
+        add_node_ordered(i.enter, list, i.object);
+        add_node_ordered(i.exit, list, i.object);
+    }
+}
+
+void join_lists(t_intersection_list *dest, t_intersection_list *src, t_bool free_src)
+{
+    t_intersection_node *current;
+
+    if (!dest || !src)
+        return;
+    current = src->head;
+    while (current)
+    {
+        add_node_ordered(current->t, dest, current->object);
+        current = current->next;
+    }
+    if (free_src)
+        free_intersection_list(src);
 }
 
 
