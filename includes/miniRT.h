@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/21 01:45:48 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/21 02:35:57 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ t_intersection					new_intersection(int count, float enter,
 t_bool							equal_intersections(t_intersection i1,
 									t_intersection i2);
 t_intersection_node					*hit(t_intersection_list l);
+t_intersection_list	*intersect(t_ray ray, t_object *object);
 
 /* ************************************************************************** */
 /*                               Quadratic Solver                             */
