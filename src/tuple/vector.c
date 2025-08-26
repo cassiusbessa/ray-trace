@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:34:47 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 20:11:15 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/26 20:48:23 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ float vector_dot_product(t_tuple t1, t_tuple t2)
 {
     if (t1.w != 0 || t2.w != 0)
     {
-        printf("⚠️ [vector_dot_product] Corrigindo ponto(s) para vetor.\n");
         t1.w = 0;
         t2.w = 0;
     }

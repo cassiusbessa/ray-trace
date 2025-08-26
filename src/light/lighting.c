@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:11:53 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/25 23:35:46 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/26 20:51:19 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ t_rgb diffuse_component(t_material m, t_point_light light,
 
     t_rgb effective_color = multiply_rgb_by_rgb(m.color, light.intensity);
     t_rgb diffuse = multiply_rgb_by_scalar(effective_color, m.diffuse * light_dot_normal);
-
-    printf("[DEBUG] diffuse_component: effective_color=(%.3f,%.3f,%.3f) diffuse=(%.3f,%.3f,%.3f) light_dot_normal=%.3f\n",
-        effective_color.r, effective_color.g, effective_color.b,
-        diffuse.r, diffuse.g, diffuse.b, light_dot_normal);
 
     return diffuse;
 }
@@ -59,9 +55,6 @@ t_rgb specular_component(t_material m, t_point_light light,
     double factor = pow(reflect_dot_eye, m.shininess);
     specular = multiply_rgb_by_scalar(light.intensity, m.specular * factor);
 
-    printf("[DEBUG] specular_component: reflect_dot_eye=%.3f specular=(%.3f,%.3f,%.3f)\n",
-        reflect_dot_eye, specular.r, specular.g, specular.b);
-
     return specular;
 }
 // ----------------------------
@@ -73,9 +66,6 @@ t_rgb calc_diff_spec(t_material m, t_point_light light,
 	t_rgb diffuse = diffuse_component(m, light, lightv, normalv);
 	t_rgb specular = specular_component(m, light, lightv, eyev, normalv);
 	t_rgb result = add_rgb(diffuse, specular);
-
-	printf("[DEBUG] calc_diff_spec: result=(%.3f,%.3f,%.3f)\n",
-		result.r, result.g, result.b);
 
 	return result;
 }
@@ -98,23 +88,13 @@ t_rgb lighting(t_material m, t_point_light light, t_tuple position,
     t_rgb ambient = multiply_rgb_by_scalar(
         multiply_rgb_by_rgb(m.color, light.intensity), m.ambient);
 
-    if (in_shadow) {
-        printf("[DEBUG lighting] in_shadow=1, return ambient only: (%.3f,%.3f,%.3f)\n",
-            ambient.r, ambient.g, ambient.b);
+    if (in_shadow)
         return ambient;
-    }
 
     // componentes difusa + especular
     t_rgb diff_spec = calc_diff_spec(m, light, lightv, eyev, normalv);
 
     // soma final
     t_rgb result = add_rgb(ambient, diff_spec);
-
-    printf("[DEBUG lighting] ambient=(%.3f,%.3f,%.3f), diff_spec=(%.3f,%.3f,%.3f), "
-           "result=(%.3f,%.3f,%.3f)\n",
-        ambient.r, ambient.g, ambient.b,
-        diff_spec.r, diff_spec.g, diff_spec.b,
-        result.r, result.g, result.b);
-
     return result;
 }

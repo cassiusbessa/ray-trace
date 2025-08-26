@@ -9,7 +9,8 @@
     "stdio.h": "c",
     "mlx.h": "c",
     "libft.h": "c",
-    "type_traits": "c"
+    "type_traits": "c",
+    "compare": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
