@@ -54,10 +54,20 @@ static int test_scaling_inverse_vector(void)
     t_tuple v;
     t_tuple result;
     int errors;
+    int success; // necessário para invert_matrix
 
     errors = 0;
     transform = scaling_matrix(2, 3, 4);
-    inv = invert_matrix(transform);
+
+    // Passa &success como segundo argumento
+    inv = invert_matrix(transform, &success);
+    if (!success)
+    {
+        printf("❌ Falha ao inverter a matriz de scaling!\n");
+        free_matrix(transform);
+        return 1;
+    }
+
     v = vector(-4, 6, 8);
     result = matrix_multiply_by_tuple(inv, v);
 
@@ -67,6 +77,7 @@ static int test_scaling_inverse_vector(void)
 
     free_matrix(transform);
     free_matrix(inv);
+
     return errors;
 }
 

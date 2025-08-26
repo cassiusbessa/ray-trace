@@ -3,81 +3,118 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:11:53 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/19 08:39:20 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/25 23:35:46 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-static t_rgb	diffuse_component(t_material m, t_point_light light,
-		double light_dot_normal)
+// ----------------------------
+// Diffuse component
+// ----------------------------
+t_rgb diffuse_component(t_material m, t_point_light light,
+    t_tuple lightv, t_tuple normalv)
 {
-	t_rgb	effective_color;
-	t_rgb	diffuse;
+    if (lightv.x == 0 && lightv.y == 0 && lightv.z == 0)
+        return new_rgb(0, 0, 0);
 
-	effective_color = multiply_rgb_by_rgb(m.color, light.intensity);
-	diffuse = multiply_rgb_by_scalar(effective_color, m.diffuse
-			* light_dot_normal);
-	return (diffuse);
+    double light_dot_normal = vector_dot_product(normalv, lightv);
+    if (light_dot_normal < 0.0 || isnan(light_dot_normal))
+        light_dot_normal = 0.0;
+
+    t_rgb effective_color = multiply_rgb_by_rgb(m.color, light.intensity);
+    t_rgb diffuse = multiply_rgb_by_scalar(effective_color, m.diffuse * light_dot_normal);
+
+    printf("[DEBUG] diffuse_component: effective_color=(%.3f,%.3f,%.3f) diffuse=(%.3f,%.3f,%.3f) light_dot_normal=%.3f\n",
+        effective_color.r, effective_color.g, effective_color.b,
+        diffuse.r, diffuse.g, diffuse.b, light_dot_normal);
+
+    return diffuse;
 }
 
-static t_rgb	specular_component(t_material m, t_point_light light,
-		t_tuple lightv, t_tuple eyev)
+// ----------------------------
+// Specular component
+// ----------------------------
+t_rgb specular_component(t_material m, t_point_light light,
+     t_tuple lightv, t_tuple eyev, t_tuple normalv)
 {
-	t_tuple	reflectv;
-	double	reflect_dot_eye;
-	double	factor;
-	t_rgb	specular;
+    t_rgb specular = new_rgb(0, 0, 0);
 
-	reflectv = reflect(multiply_tuple_by_scalar(lightv, -1), vector(0, 0, -1));
-	reflect_dot_eye = fmax(vector_dot_product(reflectv, eyev), 0);
-	if (reflect_dot_eye <= 0)
-		specular = new_rgb(0, 0, 0);
-	else
-	{
-		factor = pow(reflect_dot_eye, m.shininess);
-		specular = multiply_rgb_by_scalar(light.intensity, m.specular * factor);
-	}
-	return (specular);
+    if (lightv.x == 0 && lightv.y == 0 && lightv.z == 0)
+        return specular;
+
+    double light_dot_normal = vector_dot_product(normalv, lightv);
+    if (light_dot_normal <= 0)
+        return specular;
+
+    t_tuple reflectv = reflect(multiply_tuple_by_scalar(lightv, -1), normalv);
+    double reflect_dot_eye = vector_dot_product(reflectv, eyev);
+
+    if (reflect_dot_eye <= 0 || isnan(reflect_dot_eye))
+        return specular;
+
+    double factor = pow(reflect_dot_eye, m.shininess);
+    specular = multiply_rgb_by_scalar(light.intensity, m.specular * factor);
+
+    printf("[DEBUG] specular_component: reflect_dot_eye=%.3f specular=(%.3f,%.3f,%.3f)\n",
+        reflect_dot_eye, specular.r, specular.g, specular.b);
+
+    return specular;
+}
+// ----------------------------
+// Calc diffuse + specular
+// ----------------------------
+t_rgb calc_diff_spec(t_material m, t_point_light light,
+ t_tuple lightv, t_tuple eyev, t_tuple normalv)
+{
+	t_rgb diffuse = diffuse_component(m, light, lightv, normalv);
+	t_rgb specular = specular_component(m, light, lightv, eyev, normalv);
+	t_rgb result = add_rgb(diffuse, specular);
+
+	printf("[DEBUG] calc_diff_spec: result=(%.3f,%.3f,%.3f)\n",
+		result.r, result.g, result.b);
+
+	return result;
 }
 
-static t_rgb	calc_diff_spec(t_material m, t_point_light light,
-		t_tuple lightv, t_tuple eyev)
+
+
+
+
+
+
+
+
+
+t_rgb lighting(t_material m, t_point_light light, t_tuple position,
+    t_tuple eyev, t_tuple normalv, int in_shadow)
 {
-	t_rgb	diffuse;
-	t_rgb	specular;
-	t_rgb	result;
-	double	light_dot_normal;
+    t_tuple lightv = normalize_vector(sub_tuples(light.position, position));
 
-	light_dot_normal = vector_dot_product(lightv, vector(0, 0, -1));
-	if (light_dot_normal < 0)
-		result = new_rgb(0, 0, 0);
-	else
-	{
-		diffuse = diffuse_component(m, light, light_dot_normal);
-		specular = specular_component(m, light, lightv, eyev);
-		result = add_rgb(diffuse, specular);
-	}
-	return (result);
-}
+    // componente ambiente
+    t_rgb ambient = multiply_rgb_by_scalar(
+        multiply_rgb_by_rgb(m.color, light.intensity), m.ambient);
 
-t_rgb	lighting(t_material m, t_point_light light, t_tuple position,
-		t_tuple eyev)
-{
-	t_tuple	lightv;
+    if (in_shadow) {
+        printf("[DEBUG lighting] in_shadow=1, return ambient only: (%.3f,%.3f,%.3f)\n",
+            ambient.r, ambient.g, ambient.b);
+        return ambient;
+    }
 
-	t_rgb ambient, diff_spec, result;
-	// direção da luz
-	lightv = normalize_vector(sub_tuples(light.position, position));
-	// componente ambiente
-	ambient = multiply_rgb_by_scalar(multiply_rgb_by_rgb(m.color,
-				light.intensity), m.ambient);
-	// componente difusa + especular
-	diff_spec = calc_diff_spec(m, light, lightv, eyev);
-	// soma final
-	result = add_rgb(ambient, diff_spec);
-	return (result);
+    // componentes difusa + especular
+    t_rgb diff_spec = calc_diff_spec(m, light, lightv, eyev, normalv);
+
+    // soma final
+    t_rgb result = add_rgb(ambient, diff_spec);
+
+    printf("[DEBUG lighting] ambient=(%.3f,%.3f,%.3f), diff_spec=(%.3f,%.3f,%.3f), "
+           "result=(%.3f,%.3f,%.3f)\n",
+        ambient.r, ambient.g, ambient.b,
+        diff_spec.r, diff_spec.g, diff_spec.b,
+        result.r, result.g, result.b);
+
+    return result;
 }

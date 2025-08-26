@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/21 02:40:32 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/25 20:52:34 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ t_bool	equal_intersections(t_intersection i1, t_intersection i2)
 		&& float_equal(i1.exit, i2.exit));
 }
 
-t_intersection_list	*intersect(t_ray ray, t_object *object)
+t_intersection_list *intersect(t_ray ray, t_object *object)
 {
-	if (object->type == SPHERE)
-		return (intersect_ray_sphere(ray, (t_sphere *)object->data));
-	return (NULL);
+    if (object->type == SPHERE)
+        return intersect_ray_sphere(ray, object);
+    return NULL;
 }

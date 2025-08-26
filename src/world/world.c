@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/19 21:06:08 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 00:25:02 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,46 +69,59 @@ void	add_light_to_world(t_world *world, t_point_light light)
 	world->lights->count++;
 }
 
-void	free_world(t_world *world)
-{
-	t_object_node		*on;
-	t_point_light_node	*ln;
-	t_object_node		*tmp_obj;
-	t_point_light_node	*tmp_light;
 
-	on = world->objects->head;
-	while (on)
-	{
-		tmp_obj = on;
-		on = on->next;
-		free(tmp_obj);
-	}
-	free(world->objects);
-	ln = world->lights->head;
-	while (ln)
-	{
-		tmp_light = ln;
-		ln = ln->next;
-		free(tmp_light);
-	}
-	free(world->lights);
+void free_world(t_world *world)
+{
+    if (!world)
+        return;
+
+    // libera objetos
+    t_object_node *curr_obj = world->objects->head;
+    while (curr_obj)
+    {
+        if (curr_obj->object.type == SPHERE && curr_obj->object.data)
+            free(curr_obj->object.data); // libera a esfera
+        t_object_node *next = curr_obj->next;
+        free(curr_obj);
+        curr_obj = next;
+    }
+
+    // libera luzes
+    t_point_light_node *curr_light = world->lights->head;
+    while (curr_light)
+    {
+        t_point_light_node *next = curr_light->next;
+        free(curr_light);
+        curr_light = next;
+    }
+
+    free(world->objects);
+    free(world->lights);
 }
 
-t_world	default_world(void)
-{
-	t_world			world;
-	t_object		obj1;
-	t_sphere		s;
-	t_point_light	light;
 
-	world = new_world();
-	light = new_point_light(point(-10, 10, -10), new_rgb(1.0f, 1.0f, 1.0f));
-	s = new_sphere(point(0, 0, 0), 1.0f);
-	obj1.type = SPHERE;
-	obj1.data = &s;
-	add_object_to_world(&world, obj1);
-	set_object_transform(&obj1, scaling_matrix(0.5f, 0.5f, 0.5f));
-	add_object_to_world(&world, obj1);
-	add_light_to_world(&world, light);
-	return (world);
+
+t_world default_world(void)
+{
+    t_world world = new_world();
+
+    // Adiciona luz principal
+    add_light_to_world(&world,
+        new_point_light(point(-10, 10, -10), new_rgb(1.0f, 1.0f, 1.0f))
+    );
+
+    // Primeira esfera (material padrão)
+    t_sphere *s1 = malloc(sizeof(t_sphere));
+    *s1 = new_sphere(point(0, 0, 0), 1.0f);
+    t_object o1 = {.type = SPHERE, .data = s1};
+    add_object_to_world(&world, o1);
+
+    // Segunda esfera (escala 0.5)
+    t_sphere *s2 = malloc(sizeof(t_sphere));
+    *s2 = new_sphere(point(0, 0, 0), 1.0f);
+    s2->transform = scaling_matrix(0.5f, 0.5f, 0.5f);
+    t_object o2 = {.type = SPHERE, .data = s2};
+    add_object_to_world(&world, o2);
+
+    return world;
 }

@@ -8,38 +8,39 @@ CFLAGS  = -Wall -Wextra -Werror
 RM      = rm -f
 
 # Diretórios
-TUPLE_DIR      = src/tuple
-VECTOR_DIR     = src/vector
-RGB_DIR        = src/rgb
-CANVAS_DIR     = src/canvas
-MATRIX_DIR     = src/matrix
-MLX_DIR        = src/mlx_adapter
-TRANSF_DIR     = src/transformation
-RAY_DIR        = src/ray
-SPHERE_DIR     = src/sphere
+TUPLE_DIR        = src/tuple
+VECTOR_DIR       = src/vector
+RGB_DIR          = src/rgb
+CANVAS_DIR       = src/canvas
+MATRIX_DIR       = src/matrix
+MLX_DIR          = src/mlx_adapter
+TRANSF_DIR       = src/transformation
+RAY_DIR          = src/ray
+SPHERE_DIR       = src/sphere
 INTERSECTION_DIR = src/intersection
-OBJS_DIR       = src/objects
-NORMAL_DIR     = src/normal
-REFLECT_DIR    = src/reflect
-LIGHT_DIR      = src/light
-MATERIAL_DIR   = src/material
-WORLD_DIR      = src/world
-UTILS_DIR      = src/utils
-INCLUDE_DIR    = include
-LIBFT_DIR      = utils/libft
-MINILIBX_DIR   = minilibx-linux
+OBJS_DIR         = src/objects
+NORMAL_DIR       = src/normal
+REFLECT_DIR      = src/reflect
+LIGHT_DIR        = src/light
+MATERIAL_DIR     = src/material
+WORLD_DIR        = src/world
+UTILS_DIR        = src/utils
+INCLUDE_DIR      = include
+LIBFT_DIR        = utils/libft
+MINILIBX_DIR     = includes/minilibx-linux
 
-TESTS_DIR      = tests
+TESTS_DIR        = tests
 
 # Nome do executável
-MINIRT         = miniRT
+MINIRT           = miniRT
 
 # Bibliotecas
-LIBFT          = $(LIBFT_DIR)/libft.a
-MINILIBX       = $(MINILIBX_DIR)/libmlx_Linux.a
+LIBFT            = $(LIBFT_DIR)/libft.a
+MINILIBX         = $(MINILIBX_DIR)/libmlx_Linux.a
 
 # Arquivos fontes
-SRCS = $(TUPLE_DIR)/tuple.c \
+SRCS = main.c \
+       $(TUPLE_DIR)/tuple.c \
        $(TUPLE_DIR)/tuple_utils.c \
        $(TUPLE_DIR)/vector.c \
        $(RGB_DIR)/rgb.c \
@@ -71,7 +72,9 @@ SRCS = $(TUPLE_DIR)/tuple.c \
        $(LIGHT_DIR)/lighting.c \
        $(MATERIAL_DIR)/material.c \
        $(WORLD_DIR)/world.c \
+       $(WORLD_DIR)/shade.c \
        $(UTILS_DIR)/solve_quadratic.c \
+       $(INTERSECTION_DIR)/hit.c \
        src/thick.c
 
 # Objetos
@@ -88,7 +91,8 @@ OBJS = $(SRCS:.c=.o)
 # Executável principal
 $(MINIRT): $(OBJS)
 	@make -C $(LIBFT_DIR)
-	@make -C $(MINILIBX_DIR)
+	@echo "Compilando MiniLibX..."
+	@make -C $(MINILIBX_DIR) all
 	$(CC) $(OBJS) $(LIBFT) $(MINILIBX) -o $(MINIRT) -I$(INCLUDE_DIR) -I$(MINILIBX_DIR) -lXext -lX11 -lreadline -lm
 	@printf "\e[92;5;118m    - Executable ready.\n\e[0m"
 

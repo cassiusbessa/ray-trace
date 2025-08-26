@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translation_point_test.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:05:12 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 20:08:01 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 01:17:56 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,23 @@ static int test_translation_inverse(void)
     t_tuple p;
     t_tuple result;
     int errors;
-    
+    int success; // <--- necessário para a função invert_matrix
 
     errors = 0;
     transform = translation_matrix(5, -3, 2);
-    inv = invert_matrix(transform);
+
+    // Passa &success como segundo argumento
+    inv = invert_matrix(transform, &success);
+
+    if (!success)
+    {
+        printf("❌ Falha ao inverter a matriz de translação!\n");
+        free_matrix(transform);
+        return 1; // considera como erro
+    }
+
     p = point(-3, 4, 5);
     result = matrix_multiply_by_tuple(inv, p);
-    
 
     errors += test_check_double(result.x, -8, "translation x");
     errors += test_check_double(result.y, 7, "translation y");
@@ -57,6 +66,7 @@ static int test_translation_inverse(void)
 
     return errors;
 }
+
 
 
 int run_test_translation_point(void)

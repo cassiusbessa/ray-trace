@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_tests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:20:09 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/21 02:16:36 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/25 20:49:46 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,44 +18,55 @@ static int test_intersect_ray_sphere(void)
     t_intersection_list *intersection;
     t_ray ray;
     t_sphere sphere;
+    t_object obj;
 
+    // Inicializa esfera e objeto
     sphere = new_sphere(point(0, 0, 0), 1.0f);
+    obj.type = SPHERE;
+    obj.data = &sphere;
+
+    // Caso 1: Raio atravessa a esfera
     ray = create_ray(point(0, 0, -5), vector(0, 0, 1));
-    intersection = intersect_ray_sphere(ray, &sphere);
+    intersection = intersect_ray_sphere(ray, &obj);
     errors += test_check(intersection->count == 2, "Ray should intersect sphere at two points");
     errors += test_check_double(intersection->head->t, 4.0f, "Ray should intersect sphere at two points (first intersection)");
     errors += test_check_double(intersection->head->next->t, 6.0f, "Ray should intersect sphere at two points (second intersection)");
-
     free_intersection_list(intersection);
+
     // Caso 2: Raio tangencia esfera
     ray = create_ray(point(0, 1, -5), vector(0, 0, 1));
-    intersection = intersect_ray_sphere(ray, &sphere);
+    intersection = intersect_ray_sphere(ray, &obj);
     errors += test_check(intersection->count == 2, "Ray should tangentially intersect sphere");
     errors += test_check_double(intersection->head->t, 5.0f, "Ray should tangentially intersect sphere");
     errors += test_check_double(intersection->head->next->t, 5.0f, "Ray should tangentially intersect sphere");
-    
+    free_intersection_list(intersection);
+
     // Caso 3: Raio perde a esfera
     ray = create_ray(point(0, 2, -5), vector(0, 0, 1));
-    intersection = intersect_ray_sphere(ray, &sphere);
+    intersection = intersect_ray_sphere(ray, &obj);
     errors += test_check(intersection->count == 0, "Ray should not intersect sphere");
     errors += test_check(intersection->head == NULL, "Ray should not intersect sphere (head is NULL)");
+    free_intersection_list(intersection);
 
     // Caso 4: Raio começa dentro da esfera
     ray = create_ray(point(0, 0, 0), vector(0, 0, 1));
-    intersection = intersect_ray_sphere(ray, &sphere);
+    intersection = intersect_ray_sphere(ray, &obj);
     errors += test_check(intersection->count == 2, "Ray should intersect sphere at two points (inside)");
     errors += test_check_double(intersection->head->t, -1.0f, "Ray should intersect sphere at two points (inside)");
     errors += test_check_double(intersection->head->next->t, 1.0f, "Ray should intersect sphere at two points (inside)");
+    free_intersection_list(intersection);
 
     // Caso 5: Esfera está atrás do raio
     ray = create_ray(point(0, 0, 5), vector(0, 0, 1));
-    intersection = intersect_ray_sphere(ray, &sphere);
+    intersection = intersect_ray_sphere(ray, &obj);
     errors += test_check(intersection->count == 2, "Ray should intersect sphere at two points (behind)");
     errors += test_check_double(intersection->head->t, -6.0f, "Ray should intersect sphere at two points (behind - first intersection)");
     errors += test_check_double(intersection->head->next->t, -4.0f, "Ray should intersect sphere at two points (behind - second intersection)");
+    free_intersection_list(intersection);
 
     return errors;
 }
+
 
 static int test_default_material_sphere(void)
 {

@@ -78,6 +78,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(MATERIAL_TESTS)/material_test.c \
             $(LIGHTING_TESTS)/lighting_test.c \
             $(WORLD_TESTS)/world_test.c \
+            $(WORLD_TESTS)/world_color_test.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
@@ -113,9 +114,8 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/light/lighting.c \
             $(CORE_DIR)/material/material.c \
             $(CORE_DIR)/world/world.c \
-            $(CORE_DIR)/utils/solve_quadratic.c \
-            
-            
+            $(CORE_DIR)/world/shade.c \
+            $(CORE_DIR)/utils/solve_quadratic.c
 
 TEST_SRCS += $(CORE_SRCS)
 
@@ -128,6 +128,10 @@ TEST_OBJS = $(TEST_SRCS:.c=.o)
 
 # Compilar .c em .o
 %.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Criar objeto para arquivos do core no mesmo nível (incluindo intersect_world.c)
+$(CORE_DIR)/%.o: $(CORE_DIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Compilar o test_runner

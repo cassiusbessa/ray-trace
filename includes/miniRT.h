@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/21 02:35:57 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 20:18:11 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ t_matrix						submatrix(t_matrix matrix, int row, int col);
 double							minor_matrix(t_matrix matrix, int row, int col);
 double							cofactor_matrix(t_matrix matrix, int row,
 									int col);
-float							determinant_matrix(t_matrix a);
+double							determinant_matrix(t_matrix a);
 int								is_invertible(t_matrix matrix);
-t_matrix						invert_matrix(t_matrix matrix);
+t_matrix						invert_matrix(t_matrix matrix, int *success);
 
 /* ************************************************************************** */
 /*                             Transformations                                 */
@@ -160,7 +160,7 @@ typedef struct s_ray
 t_ray							create_ray(t_tuple origin, t_tuple direction);
 t_tuple							ray_position(t_ray r, float t);
 t_bool							equal_rays(t_ray r1, t_ray r2);
-t_ray							transform_ray(t_ray r, t_matrix m);
+t_ray							transform_ray(t_ray r, t_matrix m, int *success);
 
 /* ************************************************************************** */
 /*                               Objects                                      */
@@ -262,8 +262,8 @@ typedef struct s_sphere
 }								t_sphere;
 
 t_sphere						new_sphere(t_tuple center, float radius);
-t_intersection_list					*intersect_ray_sphere(t_ray ray,
-									t_sphere *sphere);
+t_intersection_list *intersect_ray_sphere(t_ray ray, t_object *obj);
+;
 void							set_object_transform(t_object *obj, t_matrix m);
 
 t_bool							float_equal(float a, float b);
@@ -284,8 +284,10 @@ t_point_light					new_point_light(t_tuple position,
 t_tuple							negate_vector(t_tuple v);
 t_rgb							clamp_color(t_rgb c);
 
-t_rgb							lighting(t_material m, t_point_light light,
-									t_tuple position, t_tuple eyev);
+t_rgb lighting(t_material m, t_point_light light, t_tuple position,
+	t_tuple eyev, t_tuple normalv, int in_shadow);
+
+
 
 typedef struct s_point_light_node
 {
@@ -328,4 +330,53 @@ void							add_light_to_world(t_world *world,
 									t_point_light light);
 t_world							default_world(void);
 void							free_world(t_world *world);
+
+
+/* ************************************************************************** */
+/*                      World-ray intersection + comps                        */
+/* ************************************************************************** */
+
+typedef struct s_comps
+{
+    float   t;
+    t_object *object;
+    t_tuple  point;       // posição real da interseção
+    t_tuple  over_point;  // ponto levemente deslocado ao longo da normal
+    t_tuple eyev;
+    t_tuple normalv;
+    t_bool  inside;
+}   t_comps;
+
+/* “Interseção simples” (t + objeto) para testes e prepare_computations */
+typedef struct s_simple_intersection
+{
+    float     t;
+    t_object *object;
+}   t_simple_intersection;
+
+t_intersection_list *intersect_world(t_world *world, t_ray *ray);
+
+
+t_simple_intersection make_simple_intersection(float t, t_object *obj);
+t_comps prepare_computations(t_simple_intersection i, t_ray r);
+
+
+
+t_rgb shade_hit(t_world *world, t_comps comps);
+
+t_rgb color_at(t_world world, t_ray ray);
+t_intersection_node *get_node(int i,t_intersection_list *list);
+
+
+void add(t_intersection_node *n, t_intersection_list *list);
+void add_node_ordered(float t, t_intersection_list *list, t_object *o);
+
+t_rgb diffuse_component(t_material m, t_point_light light,
+	t_tuple lightv, t_tuple normalv);
+t_rgb specular_component(t_material m, t_point_light light,
+	 t_tuple lightv, t_tuple eyev, t_tuple normalv);
+t_rgb calc_diff_spec(t_material m, t_point_light light,
+ t_tuple lightv, t_tuple eyev, t_tuple normalv);
+ t_tuple safe_normalize_vector(t_tuple v);
+
 #endif

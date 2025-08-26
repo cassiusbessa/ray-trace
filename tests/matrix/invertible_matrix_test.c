@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   invertible_matrix_test.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 18:21:33 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 13:36:58 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:15:54 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../tests.h"
-/*
+
 // Matriz invertível (det != 0)
 static t_matrix matrix_a(void)
 {
@@ -37,7 +37,7 @@ static t_matrix matrix_b(void)
     matrix.data[3][0] = 0;   matrix.data[3][1] = 0;   matrix.data[3][2] = 0;   matrix.data[3][3] = 0;
     return (matrix);
 }
-*/
+
 // Matriz de entrada A
 static t_matrix matrix_a1(void)
 {
@@ -87,6 +87,7 @@ static int test_matrix_inversion(t_matrix (*mat_func)(void), t_matrix (*inv_func
     t_matrix expected;
     t_matrix inv;
     int result;
+    int success;
 
     // Obtém a matriz original
     original = mat_func();
@@ -95,7 +96,15 @@ static int test_matrix_inversion(t_matrix (*mat_func)(void), t_matrix (*inv_func
     expected = inv_func();
 
     // Calcula a inversa usando a função
-    inv = invert_matrix(original);
+    inv = invert_matrix(original, &success);
+
+    if (!success)
+    {
+        printf("Falha ao inverter a matriz no teste: %s\n", msg);
+        free_matrix(original);
+        free_matrix(expected);
+        return 1; // erro
+    }
 
     // Compara
     result = test_check(equal_matrix(inv, expected), msg);
@@ -113,12 +122,37 @@ static int test_matrix_inversion(t_matrix (*mat_func)(void), t_matrix (*inv_func
 int invertible_matrix_tests(void)
 {
     int errors = 0;
+    int success;
 
+    // Testa matrizes invertíveis com inversa conhecida
     errors += test_matrix_inversion(matrix_a1, matrix_a1_inverse, "matrix_a1 inverse test");
     errors += test_matrix_inversion(matrix_a2, matrix_a2_inverse, "matrix_a2 inverse test");
 
+    // Testa matriz invertível sem inversa conhecida (apenas verifica se é invertível)
+    t_matrix m_a = matrix_a();
+    t_matrix inv_a = invert_matrix(m_a, &success);
+    if (!success)
+    {
+        printf("❌ matrix_a deveria ser invertível!\n");
+        errors++;
+    }
+    free_matrix(m_a);
+    if (success)
+        free_matrix(inv_a);
+
+    // Testa matriz não-invertível
+    t_matrix m_b = matrix_b();
+    t_matrix inv_b = invert_matrix(m_b, &success);
+    if (success)
+    {
+        printf("❌ matrix_b não deveria ser invertível!\n");
+        errors++;
+        free_matrix(inv_b);
+    }
+    free_matrix(m_b);
+
     if (errors == 0)
-        printf("✅ All invertible matrices passed the test.\n");
+        printf("✅ All invertible matrix tests passed.\n");
     else
         printf("❌ Some invertible matrix tests failed.\n");
 

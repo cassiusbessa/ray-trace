@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translation_vector_test.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 01:05:12 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 15:59:45 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/26 01:18:42 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int test_translation_matrix_vector(void)
 
     return errors;
 }
-
 static int test_translation_inverse_vector(void)
 {
     t_matrix transform;
@@ -43,10 +42,21 @@ static int test_translation_inverse_vector(void)
     t_tuple v;
     t_tuple result;
     int errors;
+    int success; // <--- necessário para a função invert_matrix
 
     errors = 0;
     transform = translation_matrix(5, -3, 2);
-    inv = invert_matrix(transform);
+
+    // Passa &success como segundo argumento
+    inv = invert_matrix(transform, &success);
+
+    if (!success)
+    {
+        printf("❌ Falha ao inverter a matriz de translação (vetor)!\n");
+        free_matrix(transform);
+        return 1; // erro
+    }
+
     v = vector(-3, 4, 5);
     result = matrix_multiply_by_tuple(inv, v);
 
@@ -60,6 +70,7 @@ static int test_translation_inverse_vector(void)
 
     return errors;
 }
+
 
 int run_test_translation_vector(void)
 {

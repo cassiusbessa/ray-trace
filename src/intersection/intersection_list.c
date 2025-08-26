@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 22:14:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/21 01:56:40 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/25 20:41:40 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	free_intersection_list(t_intersection_list *list)
 	free(list);
 }
 
-static void add(t_intersection_node *n, t_intersection_list *list)
+void add(t_intersection_node *n, t_intersection_list *list)
 {
     t_intersection_node *current;
     t_intersection_node *prev;
@@ -69,7 +69,7 @@ static void add(t_intersection_node *n, t_intersection_list *list)
     list->count++;
 }
 
-static void add_node_ordered(float t, t_intersection_list *list, t_object *o)
+void add_node_ordered(float t, t_intersection_list *list, t_object *o)
 {
     t_intersection_node *n;
 

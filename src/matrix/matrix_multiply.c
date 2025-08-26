@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_op.c                                        :+:      :+:    :+:   */
+/*   matrix_multiply.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:30:27 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/22 22:41:51 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/08/26 02:23:20 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,25 @@ static void	set_tuple_value(t_tuple *t, int index, double value)
 	if (index == 3)
 		t->w = value;
 }
-
-t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
+// ======================== MATRIX_MULTIPLY_BY_TUPLE ========================
+t_tuple matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 {
-	t_tuple	result;
-	int		i;
-	int		j;
-	double	value;
+    t_tuple result = new_tuple(0, 0, 0, 0);
 
-	result = new_tuple(0, 0, 0, 0);
-	i = 0;
-	while (i < m.size)
-	{
-		j = 0;
-		while (j < m.size)
-		{
-			value = m.data[i][j] * get_tuple_value(t, j);
-			set_tuple_value(&result, i, get_tuple_value(result, i) + value);
-			j++;
-		}
-		i++;
-	}
-	return (result);
+    if (!m.data || m.size != 4)
+    {
+        printf("ERRO: matriz inválida para multiplicação. Retornando tupla zero.\n");
+        return result;
+    }
+
+    for (int i = 0; i < m.size; i++)
+    {
+        for (int j = 0; j < m.size; j++)
+        {
+            float val = get_tuple_value(result, i) + m.data[i][j] * get_tuple_value(t, j);
+            set_tuple_value(&result, i, val);
+        }
+    }
+
+    return result;
 }
