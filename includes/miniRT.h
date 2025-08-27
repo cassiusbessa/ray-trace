@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 21:50:05 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 22:21:14 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,24 +347,12 @@ typedef struct s_comps
     t_bool  inside;
 }   t_comps;
 
-/* “Interseção simples” (t + objeto) para testes e prepare_computations */
-typedef struct s_simple_intersection
-{
-    float     t;
-    t_object *object;
-}   t_simple_intersection;
-
 t_intersection_list *intersect_world(t_world *world, t_ray *ray);
 
-
-t_simple_intersection make_simple_intersection(float t, t_object *obj);
 t_comps prepare_computations(t_intersection_node i, t_ray r);
-
-
 
 t_rgb shade_hit(t_world *world, t_comps comps);
 
-t_rgb color_at(t_world world, t_ray ray);
 t_intersection_node *get_node(int i,t_intersection_list *list);
 
 

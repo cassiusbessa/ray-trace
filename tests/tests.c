@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 21:43:46 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 22:24:31 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int    main(void)
     errors += run_material_tests();
     errors += run_lighting_tests();
     errors += run_world_tests();
+    errors += run_computation_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

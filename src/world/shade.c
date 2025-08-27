@@ -6,20 +6,12 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 21:50:38 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 22:22:07 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-
-t_simple_intersection make_simple_intersection(float t, t_object *obj)
-{
-    t_simple_intersection s;
-    s.t = t;
-    s.object = obj;
-    return s;
-}
 int is_shadowed(t_world *world, t_tuple point, t_point_light light)
 {
     t_tuple v = sub_tuples(light.position, point);

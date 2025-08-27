@@ -24,6 +24,7 @@ REFLECT_DIR      = src/reflect
 LIGHT_DIR        = src/light
 MATERIAL_DIR     = src/material
 WORLD_DIR        = src/world
+COMPUTATION_DIR  = src/computation
 UTILS_DIR        = src/utils
 INCLUDE_DIR      = include
 LIBFT_DIR        = utils/libft
@@ -65,6 +66,7 @@ SRCS = main.c \
        $(SPHERE_DIR)/sphere.c \
        $(INTERSECTION_DIR)/intersection.c \
        $(INTERSECTION_DIR)/intersection_list.c \
+       $(INTERSECTION_DIR)/hit.c \
        $(OBJS_DIR)/object.c \
        $(NORMAL_DIR)/normal.c \
        $(REFLECT_DIR)/reflect.c \
@@ -73,8 +75,8 @@ SRCS = main.c \
        $(MATERIAL_DIR)/material.c \
        $(WORLD_DIR)/world.c \
        $(WORLD_DIR)/shade.c \
+       $(COMPUTATION_DIR)/prepare_computation.c \
        $(UTILS_DIR)/solve_quadratic.c \
-       $(INTERSECTION_DIR)/hit.c \
        src/thick.c
 
 # Objetos
