@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shade.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 23:41:53 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 18:59:25 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,38 @@ t_tuple safe_normalize_vector(t_tuple v)
 // ----------------------------
 t_rgb shade_hit(t_world *world, t_comps comps)
 {
-    t_material *mat = &((t_sphere *)comps.object->data)->material;
-    return lighting(*mat, world->lights->head->light, comps.point, comps.eyev, comps.normalv, 0);
+    t_material          *mat;
+    t_rgb               color;
+    t_point_light_node  *current;
+
+    // pegar o material do objeto atingido
+    mat = &((t_sphere *)comps.object->data)->material;
+
+    // inicializar cor acumulada como preto
+    color = new_rgb(0, 0, 0);
+
+    // percorre todas as luzes da cena
+    current = world->lights->head;
+    while (current)
+    {
+        t_point_light light = current->light;
+
+        // soma a contribuição de cada luz
+        t_rgb contribution = lighting(*mat, light,
+                                      comps.point,
+                                      comps.eyev,
+                                      comps.normalv,
+                                      0);
+
+        color = add_rgb(color, contribution);
+
+        current = current->next;
+    }
+
+    return color;
 }
+
+
 
 // ----------------------------
 // t_rgb color_at(t_world world, t_ray ray)

@@ -1,9 +1,14 @@
 #include "../../includes/miniRT.h"
 
-int	equal_rgb(t_rgb c1, t_rgb c2)
+int equal_rgb(t_rgb c1, t_rgb c2)
 {
-	return (c1.r == c2.r && c1.g == c2.g && c1.b == c2.b);
+    float eps = 0.0001f;  // tolerância
+    return (fabsf(c1.r - c2.r) < eps &&
+            fabsf(c1.g - c2.g) < eps &&
+            fabsf(c1.b - c2.b) < eps);
 }
+
+
 
 t_rgb	clamp_color(t_rgb c)
 {

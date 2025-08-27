@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   computation_test.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:00:07 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 22:58:05 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 19:03:24 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static int test_prepare_computations(void)
 
     if (errors)
         test_failure("Prepare computations test failed\n");
-    else
-        test_success("Prepare computations test passed\n");
     return errors;
 }
 
@@ -53,8 +51,6 @@ static int test_prepare_computation_outside(void)
 
     if (errors)
         test_failure("Prepare computations outside test failed\n");
-    else
-        test_success("Prepare computations outside test passed\n");
     return errors;
 }
 
@@ -77,8 +73,6 @@ static int test_prepare_computation_inside(void)
 
     if (errors)
         test_failure("Prepare computations inside test failed\n");
-    else
-        test_success("Prepare computations inside test passed\n");
     return errors;
 }
 
@@ -93,7 +87,7 @@ int run_computation_tests(void)
     if (errors)
         test_failure("Computation tests failed with errors\n");
     else
-        test_success("Computation tests passed\n");
+        test_success("Computation tests passed");
 
     return errors;
 }
