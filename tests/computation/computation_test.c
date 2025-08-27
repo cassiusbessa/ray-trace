@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:00:07 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 22:34:47 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 22:58:05 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,59 @@ static int test_prepare_computations(void)
     return errors;
 }
 
+static int test_prepare_computation_outside(void)
+{
+    int errors = 0;
+
+    t_ray r = create_ray(point(0, 0, -5), vector(0, 0, 1));
+    t_object shape;
+    shape.type = SPHERE;
+    t_sphere sphere_data = new_sphere(point(0, 0, 0), 1.0f);
+    shape.data = &sphere_data;
+    t_intersection_node i = {.t = 4.0, .object = &shape, .next = NULL};
+    t_comps comps = prepare_computations(i, r);
+    errors += test_check(float_equal(comps.t, i.t), "Expected t = 4.0");
+    errors += test_check(comps.inside == FALSE, "Expected inside = 0");
+
+    if (errors)
+        test_failure("Prepare computations outside test failed\n");
+    else
+        test_success("Prepare computations outside test passed\n");
+    return errors;
+}
+
+static int test_prepare_computation_inside(void)
+{
+    int errors = 0;
+    
+    t_ray r = create_ray(point(0, 0, 0), vector(0, 0, 1));
+    t_object shape;
+    shape.type = SPHERE;
+    t_sphere sphere_data = new_sphere(point(0, 0, 0), 1.0f);
+    shape.data = &sphere_data;
+    t_intersection_node i = {.t = 1.0, .object = &shape, .next = NULL};
+    t_comps comps = prepare_computations(i, r);
+    errors += test_check(float_equal(comps.t, i.t), "Expected t = 1.0");
+    errors += test_check(equal_tuples(comps.point, point(0, 0, 1)), "Expected point = (0, 0, 1)");
+    errors += test_check(equal_tuples(comps.eyev, vector(0, 0, -1)), "Expected eyev = (0, 0, -1)");
+    errors += test_check(equal_tuples(comps.normalv, vector(0, 0, -1)), "Expected normalv = (0, 0, -1)");
+    errors += test_check(comps.inside == TRUE, "Expected inside = 1");
+
+    if (errors)
+        test_failure("Prepare computations inside test failed\n");
+    else
+        test_success("Prepare computations inside test passed\n");
+    return errors;
+}
+
 int run_computation_tests(void)
 {
     int errors = 0;
 
     errors += test_prepare_computations();
-    
+    errors += test_prepare_computation_outside();
+    errors += test_prepare_computation_inside();
+
     if (errors)
         test_failure("Computation tests failed with errors\n");
     else
