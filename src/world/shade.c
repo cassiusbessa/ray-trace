@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 20:50:39 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 21:50:38 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,59 +84,57 @@ t_rgb shade_hit(t_world *world, t_comps comps)
 }
 
 // ----------------------------
-t_rgb color_at(t_world world, t_ray ray)
-{
-    t_rgb result;
-    t_intersection_list *intersections = intersect_world(&world, &ray);
-    t_intersection_node *hit_node = intersections ? hit(*intersections) : NULL;
+// t_rgb color_at(t_world world, t_ray ray)
+// {
+//     t_rgb result;
+//     t_intersection_list *intersections = intersect_world(&world, &ray);
+//     t_intersection_node *hit_node = intersections ? hit(*intersections) : NULL;
 
-    if (hit_node)
-    {
-        t_simple_intersection i = make_simple_intersection(hit_node->t, hit_node->object);
-        t_comps comps = prepare_computations(i, ray);
-        result = shade_hit(&world, comps);
-    }
-    else
-        result = new_rgb(0, 0, 0);
-    free_intersection_list(intersections);
-    return result;
-}
+//     if (hit_node)
+//     {
+//         t_simple_intersection i = make_simple_intersection(hit_node->t, hit_node->object);
+//         t_comps comps = prepare_computations(i, ray);
+//         result = shade_hit(&world, comps);
+//     }
+//     else
+//         result = new_rgb(0, 0, 0);
+//     free_intersection_list(intersections);
+//     return result;
+// }
 
 // ----------------------------
 
-t_comps prepare_computations(t_simple_intersection i, t_ray r)
-{
-    t_comps comps;
+// t_comps prepare_computations(t_intersection_node i, t_ray r)
+// {
+//     t_comps comps;
 
-    comps.t = i.t;
-    comps.object = i.object;
+//     comps.t = i.t;
+//     comps.object = i.object;
 
-    comps.point = ray_position(r, i.t);
-    comps.eyev = negate_vector(r.direction);
-    comps.normalv = normal_at(*i.object, comps.point);
+//     comps.point = ray_position(r, i.t);
+//     comps.eyev = negate_vector(r.direction);
+//     comps.normalv = normal_at(*i.object, comps.point);
 
-    if (magnitude_of_vector(comps.normalv) < EPSILON)
-    {
-        comps.normalv = negate_vector(r.direction);
-    }
+//     if (magnitude_of_vector(comps.normalv) < EPSILON)
+//     {
+//         comps.normalv = negate_vector(r.direction);
+//     }
 
-    comps.normalv = safe_normalize_vector(comps.normalv);
+//     comps.normalv = safe_normalize_vector(comps.normalv);
 
-    if (vector_dot_product(comps.normalv, comps.eyev) < 0.0f)
-    {
-        comps.inside = TRUE;
-        comps.normalv = negate_vector(comps.normalv);
-    }
-    else
-    {
-        comps.inside = FALSE;
-    }
+//     if (vector_dot_product(comps.normalv, comps.eyev) < 0.0f)
+//     {
+//         comps.inside = TRUE;
+//         comps.normalv = negate_vector(comps.normalv);
+//     }
+//     else
+//         comps.inside = FALSE;
 
-    comps.over_point = add_tuples(comps.point,
-                                  multiply_tuple_by_scalar(comps.normalv, EPSILON));
+//     comps.over_point = add_tuples(comps.point,
+//                                   multiply_tuple_by_scalar(comps.normalv, EPSILON));
 
-    return comps;
-}
+//     return comps;
+// }
 
 
 

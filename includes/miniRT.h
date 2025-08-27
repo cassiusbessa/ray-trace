@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 20:18:11 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/26 21:50:05 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ typedef struct s_intersection_node
 {
 	float						t;
 	struct s_intersection_node	*next;
-	void						*object;
+	t_object						*object;
 }								t_intersection_node;
 
 typedef struct s_intersection_list
@@ -358,7 +358,7 @@ t_intersection_list *intersect_world(t_world *world, t_ray *ray);
 
 
 t_simple_intersection make_simple_intersection(float t, t_object *obj);
-t_comps prepare_computations(t_simple_intersection i, t_ray r);
+t_comps prepare_computations(t_intersection_node i, t_ray r);
 
 
 
