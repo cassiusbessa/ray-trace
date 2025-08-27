@@ -1,8 +1,21 @@
-miniRT
+# Compiled object files
 *.o
+
+# Static libraries
 *.a
-*.swp
 libft.a
+
+# Swap files (Vim)
+*.swp
+
+# Test runner binaries
 ./tests/test_runner
 test_runner
+
+# MinilibX library (Linux)
 minilibx-linux/
+
+# Optional: Editor or system files
+*.DS_Store
+*.log
+*.out
