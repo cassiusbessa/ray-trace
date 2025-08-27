@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 22:12:59 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 23:20:54 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int     run_material_tests(void);
 int     run_lighting_tests(void);
 int     run_world_tests(void);
 int     run_computation_tests(void);
+int     run_test_hit_shade(void);
 
 
 #endif

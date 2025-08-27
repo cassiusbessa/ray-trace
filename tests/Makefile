@@ -80,6 +80,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(LIGHTING_TESTS)/lighting_test.c \
             $(WORLD_TESTS)/world_test.c \
             $(COMPUTATION_TESTS)/computation_test.c \
+            $(HIT_TESTS)/shade_hit_test.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \

@@ -12,3 +12,8 @@ t_rgb	clamp_color(t_rgb c)
 	c.b = fmin(fmax(c.b, 0), 1);
 	return (c);
 }
+
+void print_rgb(t_rgb c)
+{
+	printf("RGB(%f, %f, %f)\n", c.r, c.g, c.b);
+}

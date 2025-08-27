@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 22:21:14 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 23:24:00 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_rgb							sub_rgb(t_rgb c1, t_rgb c2);
 t_rgb							multiply_rgb_by_scalar(t_rgb c, float scalar);
 t_rgb							multiply_rgb_by_rgb(t_rgb c1, t_rgb c2);
 int								equal_rgb(t_rgb c1, t_rgb c2);
+void print_rgb(t_rgb c);
 
 /* ************************************************************************** */
 /*                                 Canvas & Image                              */

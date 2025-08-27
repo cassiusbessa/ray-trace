@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 22:22:07 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/26 23:41:53 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,8 @@ t_tuple safe_normalize_vector(t_tuple v)
 // ----------------------------
 t_rgb shade_hit(t_world *world, t_comps comps)
 {
-    t_rgb result = new_rgb(0, 0, 0);
-    t_point_light_node *current = world->lights->head;
-
-    while (current)
-    {
-        int in_shadow = is_shadowed(world, comps.over_point, current->light);
-        t_material mat;
-        if (comps.object->type == SPHERE)
-            mat = ((t_sphere *)comps.object->data)->material;
-        t_tuple lightv = sub_tuples(current->light.position, comps.over_point);
-        lightv = safe_normalize_vector(lightv);
-        t_rgb surface = lighting(
-            mat,
-            current->light,
-            comps.over_point,
-            comps.eyev,
-            comps.normalv,
-            in_shadow
-        );
-        result = add_rgb(result, surface);
-        current = current->next;
-    }
-    t_rgb clamped = clamp_color(result);
-    return clamped;
+    t_material *mat = &((t_sphere *)comps.object->data)->material;
+    return lighting(*mat, world->lights->head->light, comps.point, comps.eyev, comps.normalv, 0);
 }
 
 // ----------------------------
