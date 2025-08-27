@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 23:20:02 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 19:27:43 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int    main(void)
     errors += run_world_tests();
     errors += run_computation_tests();
     errors += run_test_hit_shade();
+    errors += run_test_color_at();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

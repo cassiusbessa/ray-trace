@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 18:59:25 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:26:09 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,59 +81,31 @@ t_rgb shade_hit(t_world *world, t_comps comps)
 }
 
 
+t_rgb color_at(t_world *world, t_ray ray)
+{
+    t_intersection_list *xs;
+    t_intersection_node *hit_node;
+    t_comps comps;
 
-// ----------------------------
-// t_rgb color_at(t_world world, t_ray ray)
-// {
-//     t_rgb result;
-//     t_intersection_list *intersections = intersect_world(&world, &ray);
-//     t_intersection_node *hit_node = intersections ? hit(*intersections) : NULL;
+    if (!world)
+        return new_rgb(0, 0, 0);
 
-//     if (hit_node)
-//     {
-//         t_simple_intersection i = make_simple_intersection(hit_node->t, hit_node->object);
-//         t_comps comps = prepare_computations(i, ray);
-//         result = shade_hit(&world, comps);
-//     }
-//     else
-//         result = new_rgb(0, 0, 0);
-//     free_intersection_list(intersections);
-//     return result;
-// }
+    xs = intersect_world(world, &ray);
+    hit_node = hit(*xs);
+    if (!hit_node)
+    {
+        free_intersection_list(xs);
+        return new_rgb(0, 0, 0);            // nenhuma interseção → preto
+    }
 
-// ----------------------------
+    comps = prepare_computations(*hit_node, ray);
+    t_rgb color = shade_hit(world, comps);
 
-// t_comps prepare_computations(t_intersection_node i, t_ray r)
-// {
-//     t_comps comps;
+    free_intersection_list(xs);
+    return color;
+}
 
-//     comps.t = i.t;
-//     comps.object = i.object;
 
-//     comps.point = ray_position(r, i.t);
-//     comps.eyev = negate_vector(r.direction);
-//     comps.normalv = normal_at(*i.object, comps.point);
-
-//     if (magnitude_of_vector(comps.normalv) < EPSILON)
-//     {
-//         comps.normalv = negate_vector(r.direction);
-//     }
-
-//     comps.normalv = safe_normalize_vector(comps.normalv);
-
-//     if (vector_dot_product(comps.normalv, comps.eyev) < 0.0f)
-//     {
-//         comps.inside = TRUE;
-//         comps.normalv = negate_vector(comps.normalv);
-//     }
-//     else
-//         comps.inside = FALSE;
-
-//     comps.over_point = add_tuples(comps.point,
-//                                   multiply_tuple_by_scalar(comps.normalv, EPSILON));
-
-//     return comps;
-// }
 
 
 

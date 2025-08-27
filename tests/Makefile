@@ -50,6 +50,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(VECTOR_TESTS)/vector_tests.c \
             $(RGB_TESTS)/rgb_tests.c \
             $(RGB_TESTS)/rgb_common_tests.c \
+            $(RGB_TESTS)/color_at_test.c \
             $(CANVAS_TESTS)/canvas_tests.c \
             $(MATRIX_TESTS)/matrix_tests.c \
             $(MATRIX_TESTS)/matrix_multiply_by_matrix_tests.c \

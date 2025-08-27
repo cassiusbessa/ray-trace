@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 23:07:21 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 19:02:07 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 19:31:14 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int run_test_hit_shade(void)
     if (errors)
         test_failure("Shade hit tests failed\n");
     else
-        test_success("Shade hit tests passed\n");
+        test_success("Shade hit tests passed");
 
     return errors;
 }

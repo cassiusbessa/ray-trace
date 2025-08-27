@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 23:24:00 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 19:27:37 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,4 +368,6 @@ t_rgb calc_diff_spec(t_material m, t_point_light light,
  t_tuple lightv, t_tuple eyev, t_tuple normalv);
  t_tuple safe_normalize_vector(t_tuple v);
 
+
+t_rgb color_at(t_world *world, t_ray ray);
 #endif
