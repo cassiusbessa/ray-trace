@@ -75,7 +75,7 @@ int run_test_color_at(void)
     if (errors)
         test_failure("Color at ray tests failed\n");
     else
-        test_success("Color at ray tests passed\n");
+        test_success("Color at ray tests passed");
 
     return errors;
 }

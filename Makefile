@@ -61,6 +61,7 @@ SRCS = main.c \
        $(TRANSF_DIR)/scaling.c \
        $(TRANSF_DIR)/rotation.c \
        $(TRANSF_DIR)/shearing.c \
+       $(TRANSF_DIR)/view_traview_transform.c \
        $(RAY_DIR)/ray.c \
        $(RAY_DIR)/ray_utils.c \
        $(SPHERE_DIR)/sphere.c \

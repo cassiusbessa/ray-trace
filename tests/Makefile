@@ -64,6 +64,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
 			$(MATRIX_TESTS)/invertible_matrix_test.c \
             $(TRANSF_TESTS)/translation_point_test.c \
             $(TRANSF_TESTS)/translation_vector_test.c \
+            $(TRANSF_TESTS)/view_transform_test.c \
             $(TRANSF_TESTS)/transformation_tests.c \
             $(TRANSF_TESTS)/scaling_tests.c \
             $(TRANSF_TESTS)/rotation_tests.c \
@@ -104,6 +105,7 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/transformation/scaling.c \
             $(CORE_DIR)/transformation/rotation.c \
             $(CORE_DIR)/transformation/shearing.c \
+            $(CORE_DIR)/transformation/view_transform.c \
             $(CORE_DIR)/ray/ray.c \
             $(CORE_DIR)/ray/ray_utils.c \
             $(CORE_DIR)/sphere/sphere.c \
