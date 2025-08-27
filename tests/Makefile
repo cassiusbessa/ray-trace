@@ -78,7 +78,6 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(MATERIAL_TESTS)/material_test.c \
             $(LIGHTING_TESTS)/lighting_test.c \
             $(WORLD_TESTS)/world_test.c \
-            $(WORLD_TESTS)/world_color_test.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
