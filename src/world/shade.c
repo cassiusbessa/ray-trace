@@ -3,38 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   shade.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 19:26:09 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 22:51:34 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-int is_shadowed(t_world *world, t_tuple point, t_point_light light)
+t_bool is_shadowed(t_world *world, t_tuple point)
 {
-    t_tuple v = sub_tuples(light.position, point);
-    float distance = magnitude_of_vector(v);
-    t_tuple direction = safe_normalize_vector(v);
+    t_point_light light;
+    t_tuple v;
+    float distance;
+    t_tuple direction;
+    t_ray r;
+    t_intersection_list *xs;
+    t_intersection_node *current;
 
-    t_ray r = create_ray(point, direction);
-    t_intersection_list *xs = intersect_world(world, &r);
+    if (!world->lights || !world->lights->head)
+        return FALSE;
 
-    t_intersection_node *current = xs ? xs->head : NULL;
+    // Inicializações
+    light = world->lights->head->light;
+    v = sub_tuples(light.position, point);        // Vetor do ponto para a luz
+    distance = magnitude_of_vector(v);            // Distância até a luz
+    direction = safe_normalize_vector(v);         // Direção normalizada
+    r = create_ray(point, direction);             // Raio do ponto para a luz
+    xs = intersect_world(world, &r);              // Interseções com objetos
+    current = xs->head;
+
+    // Checa se algum objeto bloqueia a luz
     while (current)
     {
         if (current->t > EPSILON && current->t < distance)
         {
             free_intersection_list(xs);
-            return 1;
+            return TRUE;
         }
         current = current->next;
     }
 
     free_intersection_list(xs);
-    return 0;
+    return FALSE;
 }
+
 
 t_tuple safe_normalize_vector(t_tuple v)
 {
