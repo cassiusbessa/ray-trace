@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera_tests.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:55:14 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 21:46:31 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:52:07 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int test_ray_for_pixel_center(void)
 
     if (errors)
         test_failure("Ray through center test failed");
+    else
+        test_success("Ray through center test passed");
 
     return errors;
 }
@@ -70,6 +72,8 @@ static int test_ray_for_pixel_corner(void)
 
     if (errors)
         test_failure("Ray through corner test failed");
+    else
+        test_success("Ray through corner test passed");
 
     return errors;
 }
@@ -86,6 +90,8 @@ static int test_ray_transformed_camera(void)
 
     if (errors)
         test_failure("Ray transformed camera test failed");
+    else
+        test_success("Ray transformed camera test passed");
 
     return errors;
 }
