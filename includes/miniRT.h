@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 21:07:00 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 21:45:07 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,7 +360,10 @@ typedef struct s_camera
 	float	field_of_view;
 	t_matrix	transform;
 	float	pixel_size;
+	float	half_width;
+	float	half_height;
 }	t_camera;
 
 t_camera	new_camera(int hsize, int vsize, float field_of_view);
+t_ray ray_for_pixel(t_camera cam, int px, int py);
 #endif
