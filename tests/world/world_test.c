@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:12:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 22:55:08 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 22:59:08 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static int  is_not_shadowed_point_world_test(void)
 
     t_world w = default_world();
     t_tuple p = point(0, 10, 0);
-    errors += test_check(!is_shadowed(&w, p), "Point (0, 10, 0) should not be in shadow");
+    errors += test_check(is_shadowed(&w, p) == FALSE, "Point (0, 10, 0) should not be in shadow");
 
     if (errors)
         test_failure("Is not shadowed point world test failed");
@@ -111,18 +111,51 @@ static int  is_not_shadowed_point_world_test(void)
     return errors;
 }
 
+
 static int  is_shadowed_point_world_test(void)
 {
     int errors = 0;
 
     t_world w = default_world();
     t_tuple p = point(10, -10, 10);
-    errors += test_check(is_shadowed(&w, p), "Point (0, 10, 0) should not be in shadow");
+    errors += test_check(is_shadowed(&w, p) == TRUE, "Point (10, -10, 10) should be in shadow");
 
     if (errors)
         test_failure("Is shadowed point world test failed");
     else
         test_success("Is shadowed point world test passed");
+
+    return errors;
+}
+
+static int  is_behind_light_point_world_test(void)
+{
+    int errors = 0;
+
+    t_world w = default_world();
+    t_tuple p = point(-20, 20, -20);
+    errors += test_check(is_shadowed(&w, p) == FALSE, "Point (-20, 20, -20) should not be in shadow");
+
+    if (errors)
+        test_failure("Is not shadowed point world test failed");
+    else
+        test_success("Is not shadowed point world test passed");
+
+    return errors;
+}
+
+static int  is_behind_object_point_world_test(void)
+{
+    int errors = 0;
+
+    t_world w = default_world();
+    t_tuple p = point(-2, 2, -2);
+    errors += test_check(is_shadowed(&w, p) == FALSE, "Point (-2, 2, -2) should not be in shadow");
+
+    if (errors)
+        test_failure("Is not shadowed point world test failed");
+    else
+        test_success("Is not shadowed point world test passed");
 
     return errors;
 }
@@ -136,6 +169,8 @@ int run_world_tests(void)
     errors += test_intersect_world_with_ray();
     errors += is_not_shadowed_point_world_test();
     errors += is_shadowed_point_world_test();
+    errors += is_behind_light_point_world_test();
+    errors += is_behind_object_point_world_test();
     if (errors)
         test_failure("World tests failed");
     else
