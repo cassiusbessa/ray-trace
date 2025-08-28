@@ -80,6 +80,40 @@ static int test_hit_lowest_nonnegative(void)
     free_intersection_list(l);
     return errors;
 }
+
+
+static int test_hit_should_offset_point_case(void)
+{
+    int errors = 0;
+
+    // Given
+    t_ray r = create_ray(point(0, 0, -5), vector(0, 0, 1));
+
+    // criar uma esfera como t_object
+    t_sphere sphere_data = new_sphere(point(0, 0, 0), 1.0f);
+    t_object sphere_obj = new_object(SPHERE, &sphere_data);
+
+    // aplicar a transformação translation(0, 0, 1)
+    set_object_transform(&sphere_obj, translation_matrix(0, 0, 1));
+
+    // criar a interseção (t=5)
+    t_intersection_node i;
+    i.t = 5;
+    i.object = &sphere_obj;
+    i.next = NULL;
+
+    // When
+    t_comps comps = prepare_computations(i, r);
+
+    // Then
+    errors += test_check(comps.over_point.z < -EPSILON / 2,
+        "comps.over_point.z should be less than -EPSILON/2");
+    errors += test_check(comps.point.z > comps.over_point.z,
+        "comps.point.z should be greater than comps.over_point.z");
+
+    return errors;
+}
+
 int run_test_hit(void)
 {
     int errors = 0;
@@ -87,6 +121,7 @@ int run_test_hit(void)
     errors += test_hit_some_negative();
     errors += test_hit_all_negative();
     errors += test_hit_lowest_nonnegative();
+    errors += test_hit_should_offset_point_case();
 
     if (errors)
         test_failure("Hit tests failed");

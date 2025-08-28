@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 22:51:34 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 23:02:29 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_rgb shade_hit(t_world *world, t_comps comps)
                                       comps.point,
                                       comps.eyev,
                                       comps.normalv,
-                                      0);
+                                      is_shadowed(world, comps.over_point));
 
         color = add_rgb(color, contribution);
 
