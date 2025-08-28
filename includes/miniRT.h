@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 20:44:48 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 21:07:00 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ t_matrix	submatrix(t_matrix matrix, int row, int col);
 double		minor_matrix(t_matrix matrix, int row, int col);
 double		cofactor_matrix(t_matrix matrix, int row, int col);
 double		determinant_matrix(t_matrix a);
-int			is_invertible(t_matrix matrix);
 t_matrix	invert_matrix(t_matrix matrix, int *success);
 
 /* ************************************************************************** */
@@ -360,6 +359,7 @@ typedef struct s_camera
 	int		vsize;
 	float	field_of_view;
 	t_matrix	transform;
+	float	pixel_size;
 }	t_camera;
 
 t_camera	new_camera(int hsize, int vsize, float field_of_view);
