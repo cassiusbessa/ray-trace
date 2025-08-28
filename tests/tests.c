@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 21:02:42 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/27 22:11:35 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int    main(void)
     errors += run_test_color_at();
     errors += run_test_view_transform();
     errors += run_camera_tests();
+    errors += run_render_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

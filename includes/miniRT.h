@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 21:45:07 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 22:10:35 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,4 +366,5 @@ typedef struct s_camera
 
 t_camera	new_camera(int hsize, int vsize, float field_of_view);
 t_ray ray_for_pixel(t_camera cam, int px, int py);
+t_canvas	*render(t_camera cam, t_world *w);
 #endif

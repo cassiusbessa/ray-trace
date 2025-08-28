@@ -85,6 +85,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(COMPUTATION_TESTS)/computation_test.c \
             $(HIT_TESTS)/shade_hit_test.c \
             $(CAMERA_TESTS)/camera_tests.c \
+            $(WORLD_TESTS)/render_world_test.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \

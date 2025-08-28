@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   world.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 18:59:27 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 22:08:24 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,4 +131,30 @@ t_world default_world(void)
     add_object_to_world(&world, o2);
 
     return world;
+}
+
+t_canvas    *render(t_camera cam, t_world *w)
+{
+    t_canvas *image;
+    int     x;
+    int     y;
+    t_ray   ray;
+    t_rgb   color;
+
+    image = new_canvas(cam.hsize, cam.vsize);
+    x = 0;
+    y = 0;
+    while (y < cam.vsize)
+    {
+        x = 0;
+        while (x < cam.hsize)
+        {
+            ray = ray_for_pixel(cam, x, y);
+            color = color_at(w, ray);         
+            write_pixel(image, x, y, color);     
+            x++;
+        }
+        y++;
+    }
+    return image;
 }
