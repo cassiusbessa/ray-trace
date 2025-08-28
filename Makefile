@@ -25,6 +25,7 @@ LIGHT_DIR        = src/light
 MATERIAL_DIR     = src/material
 WORLD_DIR        = src/world
 COMPUTATION_DIR  = src/computation
+CAMERA_DIR       = src/camera
 UTILS_DIR        = src/utils
 INCLUDE_DIR      = include
 LIBFT_DIR        = utils/libft
@@ -77,6 +78,7 @@ SRCS = main.c \
        $(WORLD_DIR)/world.c \
        $(WORLD_DIR)/shade.c \
        $(COMPUTATION_DIR)/prepare_computation.c \
+       $(CAMERA_DIR)/camera.c \
        $(UTILS_DIR)/solve_quadratic.c \
        src/thick.c
 

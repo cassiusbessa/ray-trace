@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 22:54:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 19:52:57 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:02:42 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int    main(void)
     errors += run_test_hit_shade();
     errors += run_test_color_at();
     errors += run_test_view_transform();
+    errors += run_camera_tests();
     if (errors == 0)
         ft_printf("\n🎉 All tests fine!\n");
     else

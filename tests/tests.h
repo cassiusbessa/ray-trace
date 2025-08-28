@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:28:54 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 19:52:38 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:02:54 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int     run_computation_tests(void);
 int     run_test_hit_shade(void);
 int     run_test_color_at(void);
 int     run_test_view_transform(void);
+int     run_camera_tests(void);
 
 
 #endif

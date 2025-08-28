@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 19:45:51 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/27 20:44:48 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,4 +353,14 @@ t_tuple	safe_normalize_vector(t_tuple v);
 
 t_rgb	color_at(t_world *world, t_ray ray);
 
+
+typedef struct s_camera
+{
+	int		hsize;
+	int		vsize;
+	float	field_of_view;
+	t_matrix	transform;
+}	t_camera;
+
+t_camera	new_camera(int hsize, int vsize, float field_of_view);
 #endif

@@ -25,6 +25,7 @@ LIGHTING_TESTS = $(TEST_DIR)/lighting
 MATERIAL_TESTS = $(TEST_DIR)/material
 WORLD_TESTS    = $(TEST_DIR)/world
 COMPUTATION_TESTS = $(TEST_DIR)/computation
+CAMERA_TESTS   = $(TEST_DIR)/camera
 
 LIBFT_DIR     = ../utils/libft
 CORE_DIR      = ../src
@@ -83,6 +84,7 @@ TEST_SRCS = $(TEST_DIR)/test_utils.c \
             $(WORLD_TESTS)/world_test.c \
             $(COMPUTATION_TESTS)/computation_test.c \
             $(HIT_TESTS)/shade_hit_test.c \
+            $(CAMERA_TESTS)/camera_tests.c \
             $(TEST_DIR)/tests.c \
 
 CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
@@ -121,6 +123,7 @@ CORE_SRCS = $(CORE_DIR)/tuple/tuple.c \
             $(CORE_DIR)/world/world.c \
             $(CORE_DIR)/world/shade.c \
             $(CORE_DIR)/computation/prepare_computation.c \
+            $(CORE_DIR)/camera/camera.c \
             $(CORE_DIR)/utils/solve_quadratic.c
 
 TEST_SRCS += $(CORE_SRCS)
