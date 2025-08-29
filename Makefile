@@ -91,6 +91,7 @@ OBJS = $(SRCS:.c=.o)
 # Regras
 # ===========================================
 
+
 # Compilar .c em .o
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
@@ -113,6 +114,9 @@ leaks: all
 # Testes
 test:
 	@$(MAKE) -C $(TESTS_DIR) run
+
+run: all
+	@./$(MINIRT)
 
 test_leaks:
 	@$(MAKE) -C $(TESTS_DIR) leaks
