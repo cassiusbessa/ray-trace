@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 23:22:13 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/28 21:18:33 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ typedef struct s_object
 }	t_object;
 
 t_object	new_object(t_object_type type, void *data);
+void	free_object(t_object *obj);
 
 /* ************************************************************************** */
 /*                            Intersections                                   */
