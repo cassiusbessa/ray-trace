@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/28 21:18:33 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/29 19:47:21 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,13 @@ t_matrix	invert_matrix(t_matrix matrix, int *success);
 /*                             Transformations                                 */
 /* ************************************************************************** */
 
+typedef struct s_transform_params
+{
+	float	translation[3];
+	float	rotation[3];
+	float	scaling[3];
+}	t_transform_params;
+
 t_matrix	translation_matrix(float x, float y, float z);
 t_matrix	scaling_matrix(float x, float y, float z);
 t_matrix	rotation_x_matrix(float radians);
@@ -141,6 +148,7 @@ t_matrix	rotation_z_matrix(float radians);
 t_matrix	shearing_matrix(float xy, float xz, float yx,
 				float yz, float zx, float zy);
 t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up);
+t_matrix	chain_transformations(t_transform_params params);
 
 /* ************************************************************************** */
 /*                                Rays                                        */
@@ -257,6 +265,7 @@ typedef struct s_sphere
 }	t_sphere;
 
 t_sphere		new_sphere(t_tuple center, float radius);
+void		free_sphere(t_sphere *sphere);
 t_intersection_list *intersect_ray_sphere(t_ray ray, t_object *obj);
 void		set_object_transform(t_object *obj, t_matrix m);
 t_bool		float_equal(float a, float b);
@@ -368,6 +377,7 @@ typedef struct s_camera
 }	t_camera;
 
 t_camera	new_camera(int hsize, int vsize, float field_of_view);
+void		free_camera(t_camera *camera);
 t_ray ray_for_pixel(t_camera cam, int px, int py);
 t_canvas	*render(t_camera cam, t_world *w);
 t_bool is_shadowed(t_world *world, t_tuple point);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas_to_mlx_image.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:55:17 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/15 20:31:08 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/08/29 19:56:12 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ int	rgb_to_int(t_rgb *color)
 	int	r;
 	int	g;
 	int	b;
+    t_rgb c;
 
-	r = (int)(color->r * 255);
-	g = (int)(color->g * 255);
-	b = (int)(color->b * 255);
+    c = clamp_color(*color);
+
+	r = (int)(c.r * 255);
+	g = (int)(c.g * 255);
+	b = (int)(c.b * 255);
 	return (r << 16 | g << 8 | b);
 }
 

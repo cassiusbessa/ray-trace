@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/28 21:17:05 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/29 19:47:22 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void free_sphere(t_sphere *s)
     if (!s)
         return;
     free_matrix(s->transform);
+	free(s);
 }
