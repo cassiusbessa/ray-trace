@@ -17,10 +17,11 @@ int	rgb_to_int(t_rgb *color)
 	int	r;
 	int	g;
 	int	b;
-
-	r = (int)(color->r * 255);
-	g = (int)(color->g * 255);
-	b = (int)(color->b * 255);
+	t_rgb result;
+	result = clamp_color(*color);
+	r = (int)(result.r * 255);
+	g = (int)(result.g * 255);
+	b = (int)(result.b * 255);
 	return (r << 16 | g << 8 | b);
 }
 
