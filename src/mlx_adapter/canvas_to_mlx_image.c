@@ -6,7 +6,7 @@
 /*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:55:17 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/29 19:56:12 by fnascime         ###   ########.fr       */
+/*   Updated: 2025/08/29 20:19:46 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data)
 		x = 0;
 		while (x < canvas->width)
 		{
-			color = rgb_to_int(pixel_at(canvas, x, y));
-			*(unsigned int *)(data->img.addr + ((canvas->height - 1 - y)
-						* data->img.line_len + x * (data->img.bpp
-							/ 8))) = color;
+            color = rgb_to_int(pixel_at(canvas, x, y));
+            *(unsigned int *)(data->img.addr + (y
+                        * data->img.line_len + x * (data->img.bpp
+                            / 8))) = color;
 			x++;
 		}
 		y++;
