@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/28 21:17:05 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/28 22:30:52 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_intersection_list *intersect_ray_sphere(t_ray ray, t_object *obj)
     }
 
     local_ray = transform_ray(ray, inv, &success);
+    free_matrix(inv);
     if (!success)
     {
         return new_intersection_list();

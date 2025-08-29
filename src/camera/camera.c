@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:45:48 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 21:46:09 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/08/28 22:27:00 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ t_camera new_camera(int hsize, int vsize, float field_of_view)
     set_camera_pixel_size(&cam);
     return cam;
 }
+
+void    free_camera(t_camera *cam)
+{
+    if (!cam)
+        return;
+    free_matrix(cam->transform);
+}
+
 t_ray ray_for_pixel(t_camera cam, int px, int py)
 {
     int success;
@@ -62,6 +70,7 @@ t_ray ray_for_pixel(t_camera cam, int px, int py)
     t_tuple origin = matrix_multiply_by_tuple(inv, point(0, 0, 0));
     t_tuple direction = normalize_vector(sub_tuples(pixel, origin));
 
+    free_matrix(inv);
     return create_ray(origin, direction);
 }
 
