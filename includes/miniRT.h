@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/28 21:18:33 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/28 21:24:21 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,6 +257,7 @@ typedef struct s_sphere
 }	t_sphere;
 
 t_sphere		new_sphere(t_tuple center, float radius);
+void			free_sphere(t_sphere *s);
 t_intersection_list *intersect_ray_sphere(t_ray ray, t_object *obj);
 void		set_object_transform(t_object *obj, t_matrix m);
 t_bool		float_equal(float a, float b);

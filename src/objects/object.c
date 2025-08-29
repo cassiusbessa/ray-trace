@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/28 21:18:01 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/28 21:24:39 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_object	new_object(t_object_type type, void *data)
 
 void	free_object(t_object *obj)
 {
-	t_sphere	*sphere;
-
 	if (!obj)
 		return ;
 	if (obj->type == SPHERE)

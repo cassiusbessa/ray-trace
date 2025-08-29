@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 22:08:24 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/28 21:32:29 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,21 @@ void	add_light_to_world(t_world *world, t_point_light light)
 }
 
 
+void free_object_node(t_object_node *node)
+{
+    if (!node)
+        return;
+    free_object(&node->object);
+    free(node);
+}
+
+void free_light_node(t_point_light_node *node)
+{
+    if (!node)
+        return;
+    free(node);
+}
+
 void free_world(t_world *world)
 {
     if (!world)
@@ -80,11 +95,7 @@ void free_world(t_world *world)
         while (curr_obj)
         {
             t_object_node *next = curr_obj->next;
-
-            if (curr_obj->object.type == SPHERE && curr_obj->object.data)
-                free(curr_obj->object.data);
-
-            free(curr_obj);
+            free_object_node(curr_obj);
             curr_obj = next;
         }
         free(world->objects);
@@ -95,7 +106,7 @@ void free_world(t_world *world)
         while (curr_light)
         {
             t_point_light_node *next = curr_light->next;
-            free(curr_light);
+            free_light_node(curr_light);
             curr_light = next;
         }
         free(world->lights);
