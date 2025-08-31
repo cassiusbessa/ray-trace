@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canvas_to_mlx_image.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:55:17 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/15 20:31:08 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/08/29 20:19:46 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ int	rgb_to_int(t_rgb *color)
 	int	r;
 	int	g;
 	int	b;
-	t_rgb result;
-	result = clamp_color(*color);
-	r = (int)(result.r * 255);
-	g = (int)(result.g * 255);
-	b = (int)(result.b * 255);
+    t_rgb c;
+
+    c = clamp_color(*color);
+
+	r = (int)(c.r * 255);
+	g = (int)(c.g * 255);
+	b = (int)(c.b * 255);
 	return (r << 16 | g << 8 | b);
 }
 
@@ -45,10 +47,10 @@ void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data)
 		x = 0;
 		while (x < canvas->width)
 		{
-			color = rgb_to_int(pixel_at(canvas, x, y));
-			*(unsigned int *)(data->img.addr + ((canvas->height - 1 - y)
-						* data->img.line_len + x * (data->img.bpp
-							/ 8))) = color;
+            color = rgb_to_int(pixel_at(canvas, x, y));
+            *(unsigned int *)(data->img.addr + (y
+                        * data->img.line_len + x * (data->img.bpp
+                            / 8))) = color;
 			x++;
 		}
 		y++;

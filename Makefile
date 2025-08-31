@@ -42,6 +42,7 @@ MINILIBX         = $(MINILIBX_DIR)/libmlx_Linux.a
 
 # Arquivos fontes
 SRCS = main.c \
+       src/camera/free_camera.c \
        $(TUPLE_DIR)/tuple.c \
        $(TUPLE_DIR)/tuple_utils.c \
        $(TUPLE_DIR)/vector.c \
@@ -63,6 +64,7 @@ SRCS = main.c \
        $(TRANSF_DIR)/rotation.c \
        $(TRANSF_DIR)/shearing.c \
        $(TRANSF_DIR)/view_transform.c \
+       src/transformations/chain_transformations.c \
        $(RAY_DIR)/ray.c \
        $(RAY_DIR)/ray_utils.c \
        $(SPHERE_DIR)/sphere.c \
@@ -89,6 +91,7 @@ OBJS = $(SRCS:.c=.o)
 # Regras
 # ===========================================
 
+
 # Compilar .c em .o
 %.o: %.c
 	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
@@ -111,6 +114,9 @@ leaks: all
 # Testes
 test:
 	@$(MAKE) -C $(TESTS_DIR) run
+
+run: all
+	@./$(MINIRT)
 
 test_leaks:
 	@$(MAKE) -C $(TESTS_DIR) leaks

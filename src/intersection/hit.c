@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/19 23:22:59 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/29 19:47:20 by fnascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 t_intersection_node	*hit(t_intersection_list l)
 {
-    t_intersection_node	*hit;
+	t_intersection_node	*hit;
+	t_intersection_node	*current;
 
-    hit = NULL;
-    while (l.head)
-    {
-        if (l.head->t >= 0.0f)
-        {
-            if (!hit || l.head->t < hit->t)
-                hit = l.head;
-        }
-        l.head = l.head->next;
-    }
-    return (hit);
+	hit = NULL;
+	current = l.head;
+	while (current)
+	{
+		if (current->t >= 0.0f)
+		{
+			if (!hit || current->t < hit->t)
+				hit = current;
+		}
+		current = current->next;
+	}
+	return (hit);
 }
