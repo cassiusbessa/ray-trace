@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:45:48 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/28 22:27:00 by cassius          ###   ########.fr       */
+/*   Updated: 2025/08/31 21:04:02 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,6 @@ t_camera new_camera(int hsize, int vsize, float field_of_view)
     return cam;
 }
 
-void    free_camera(t_camera *cam)
-{
-    if (!cam)
-        return;
-    free_matrix(cam->transform);
-}
 
 t_ray ray_for_pixel(t_camera cam, int px, int py)
 {
