@@ -27,6 +27,7 @@ WORLD_DIR        = src/world
 COMPUTATION_DIR  = src/computation
 CAMERA_DIR       = src/camera
 UTILS_DIR        = src/utils
+PARSER_DIR       = src/parser
 INCLUDE_DIR      = include
 LIBFT_DIR        = utils/libft
 MINILIBX_DIR     = includes/minilibx-linux
@@ -82,6 +83,10 @@ SRCS = main.c \
        $(COMPUTATION_DIR)/prepare_computation.c \
        $(CAMERA_DIR)/camera.c \
        $(UTILS_DIR)/solve_quadratic.c \
+       $(PARSER_DIR)/parser.c \
+       $(PARSER_DIR)/parse_elements.c \
+       $(PARSER_DIR)/parse_utils.c \
+       $(PARSER_DIR)/scene_to_world.c \
        src/thick.c
 
 # Objetos

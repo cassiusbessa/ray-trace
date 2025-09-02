@@ -1,5 +1,4 @@
-#include "includes/miniRT.h"
-#include <stdio.h>
+#include "../includes/miniRT.h"
 
 int main(int argc, char **argv)
 {

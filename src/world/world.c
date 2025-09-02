@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/28 21:32:29 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/01 22:54:59 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ t_world	new_world(void)
 	world.objects->tail = NULL;
 	world.lights->head = NULL;
 	world.lights->tail = NULL;
+	// Initialize ambient with default values
+	world.ambient.ratio = 0.1f;
+	world.ambient.color = new_rgb(1.0f, 1.0f, 1.0f);
+	return (world);
+}
+
+t_world	new_world_with_ambient(t_ambient ambient)
+{
+	t_world	world;
+
+	world.objects = malloc(sizeof(t_object_list));
+	world.objects->count = 0;
+	world.lights = malloc(sizeof(t_point_light_list));
+	world.lights->count = 0;
+	if (!world.objects || !world.lights)
+	{
+		free(world.objects);
+		free(world.lights);
+		world.objects = NULL;
+		world.lights = NULL;
+		return (world);
+	}
+	world.objects->head = NULL;
+	world.objects->tail = NULL;
+	world.lights->head = NULL;
+	world.lights->tail = NULL;
+	world.ambient = ambient;
 	return (world);
 }
 
