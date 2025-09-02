@@ -79,7 +79,16 @@ int parse_camera(char *line, t_camera *camera)
 	
 	// Set camera transform using view_transform
 	t_tuple up = vector(0, 1, 0); // Default up vector
-	camera->transform = view_transform(position, add_tuples(position, orientation), up);
+	orientation = normalize_vector(orientation); // Normalize the direction vector
+	t_tuple target = add_tuples(position, orientation);
+	
+	// Debug camera setup
+	printf("DEBUG Camera Setup:\n");
+	printf("  Position: (%.2f, %.2f, %.2f)\n", position.x, position.y, position.z);
+	printf("  Direction: (%.2f, %.2f, %.2f)\n", orientation.x, orientation.y, orientation.z);
+	printf("  Target: (%.2f, %.2f, %.2f)\n", target.x, target.y, target.z);
+	
+	camera->transform = view_transform(position, target, up);
 
 	return (1);
 }
@@ -163,11 +172,22 @@ int parse_sphere(char *line, t_sphere *sphere)
 	// Parse RGB
 	color = parse_rgb(tokens[3]);
 
-	// Create sphere
-	*sphere = new_sphere(center, radius);
+	// Create sphere at origin with unit radius
+	*sphere = new_sphere(point(0, 0, 0), 1.0);
+	
+	// Apply transformations: first scale, then translate
+	t_matrix scale_matrix = scaling_matrix(radius, radius, radius);
+	t_matrix translate_matrix = translation_matrix(center.x, center.y, center.z);
+	
+	// Combine transformations (translation * scaling)
+	sphere->transform = matrix_multiply_by_matrix(translate_matrix, scale_matrix);
 	
 	// Set material color (normalize RGB values from 0-255 to 0-1)
 	sphere->material.color = new_rgb(color.r / 255.0, color.g / 255.0, color.b / 255.0);
+
+	// Clean up matrices
+	free_matrix(scale_matrix);
+	free_matrix(translate_matrix);
 
 	return (1);
 }
