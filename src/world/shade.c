@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 23:02:29 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/01 23:49:51 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,12 @@ t_rgb shade_hit(t_world *world, t_comps comps)
     // pegar o material do objeto atingido
     mat = &((t_sphere *)comps.object->data)->material;
 
-    // inicializar cor acumulada como preto
-    color = new_rgb(0, 0, 0);
+    // inicializar cor com a contribuição da luz ambiente global
+    t_rgb ambient_contribution = multiply_rgb_by_scalar(
+        multiply_rgb_by_rgb(mat->color, world->ambient.color),
+        mat->ambient * world->ambient.ratio
+    );
+    color = ambient_contribution;
 
     // percorre todas as luzes da cena
     current = world->lights->head;
@@ -79,8 +83,8 @@ t_rgb shade_hit(t_world *world, t_comps comps)
     {
         t_point_light light = current->light;
 
-        // soma a contribuição de cada luz
-        t_rgb contribution = lighting(*mat, light,
+        // soma a contribuição de cada luz (apenas difusa e especular)
+        t_rgb contribution = lighting_no_ambient(*mat, light,
                                       comps.point,
                                       comps.eyev,
                                       comps.normalv,

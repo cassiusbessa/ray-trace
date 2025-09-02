@@ -30,6 +30,9 @@ t_point_light	new_point_light(t_tuple position, t_rgb intensity);
 t_rgb			lighting(t_material m, t_point_light light,
 					t_tuple position, t_tuple eyev, t_tuple normalv,
 					int in_shadow);
+t_rgb			lighting_no_ambient(t_material m, t_point_light light,
+					t_tuple position, t_tuple eyev, t_tuple normalv,
+					int in_shadow);
 
 // Lighting components
 t_rgb			diffuse_component(t_material m, t_point_light light, t_tuple lightv, t_tuple normalv);

@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:11:53 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/26 20:51:19 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/01 23:49:51 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,19 @@ t_rgb lighting(t_material m, t_point_light light, t_tuple position,
     // soma final
     t_rgb result = add_rgb(ambient, diff_spec);
     return result;
+}
+
+// Função para calcular apenas difusa e especular (sem ambiente)
+t_rgb lighting_no_ambient(t_material m, t_point_light light, t_tuple position,
+    t_tuple eyev, t_tuple normalv, int in_shadow)
+{
+    if (in_shadow)
+        return new_rgb(0, 0, 0);
+
+    t_tuple lightv = normalize_vector(sub_tuples(light.position, position));
+    
+    // componentes difusa + especular apenas
+    t_rgb diff_spec = calc_diff_spec(m, light, lightv, eyev, normalv);
+    
+    return diff_spec;
 }
