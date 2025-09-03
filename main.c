@@ -3,8 +3,7 @@
 
 int main(int argc, char **argv)
 {
-	t_scene *scene;
-	t_world *world;
+	t_parsed_scene *scene;
 	t_canvas *canvas;
 	
 	if (argc != 2)
@@ -13,7 +12,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	printf("Parsing file: %s\n", argv[1]);
+	// Parse the .rt file directly into world + camera
 	scene = parse_rt_file(argv[1]);
 	
 	if (!scene)
@@ -22,36 +21,24 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	printf("Successfully parsed file!\n");
-	print_scene_debug(scene);
+	print_parsed_scene_debug(scene);
 
-	// Convert scene to world
-	world = scene_to_world(scene);
-	if (!world)
-	{
-		printf("Failed to convert scene to world\n");
-		free_scene(scene);
-		return (1);
-	}
-
-	printf("\nSuccessfully converted scene to world!\n");
+	printf("\nSuccessfully loaded scene!\n");
 	printf("World contains:\n");
-	printf("  - %d objects\n", world->objects->count);
-	printf("  - %d lights\n", world->lights->count);
+	printf("  - %d objects\n", scene->world->objects->count);
+	printf("  - %d lights\n", scene->world->lights->count);
 	printf("  - Ambient: ratio=%.2f, color=(%.2f,%.2f,%.2f)\n",
-		world->ambient.ratio,
-		world->ambient.color.r, world->ambient.color.g, world->ambient.color.b);
+		scene->world->ambient.ratio,
+		scene->world->ambient.color.r, scene->world->ambient.color.g, scene->world->ambient.color.b);
 
 	// Render the scene
 	printf("\nStarting render...\n");
-	canvas = render(scene->camera, world);
+	canvas = render(scene->camera, scene->world);
 	
 	if (!canvas)
 	{
 		printf("Failed to render scene\n");
-		free_world(world);
-		free(world);
-		free_scene(scene);
+		free_parsed_scene(scene);
 		return (1);
 	}
 
@@ -61,9 +48,7 @@ int main(int argc, char **argv)
 	open_mlx_screen(canvas);
 	
 	// Cleanup
-	free_world(world);
-	free(world);
-	free_scene(scene);
+	free_parsed_scene(scene);
 	
 	return (0);
 }

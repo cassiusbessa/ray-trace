@@ -6,7 +6,7 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-int parse_ambient(char *line, t_ambient *ambient)
+int parse_ambient(char *line, t_world *world)
 {
 	char *token;
 	char *line_copy = strdup(line);
@@ -21,7 +21,7 @@ int parse_ambient(char *line, t_ambient *ambient)
 		free(line_copy);
 		return (0);
 	}
-	ambient->ratio = parse_float(token);
+	world->ambient.ratio = parse_float(token);
 
 	// Parse RGB
 	token = strtok(NULL, " ");
@@ -30,11 +30,11 @@ int parse_ambient(char *line, t_ambient *ambient)
 		free(line_copy);
 		return (0);
 	}
-	ambient->color = parse_rgb(token);
+	world->ambient.color = parse_rgb(token);
 	// Normalize color from 0-255 to 0-1
-	ambient->color.r /= 255.0;
-	ambient->color.g /= 255.0;
-	ambient->color.b /= 255.0;
+	world->ambient.color.r /= 255.0;
+	world->ambient.color.g /= 255.0;
+	world->ambient.color.b /= 255.0;
 
 	free(line_copy);
 	return (1);
@@ -93,7 +93,7 @@ int parse_camera(char *line, t_camera *camera)
 	return (1);
 }
 
-int parse_light(char *line, t_point_light *light)
+int parse_light(char *line, t_world *world)
 {
 	char tokens[4][50]; // Array to store tokens
 	int token_count = 0;
@@ -132,12 +132,13 @@ int parse_light(char *line, t_point_light *light)
 	color.g = (color.g / 255.0) * brightness;
 	color.b = (color.b / 255.0) * brightness;
 
-	*light = new_point_light(position, color);
+	t_point_light light = new_point_light(position, color);
+	add_light_to_world(world, light);
 
 	return (1);
 }
 
-int parse_sphere(char *line, t_sphere *sphere)
+int parse_sphere(char *line, t_world *world)
 {
 	char tokens[4][50]; // Array to store tokens
 	int token_count = 0;
@@ -173,6 +174,10 @@ int parse_sphere(char *line, t_sphere *sphere)
 	color = parse_rgb(tokens[3]);
 
 	// Create sphere at origin with unit radius
+	t_sphere *sphere = malloc(sizeof(t_sphere));
+	if (!sphere)
+		return (0);
+		
 	*sphere = new_sphere(point(0, 0, 0), 1.0);
 	
 	// Apply transformations: first scale, then translate
@@ -188,6 +193,10 @@ int parse_sphere(char *line, t_sphere *sphere)
 	// Clean up matrices
 	free_matrix(scale_matrix);
 	free_matrix(translate_matrix);
+
+	// Create object and add to world
+	t_object obj = new_object(SPHERE, sphere);
+	add_object_to_world(world, obj);
 
 	return (1);
 }

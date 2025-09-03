@@ -2,13 +2,13 @@
 #include "../../includes/headers/parser.h"
 #include <string.h>
 
-t_scene *parse_rt_file(const char *filename)
+t_parsed_scene *parse_rt_file(const char *filename)
 {
 	int fd;
 	char *line;
-	t_scene *scene;
-	int sphere_capacity = 10;
-	int light_capacity = 10;
+	t_parsed_scene *scene;
+
+	printf("Parsing file: %s\n", filename);
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -17,26 +17,27 @@ t_scene *parse_rt_file(const char *filename)
 		return (NULL);
 	}
 
-	scene = malloc(sizeof(t_scene));
+	// Create parsed scene
+	scene = malloc(sizeof(t_parsed_scene));
 	if (!scene)
-		return (NULL);
-
-	// Initialize scene
-	scene->sphere_count = 0;
-	scene->light_count = 0;
-	scene->spheres = malloc(sizeof(t_sphere) * sphere_capacity);
-	scene->lights = malloc(sizeof(t_point_light) * light_capacity);
-	
-	if (!scene->spheres || !scene->lights)
 	{
-		free(scene->spheres);
-		free(scene->lights);
+		close(fd);
+		return (NULL);
+	}
+	
+	// Create world
+	scene->world = malloc(sizeof(t_world));
+	if (!scene->world)
+	{
 		free(scene);
 		close(fd);
 		return (NULL);
 	}
+	
+	// Initialize world with default ambient
+	*(scene->world) = new_world();
 
-	// Parse file line by line
+	// Parse file line by line using get_next_line
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		// Skip empty lines and comments
@@ -54,7 +55,7 @@ t_scene *parse_rt_file(const char *filename)
 		// Parse based on identifier
 		if (line[0] == 'A' && line[1] == ' ')
 		{
-			if (!parse_ambient(line, &scene->ambient))
+			if (!parse_ambient(line, scene->world))
 			{
 				printf("Error parsing ambient line: %s\n", line);
 			}
@@ -68,34 +69,16 @@ t_scene *parse_rt_file(const char *filename)
 		}
 		else if (line[0] == 'L' && line[1] == ' ')
 		{
-			if (scene->light_count >= light_capacity)
-			{
-				light_capacity *= 2;
-				scene->lights = realloc(scene->lights, sizeof(t_point_light) * light_capacity);
-			}
-			if (!parse_light(line, &scene->lights[scene->light_count]))
+			if (!parse_light(line, scene->world))
 			{
 				printf("Error parsing light line: %s\n", line);
-			}
-			else
-			{
-				scene->light_count++;
 			}
 		}
 		else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
 		{
-			if (scene->sphere_count >= sphere_capacity)
-			{
-				sphere_capacity *= 2;
-				scene->spheres = realloc(scene->spheres, sizeof(t_sphere) * sphere_capacity);
-			}
-			if (!parse_sphere(line, &scene->spheres[scene->sphere_count]))
+			if (!parse_sphere(line, scene->world))
 			{
 				printf("Error parsing sphere line: %s\n", line);
-			}
-			else
-			{
-				scene->sphere_count++;
 			}
 		}
 
@@ -103,38 +86,38 @@ t_scene *parse_rt_file(const char *filename)
 	}
 
 	close(fd);
+	printf("Successfully parsed file!\n");
 	return (scene);
 }
 
-void free_scene(t_scene *scene)
+void free_parsed_scene(t_parsed_scene *scene)
 {
 	if (!scene)
 		return;
 	
-	if (scene->spheres)
-		free(scene->spheres);
-	if (scene->lights)
-		free(scene->lights);
+	if (scene->world)
+	{
+		free_world(scene->world);
+		free(scene->world);
+	}
 	free(scene);
 }
 
-void print_scene_debug(t_scene *scene)
+void print_parsed_scene_debug(t_parsed_scene *scene)
 {
-	int i;
-
 	if (!scene)
 	{
-		printf("Scene is NULL\n");
+		printf("Parsed scene is NULL\n");
 		return;
 	}
 
-	printf("=== SCENE DEBUG INFO ===\n");
+	printf("=== PARSED SCENE DEBUG INFO ===\n");
 	
 	// Print ambient
 	printf("Ambient Light:\n");
-	printf("  Ratio: %.2f\n", scene->ambient.ratio);
+	printf("  Ratio: %.2f\n", scene->world->ambient.ratio);
 	printf("  Color: (%.2f, %.2f, %.2f)\n", 
-		scene->ambient.color.r, scene->ambient.color.g, scene->ambient.color.b);
+		scene->world->ambient.color.r, scene->world->ambient.color.g, scene->world->ambient.color.b);
 
 	// Print camera
 	printf("Camera:\n");
@@ -143,26 +126,38 @@ void print_scene_debug(t_scene *scene)
 	printf("  Pixel Size: %.6f\n", scene->camera.pixel_size);
 
 	// Print lights
-	printf("Lights (%d):\n", scene->light_count);
-	for (i = 0; i < scene->light_count; i++)
+	printf("Lights (%d):\n", scene->world->lights->count);
+	t_point_light_node *current_light = scene->world->lights->head;
+	int light_index = 1;
+	while (current_light)
 	{
-		printf("  Light %d:\n", i + 1);
+		printf("  Light %d:\n", light_index);
 		printf("    Position: (%.2f, %.2f, %.2f)\n",
-			scene->lights[i].position.x, scene->lights[i].position.y, scene->lights[i].position.z);
+			current_light->light.position.x, current_light->light.position.y, current_light->light.position.z);
 		printf("    Intensity: (%.2f, %.2f, %.2f)\n",
-			scene->lights[i].intensity.r, scene->lights[i].intensity.g, scene->lights[i].intensity.b);
+			current_light->light.intensity.r, current_light->light.intensity.g, current_light->light.intensity.b);
+		current_light = current_light->next;
+		light_index++;
 	}
 
-	// Print spheres
-	printf("Spheres (%d):\n", scene->sphere_count);
-	for (i = 0; i < scene->sphere_count; i++)
+	// Print objects (spheres)
+	printf("Objects (%d):\n", scene->world->objects->count);
+	t_object_node *current_obj = scene->world->objects->head;
+	int obj_index = 1;
+	while (current_obj)
 	{
-		printf("  Sphere %d:\n", i + 1);
-		printf("    Center: (%.2f, %.2f, %.2f)\n",
-			scene->spheres[i].center.x, scene->spheres[i].center.y, scene->spheres[i].center.z);
-		printf("    Radius: %.2f\n", scene->spheres[i].radius);
-		printf("    Color: (%.2f, %.2f, %.2f)\n",
-			scene->spheres[i].material.color.r, scene->spheres[i].material.color.g, scene->spheres[i].material.color.b);
+		if (current_obj->object.type == SPHERE)
+		{
+			t_sphere *sphere = (t_sphere *)current_obj->object.data;
+			printf("  Sphere %d:\n", obj_index);
+			printf("    Center: (%.2f, %.2f, %.2f)\n",
+				sphere->center.x, sphere->center.y, sphere->center.z);
+			printf("    Radius: %.2f\n", sphere->radius);
+			printf("    Color: (%.2f, %.2f, %.2f)\n",
+				sphere->material.color.r, sphere->material.color.g, sphere->material.color.b);
+		}
+		current_obj = current_obj->next;
+		obj_index++;
 	}
 	
 	printf("========================\n");
