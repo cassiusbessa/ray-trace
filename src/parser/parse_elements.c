@@ -151,22 +151,11 @@ int parse_sphere(char *line, t_world *world)
 	if (!sphere)
 		return(destroy_2d((void**)tokens), 0);		
 	
-	*sphere = new_sphere(point(0, 0, 0), 100.0);
-	
-	// Create object and set its material
+	*sphere = new_sphere(point(0, 0, 0), 1.0);
 	t_object obj = new_object(SPHERE, sphere);
 	obj.material.color = color;
-	
-	// Set transformations using set_object_transform
-	t_matrix scale_matrix = scaling_matrix(radius, radius, radius);
-	t_matrix translate_matrix = translation_matrix(center.x, center.y, center.z);
-	t_matrix combined_transform = matrix_multiply_by_matrix(translate_matrix, scale_matrix);
-	
-	set_object_transform(&obj, combined_transform);
-	
-	// Clean up matrices
-	free_matrix(scale_matrix);
-	free_matrix(translate_matrix);
+	set_object_transform(&obj, scaling_matrix(radius, radius, radius));
+	set_object_transform(&obj, translation_matrix(center.x, center.y, center.z));
 	
 	add_object_to_world(world, obj);
 	destroy_2d((void**)tokens);

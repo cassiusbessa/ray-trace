@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/03 09:58:54 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 11:36:18 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 void	set_object_transform(t_object *obj, t_matrix m)
 {
+	t_matrix	t;
 	if (!obj)
 		return ;
+	
+	// Compose the new transformation with the current one
+	t = matrix_multiply_by_matrix(m, obj->transform);
 	
 	// Free the current transform matrix
 	free_matrix(obj->transform);
 	
-	// Set the new transform
-	obj->transform = m;
+	// Set the composed transform
+	obj->transform = t;
+	
+	// Free the input matrix since we're done with it
+	free_matrix(m);
 }
 
 t_object	new_object(t_object_type type, void *data)
