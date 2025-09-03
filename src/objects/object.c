@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/03 11:36:18 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 18:28:00 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,13 @@ void	free_object(t_object *obj)
 	
 	// Free the specific object data
 	if (obj->type == SPHERE)
+	{
 		free_sphere((t_sphere *)obj->data);
+	}
+	else if (obj->type == CYLINDER)
+	{
+		free(obj->data);
+	}
+	
 }
+

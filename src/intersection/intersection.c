@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/25 20:52:34 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:28:08 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ t_intersection_list *intersect(t_ray ray, t_object *object)
 {
     if (object->type == SPHERE)
         return intersect_ray_sphere(ray, object);
+    else if (object->type == CYLINDER)
+        return intersect_ray_cylinder(ray, object);
     return NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve_quadratic.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:02:46 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/19 23:02:43 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 19:11:21 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,37 @@ static float	ft_discriminant(float a, float b, float c)
 	return (b * b - 4.0f * a * c);
 }
 
-t_quad	ft_quadratic(float a, float b, float c)
+t_quad ft_quadratic(float a, float b, float c)
 {
-	t_quad	result;
-	float	delta;
-	float	sqrt_delta;
+    t_quad result;
+    float delta;
+    float sqrt_delta;
 
-	result.count = 0;
-	result.x1 = 0.0f;
-	result.x2 = 0.0f;
-	if (a == 0.0f)
-		return (result);
-	delta = ft_discriminant(a, b, c);
-	if (delta < 0.0f)
-		return (result);
-	if (delta == 0.0f)
-	{
-		result.count = 1;
-		result.x1 = -b / (2.0f * a);
-		result.x2 = result.x1;
-		return (result);
-	}
-	sqrt_delta = sqrt(delta);
-	result.count = 2;
-	result.x1 = (-b - sqrt_delta) / (2.0f * a);
-	result.x2 = (-b + sqrt_delta) / (2.0f * a);
-	return (result);
+    result.count = 0;
+    result.x1 = 0.0f;
+    result.x2 = 0.0f;
+
+    if (float_equal(a, 0.0f))
+        return result;
+
+    delta = ft_discriminant(a, b, c);
+    if (delta < 0.0f)
+        return result;
+
+    if (float_equal(delta, 0.0f))
+    {
+        result.count = 1;
+        result.x1 = -b / (2.0f * a);
+        result.x2 = result.x1;
+        return result;
+    }
+
+    sqrt_delta = sqrtf(delta);
+    result.count = 2;
+    result.x1 = (-b - sqrt_delta) / (2.0f * a);
+    result.x2 = (-b + sqrt_delta) / (2.0f * a);
+
+    return result;
 }
 
 t_intersection	ft_quad_to_intersection(t_quad q, void *object)
@@ -75,3 +80,28 @@ t_quad	solve_quadratic_for_sphere(t_ray ray, t_sphere *sphere)
 		// esfera unitária
 	return (ft_quadratic(a, b, c));
 }
+
+t_quad solve_quadratic_for_cylinder(t_ray ray, float radius)
+{
+    t_quad result;
+    float a, b, c;
+
+    // Cilindro ao longo do eixo Y com raio = radius
+    a = ray.direction.x * ray.direction.x + ray.direction.z * ray.direction.z;
+    b = 2.0f * (ray.origin.x * ray.direction.x + ray.origin.z * ray.direction.z);
+    c = ray.origin.x * ray.origin.x + ray.origin.z * ray.origin.z - radius * radius;
+
+    // Evita divisão por zero se o raio estiver paralelo ao eixo Y
+    if (fabsf(a) < EPSILON)
+    {
+        result.count = 0;
+        result.x1 = 0.0f;
+        result.x2 = 0.0f;
+        return result;
+    }
+
+    // Resolve a quadrática
+    result = ft_quadratic(a, b, c);
+    return result;
+}
+

@@ -80,6 +80,11 @@ t_parsed_scene *parse_rt_file(const char *filename)
 				printf("Error parsing sphere line: %s\n", line);
 			}
 		}
+		else if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
+		{
+    		if (!parse_cylinder(line, scene->world))
+        	printf("Error parsing cylinder line: %s\n", line);
+		}
 
 		free(line);
 	}
@@ -154,6 +159,16 @@ void print_parsed_scene_debug(t_parsed_scene *scene)
 			printf("    Radius: %.2f\n", sphere->radius);
 			printf("    Color: (%.2f, %.2f, %.2f)\n",
 				current_obj->object.material.color.r, current_obj->object.material.color.g, current_obj->object.material.color.b);
+		}
+		else if (current_obj->object.type == CYLINDER)
+		{
+    		t_cylinder *cyl = (t_cylinder *)current_obj->object.data;
+    		printf("  Cylinder %d:\n", obj_index);
+    		printf("    Radius: %.2f, Height: %.2f\n", cyl->radius, cyl->height);
+    		printf("    Color: (%.2f, %.2f, %.2f)\n",
+        	current_obj->object.material.color.r,
+        	current_obj->object.material.color.g,
+        	current_obj->object.material.color.b);
 		}
 		current_obj = current_obj->next;
 		obj_index++;

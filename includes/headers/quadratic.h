@@ -14,5 +14,6 @@ typedef struct s_quad
 t_quad			ft_quadratic(float a, float b, float c);
 t_intersection	ft_quad_to_intersection(t_quad q, void *object);
 t_bool			float_equal(float a, float b);
+t_quad solve_quadratic_for_cylinder(t_ray ray, float radius);
 
 #endif

@@ -6,11 +6,62 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/27 19:50:29 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/03 18:32:12 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
+t_matrix orientation_matrix(t_tuple orientation)
+{
+    t_tuple up = vector(0, 1, 0); // eixo padrão do cilindro
+
+    // Se já estiver alinhado com o eixo Y positivo, retorna identidade
+    if (orientation.x == 0 && orientation.y == 1 && orientation.z == 0)
+        return identity_matrix(4);
+
+    // Se estiver alinhado com o eixo Y negativo, gira 180° em X
+    if (orientation.x == 0 && orientation.y == -1 && orientation.z == 0)
+        return rotation_x_matrix(M_PI);
+
+    // Para qualquer outro vetor, usa Rodrigues
+    t_tuple axis = vector_cross_product(up, orientation);
+    double cos_theta = vector_dot_product(up, orientation);
+    double sin_theta = magnitude_of_vector(axis);
+
+    axis = normalize_vector(axis);
+
+    double x = axis.x;
+    double y = axis.y;
+    double z = axis.z;
+    double one_minus_cos = 1 - cos_theta;
+
+    t_matrix rot = new_matrix(4, 4);
+
+    rot.data[0][0] = cos_theta + x * x * one_minus_cos;
+    rot.data[0][1] = x * y * one_minus_cos - z * sin_theta;
+    rot.data[0][2] = x * z * one_minus_cos + y * sin_theta;
+    rot.data[0][3] = 0;
+
+    rot.data[1][0] = y * x * one_minus_cos + z * sin_theta;
+    rot.data[1][1] = cos_theta + y * y * one_minus_cos;
+    rot.data[1][2] = y * z * one_minus_cos - x * sin_theta;
+    rot.data[1][3] = 0;
+
+    rot.data[2][0] = z * x * one_minus_cos - y * sin_theta;
+    rot.data[2][1] = z * y * one_minus_cos + x * sin_theta;
+    rot.data[2][2] = cos_theta + z * z * one_minus_cos;
+    rot.data[2][3] = 0;
+
+    rot.data[3][0] = 0;
+    rot.data[3][1] = 0;
+    rot.data[3][2] = 0;
+    rot.data[3][3] = 1;
+
+    return rot;
+}
+
+
 
 // Cria apenas a matriz de orientação da câmera
 static t_matrix view_orientation(t_tuple from, t_tuple to, t_tuple up)

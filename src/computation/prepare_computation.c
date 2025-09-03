@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_computation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:54:10 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 23:15:02 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 19:38:18 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_comps prepare_computations(t_intersection_node i, t_ray r)
     point = ray_position(r, i.t);
     eyev = negate_vector(r.direction);
 
-    normalv = normal_at(*i.object, point);
+    normalv = normal_at(i.object, point);
 
     if (vector_dot_product(normalv, eyev) < 0)
     {

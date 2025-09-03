@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:11:53 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/01 23:49:51 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 19:36:43 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,6 @@ t_rgb calc_diff_spec(t_material m, t_point_light light,
 
 	return result;
 }
-
-
-
-
-
-
-
-
 
 
 t_rgb lighting(t_material m, t_point_light light, t_tuple position,

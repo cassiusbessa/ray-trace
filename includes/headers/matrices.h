@@ -31,4 +31,6 @@ double		minor_matrix(t_matrix matrix, int row, int col);
 double		cofactor_matrix(t_matrix matrix, int row, int col);
 double		determinant_matrix(t_matrix a);
 
+
+t_matrix orientation_matrix(t_tuple orientation);
 #endif

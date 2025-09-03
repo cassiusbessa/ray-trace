@@ -1,9 +1,5 @@
 #include "../../includes/miniRT.h"
-#include "../../includes/headers/parser.h"
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 int parse_ambient(char *line, t_world *world)
 {
@@ -95,3 +91,63 @@ int parse_sphere(char *line, t_world *world)
 	destroy_2d((void**)tokens);
 	return (1);
 }
+
+int parse_cylinder(char *line, t_world *world)
+{
+    char **tokens;
+    t_tuple center;
+    t_tuple orientation;
+    float diameter;
+    float height;
+    t_rgb color;
+    t_bool closed;
+    t_object obj;
+
+    printf("[DEBUG] Parsing line: %s\n", line);
+
+    tokens = ft_split(line, ' ');
+    if (!tokens)
+    {
+        printf("[DEBUG] ft_split returned NULL\n");
+        return 0;
+    }
+
+    for (int i = 0; i < 7; i++)
+    {
+        if (!tokens[i])
+        {
+            printf("[DEBUG] Missing token at position %d\n", i);
+            destroy_2d((void**)tokens);
+            return 0;
+        }
+        else
+            printf("[DEBUG] Token %d: %s\n", i, tokens[i]);
+    }
+
+    center = parse_tuple(tokens[1], 1);
+    printf("[DEBUG] Center: (%f, %f, %f)\n", center.x, center.y, center.z);
+
+    orientation = normalize_vector(parse_tuple(tokens[2], 0));
+    printf("[DEBUG] Orientation: (%f, %f, %f)\n", orientation.x, orientation.y, orientation.z);
+
+    diameter = parse_float(tokens[3]);
+    height = parse_float(tokens[4]);
+    printf("[DEBUG] Diameter: %f, Height: %f\n", diameter, height);
+
+    color = parse_rgb(tokens[5]);
+    printf("[DEBUG] Color: (%f, %f, %f)\n", color.r, color.g, color.b);
+
+    closed = ft_atoi(tokens[6]) != 0;
+    printf("[DEBUG] Closed: %d\n", closed);
+
+    obj = new_cylinder_object(center, orientation, diameter, height, color, closed);
+    printf("[DEBUG] Cylinder object created\n");
+
+    add_object_to_world(world, obj);
+    destroy_2d((void**)tokens);
+    printf("[DEBUG] Tokens freed and object added to world\n");
+
+    return 1;
+}
+
+

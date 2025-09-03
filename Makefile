@@ -17,6 +17,7 @@ MLX_DIR          = src/mlx_adapter
 TRANSF_DIR       = src/transformation
 RAY_DIR          = src/ray
 SPHERE_DIR       = src/sphere
+CYLINDER_DIR     = src/cylinder
 INTERSECTION_DIR = src/intersection
 OBJS_DIR         = src/objects
 NORMAL_DIR       = src/normal
@@ -69,6 +70,7 @@ SRCS = main.c \
        $(RAY_DIR)/ray.c \
        $(RAY_DIR)/ray_utils.c \
        $(SPHERE_DIR)/sphere.c \
+       $(CYLINDER_DIR)/cylinder.c \
        $(INTERSECTION_DIR)/intersection.c \
        $(INTERSECTION_DIR)/intersection_list.c \
        $(INTERSECTION_DIR)/hit.c \

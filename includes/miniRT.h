@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:23:24 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/01 22:54:59 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 18:28:18 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # include "headers/quadratic.h"
 # include "headers/materials.h"
 # include "headers/spheres.h"
+# include "headers/cylinder.h"
 # include "headers/lights.h"
 # include "headers/world.h"
 # include "headers/computations.h"
