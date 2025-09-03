@@ -1,6 +1,5 @@
 #include "../../includes/miniRT.h"
 #include "../../includes/headers/parser.h"
-#include <string.h>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -8,60 +7,51 @@
 
 int parse_ambient(char *line, t_world *world)
 {
-	char *token;
-	char *line_copy = strdup(line);
+	char **tokens;
+	int i;
 
-	// Skip "A "
-	token = strtok(line_copy, " ");
-	
+	tokens = ft_split(line, ' ');
+	if (!tokens || !tokens[1] || !tokens[2])
+	{
+		if (tokens)
+		{
+			for (i = 0; tokens[i]; i++)
+				free(tokens[i]);
+			free(tokens);
+		}
+		return (0);
+	}
+
 	// Parse ratio
-	token = strtok(NULL, " ");
-	if (!token)
-	{
-		free(line_copy);
-		return (0);
-	}
-	world->ambient.ratio = parse_float(token);
+	world->ambient.ratio = parse_float(tokens[1]);
 
-	// Parse RGB
-	token = strtok(NULL, " ");
-	if (!token)
-	{
-		free(line_copy);
-		return (0);
-	}
-	world->ambient.color = parse_rgb(token);
-	// Normalize color from 0-255 to 0-1
-	world->ambient.color.r /= 255.0;
-	world->ambient.color.g /= 255.0;
-	world->ambient.color.b /= 255.0;
+	// Parse RGB (already normalized by parse_rgb)
+	world->ambient.color = parse_rgb(tokens[2]);
 
-	free(line_copy);
+	// Free tokens
+	for (i = 0; tokens[i]; i++)
+		free(tokens[i]);
+	free(tokens);
+	
 	return (1);
 }
 
 int parse_camera(char *line, t_camera *camera)
 {
-	char tokens[4][50]; // Array to store tokens
-	int token_count = 0;
-	char *line_copy = strdup(line);
-	char *token;
+	char **tokens;
+	int i;
 	t_tuple position, orientation;
 	float fov;
 
-	// Parse all tokens first
-	token = strtok(line_copy, " ");
-	while (token && token_count < 4)
+	tokens = ft_split(line, ' ');
+	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3])
 	{
-		strcpy(tokens[token_count], token);
-		token_count++;
-		token = strtok(NULL, " ");
-	}
-
-	free(line_copy);
-
-	if (token_count < 4)
-	{
+		if (tokens)
+		{
+			for (i = 0; tokens[i]; i++)
+				free(tokens[i]);
+			free(tokens);
+		}
 		return (0);
 	}
 
@@ -90,32 +80,31 @@ int parse_camera(char *line, t_camera *camera)
 	
 	camera->transform = view_transform(position, target, up);
 
+	// Free tokens
+	for (i = 0; tokens[i]; i++)
+		free(tokens[i]);
+	free(tokens);
+
 	return (1);
 }
 
 int parse_light(char *line, t_world *world)
 {
-	char tokens[4][50]; // Array to store tokens
-	int token_count = 0;
-	char *line_copy = strdup(line);
-	char *token;
+	char **tokens;
+	int i;
 	t_tuple position;
 	float brightness;
 	t_rgb color;
 
-	// Parse all tokens first
-	token = strtok(line_copy, " ");
-	while (token && token_count < 4)
+	tokens = ft_split(line, ' ');
+	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3])
 	{
-		strcpy(tokens[token_count], token);
-		token_count++;
-		token = strtok(NULL, " ");
-	}
-
-	free(line_copy);
-
-	if (token_count < 4)
-	{
+		if (tokens)
+		{
+			for (i = 0; tokens[i]; i++)
+				free(tokens[i]);
+			free(tokens);
+		}
 		return (0);
 	}
 
@@ -125,42 +114,41 @@ int parse_light(char *line, t_world *world)
 	// Parse brightness
 	brightness = parse_float(tokens[2]);
 
-	// Parse RGB
+	// Parse RGB (already normalized by parse_rgb)
 	color = parse_rgb(tokens[3]);
-	// Normalize color from 0-255 to 0-1 and apply brightness
-	color.r = (color.r / 255.0) * brightness;
-	color.g = (color.g / 255.0) * brightness;
-	color.b = (color.b / 255.0) * brightness;
+	// Apply brightness
+	color.r = color.r * brightness;
+	color.g = color.g * brightness;
+	color.b = color.b * brightness;
 
 	t_point_light light = new_point_light(position, color);
 	add_light_to_world(world, light);
+
+	// Free tokens
+	for (i = 0; tokens[i]; i++)
+		free(tokens[i]);
+	free(tokens);
 
 	return (1);
 }
 
 int parse_sphere(char *line, t_world *world)
 {
-	char tokens[4][50]; // Array to store tokens
-	int token_count = 0;
-	char *line_copy = strdup(line);
-	char *token;
+	char **tokens;
+	int i;
 	t_tuple center;
 	float radius;
 	t_rgb color;
 
-	// Parse all tokens first
-	token = strtok(line_copy, " ");
-	while (token && token_count < 4)
+	tokens = ft_split(line, ' ');
+	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3])
 	{
-		strcpy(tokens[token_count], token);
-		token_count++;
-		token = strtok(NULL, " ");
-	}
-
-	free(line_copy);
-
-	if (token_count < 4)
-	{
+		if (tokens)
+		{
+			for (i = 0; tokens[i]; i++)
+				free(tokens[i]);
+			free(tokens);
+		}
 		return (0);
 	}
 
@@ -176,7 +164,12 @@ int parse_sphere(char *line, t_world *world)
 	// Create sphere at origin with unit radius
 	t_sphere *sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
+	{
+		for (i = 0; tokens[i]; i++)
+			free(tokens[i]);
+		free(tokens);
 		return (0);
+	}
 		
 	*sphere = new_sphere(point(0, 0, 0), 1.0);
 	
@@ -187,8 +180,8 @@ int parse_sphere(char *line, t_world *world)
 	// Combine transformations (translation * scaling)
 	sphere->transform = matrix_multiply_by_matrix(translate_matrix, scale_matrix);
 	
-	// Set material color (normalize RGB values from 0-255 to 0-1)
-	sphere->material.color = new_rgb(color.r / 255.0, color.g / 255.0, color.b / 255.0);
+	// Set material color (already normalized by parse_rgb)
+	sphere->material.color = color;
 
 	// Clean up matrices
 	free_matrix(scale_matrix);
@@ -197,6 +190,11 @@ int parse_sphere(char *line, t_world *world)
 	// Create object and add to world
 	t_object obj = new_object(SPHERE, sphere);
 	add_object_to_world(world, obj);
+
+	// Free tokens
+	for (i = 0; tokens[i]; i++)
+		free(tokens[i]);
+	free(tokens);
 
 	return (1);
 }

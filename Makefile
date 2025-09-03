@@ -86,7 +86,6 @@ SRCS = main.c \
        $(PARSER_DIR)/parser.c \
        $(PARSER_DIR)/parse_elements.c \
        $(PARSER_DIR)/parse_utils.c \
-       $(PARSER_DIR)/scene_to_world.c \
        src/thick.c
 
 # Objetos

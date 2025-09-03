@@ -1,6 +1,5 @@
 #include "../../includes/miniRT.h"
 #include "../../includes/headers/parser.h"
-#include <string.h>
 
 t_parsed_scene *parse_rt_file(const char *filename)
 {
@@ -48,7 +47,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 		}
 
 		// Remove newline if present
-		int len = strlen(line);
+		int len = ft_strlen(line);
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
 
