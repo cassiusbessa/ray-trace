@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/29 19:42:57 by fnascime         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:58:54 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,14 @@
 
 void	set_object_transform(t_object *obj, t_matrix m)
 {
-	if (!obj || !obj->data)
+	if (!obj)
 		return ;
-	if (obj->type == SPHERE)
-		((t_sphere *)obj->data)->transform = matrix_multiply_by_matrix(((t_sphere *)obj->data)->transform, m);
-	// else if (obj->type == PLANE) ...
+	
+	// Free the current transform matrix
+	free_matrix(obj->transform);
+	
+	// Set the new transform
+	obj->transform = m;
 }
 
 t_object	new_object(t_object_type type, void *data)
@@ -27,6 +30,8 @@ t_object	new_object(t_object_type type, void *data)
 
 	obj.type = type;
 	obj.data = data;
+	obj.transform = identity_matrix(4); // Initialize with identity matrix
+	obj.material = new_material_default(); // Initialize with default material
 	return (obj);
 }
 
@@ -34,6 +39,11 @@ void	free_object(t_object *obj)
 {
 	if (!obj)
 		return ;
+	
+	// Free the transform matrix
+	free_matrix(obj->transform);
+	
+	// Free the specific object data
 	if (obj->type == SPHERE)
 		free_sphere((t_sphere *)obj->data);
 }

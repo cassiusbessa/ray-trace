@@ -135,66 +135,40 @@ int parse_light(char *line, t_world *world)
 int parse_sphere(char *line, t_world *world)
 {
 	char **tokens;
-	int i;
 	t_tuple center;
 	float radius;
 	t_rgb color;
 
 	tokens = ft_split(line, ' ');
 	if (!tokens || !tokens[1] || !tokens[2] || !tokens[3])
-	{
-		if (tokens)
-		{
-			for (i = 0; tokens[i]; i++)
-				free(tokens[i]);
-			free(tokens);
-		}
-		return (0);
-	}
-
-	// Parse center
-	center = parse_tuple(tokens[1], 1); // is_point = 1
-
-	// Parse radius
+		return (destroy_2d((void**)tokens), 0);
+	
+	center = parse_tuple(tokens[1], 1);
 	radius = parse_float(tokens[2]);
-
-	// Parse RGB
 	color = parse_rgb(tokens[3]);
-
-	// Create sphere at origin with unit radius
+	
 	t_sphere *sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
-	{
-		for (i = 0; tokens[i]; i++)
-			free(tokens[i]);
-		free(tokens);
-		return (0);
-	}
-		
-	*sphere = new_sphere(point(0, 0, 0), 1.0);
+		return(destroy_2d((void**)tokens), 0);		
 	
-	// Apply transformations: first scale, then translate
+	*sphere = new_sphere(point(0, 0, 0), 100.0);
+	
+	// Create object and set its material
+	t_object obj = new_object(SPHERE, sphere);
+	obj.material.color = color;
+	
+	// Set transformations using set_object_transform
 	t_matrix scale_matrix = scaling_matrix(radius, radius, radius);
 	t_matrix translate_matrix = translation_matrix(center.x, center.y, center.z);
+	t_matrix combined_transform = matrix_multiply_by_matrix(translate_matrix, scale_matrix);
 	
-	// Combine transformations (translation * scaling)
-	sphere->transform = matrix_multiply_by_matrix(translate_matrix, scale_matrix);
+	set_object_transform(&obj, combined_transform);
 	
-	// Set material color (already normalized by parse_rgb)
-	sphere->material.color = color;
-
 	// Clean up matrices
 	free_matrix(scale_matrix);
 	free_matrix(translate_matrix);
-
-	// Create object and add to world
-	t_object obj = new_object(SPHERE, sphere);
+	
 	add_object_to_world(world, obj);
-
-	// Free tokens
-	for (i = 0; tokens[i]; i++)
-		free(tokens[i]);
-	free(tokens);
-
+	destroy_2d((void**)tokens);
 	return (1);
 }

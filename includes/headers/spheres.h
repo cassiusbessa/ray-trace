@@ -10,8 +10,6 @@ typedef struct s_sphere
 {
 	t_tuple		center;
 	float		radius;
-	t_matrix	transform;
-	t_material	material;
 }	t_sphere;
 
 // Sphere operations

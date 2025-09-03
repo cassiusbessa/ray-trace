@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fnascime <fnascime@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/29 19:47:22 by fnascime         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:58:54 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,17 @@ t_sphere	new_sphere(t_tuple center, float radius)
 
 	sphere.center = center;
 	sphere.radius = radius;
-	sphere.transform = identity_matrix(4);
-	sphere.material = new_material_default();
 	return (sphere);
 }
 
 t_intersection_list *intersect_ray_sphere(t_ray ray, t_object *obj)
 {
-    t_sphere *sphere = (t_sphere *)obj->data;
     t_ray local_ray;
     t_intersection_list *l;
     float a, b, c, discriminant;
 
     int success;
-    t_matrix inv = invert_matrix(sphere->transform, &success);
+    t_matrix inv = invert_matrix(obj->transform, &success);
     if (!success)
     {
         return new_intersection_list();
@@ -75,6 +72,6 @@ void free_sphere(t_sphere *s)
 {
     if (!s)
         return;
-    free_matrix(s->transform);
+    // No need to free transform here, it's now handled in free_object
 	free(s);
 }

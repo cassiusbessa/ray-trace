@@ -145,7 +145,7 @@ void print_parsed_scene_debug(t_parsed_scene *scene)
 	int obj_index = 1;
 	while (current_obj)
 	{
-		if (current_obj->object.type == SPHERE)
+		if (current_obj->object.data && current_obj->object.type == SPHERE)
 		{
 			t_sphere *sphere = (t_sphere *)current_obj->object.data;
 			printf("  Sphere %d:\n", obj_index);
@@ -153,7 +153,7 @@ void print_parsed_scene_debug(t_parsed_scene *scene)
 				sphere->center.x, sphere->center.y, sphere->center.z);
 			printf("    Radius: %.2f\n", sphere->radius);
 			printf("    Color: (%.2f, %.2f, %.2f)\n",
-				sphere->material.color.r, sphere->material.color.g, sphere->material.color.b);
+				current_obj->object.material.color.r, current_obj->object.material.color.g, current_obj->object.material.color.b);
 		}
 		current_obj = current_obj->next;
 		obj_index++;

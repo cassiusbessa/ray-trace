@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/01 22:54:59 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 09:58:54 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,18 +154,19 @@ t_world default_world(void)
     t_sphere *s1 = malloc(sizeof(t_sphere));
     *s1 = new_sphere(point(0, 0, 0), 1.0f);
 
-    s1->material.color = new_rgb(0.8f, 1.0f, 0.6f);
-    s1->material.diffuse = 0.7f;
-    s1->material.specular = 0.2f;
-
-    t_object o1 = {.type = SPHERE, .data = s1};
+    t_object o1 = new_object(SPHERE, s1);
+    o1.material.color = new_rgb(0.8f, 1.0f, 0.6f);
+    o1.material.diffuse = 0.7f;
+    o1.material.specular = 0.2f;
     add_object_to_world(&world, o1);
 
     // Segunda esfera (escala 0.5)
     t_sphere *s2 = malloc(sizeof(t_sphere));
     *s2 = new_sphere(point(0, 0, 0), 1.0f);
-    s2->transform = scaling_matrix(0.5f, 0.5f, 0.5f);
-    t_object o2 = {.type = SPHERE, .data = s2};
+    
+    t_object o2 = new_object(SPHERE, s2);
+    t_matrix scale_transform = scaling_matrix(0.5f, 0.5f, 0.5f);
+    set_object_transform(&o2, scale_transform);
     add_object_to_world(&world, o2);
 
     return world;

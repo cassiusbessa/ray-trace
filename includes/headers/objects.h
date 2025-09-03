@@ -2,6 +2,8 @@
 # define OBJECTS_H
 
 # include "types.h"
+# include "matrices.h"
+# include "materials.h"
 
 typedef enum e_object_type
 {
@@ -13,6 +15,8 @@ typedef enum e_object_type
 typedef struct s_object
 {
 	t_object_type	type;
+	t_matrix		transform;
+	t_material		material;
 	void			*data; // ponteiro para t_sphere, t_plane, etc.
 }	t_object;
 
