@@ -1,6 +1,7 @@
 #include "../../includes/miniRT.h"
 #include "../../includes/headers/parser.h"
 
+
 t_parsed_scene *parse_rt_file(const char *filename)
 {
 	int fd;
@@ -13,7 +14,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 	if (fd < 0)
 	{
 		printf("Error: Cannot open file %s\n", filename);
-		return (NULL);
+		return NULL;
 	}
 
 	// Create parsed scene
@@ -21,18 +22,18 @@ t_parsed_scene *parse_rt_file(const char *filename)
 	if (!scene)
 	{
 		close(fd);
-		return (NULL);
+		return NULL;
 	}
-	
+
 	// Create world
 	scene->world = malloc(sizeof(t_world));
 	if (!scene->world)
 	{
 		free(scene);
 		close(fd);
-		return (NULL);
+		return NULL;
 	}
-	
+
 	// Initialize world with default ambient
 	*(scene->world) = new_world();
 
@@ -60,7 +61,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 				free(line);
 				free_parsed_scene(scene);
 				close(fd);
-				return (NULL);
+				return NULL;
 			}
 		}
 		else if (line[0] == 'C' && line[1] == ' ')
@@ -71,7 +72,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 				free(line);
 				free_parsed_scene(scene);
 				close(fd);
-				return (NULL);
+				return NULL;
 			}
 		}
 		else if (line[0] == 'L' && line[1] == ' ')
@@ -82,7 +83,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 				free(line);
 				free_parsed_scene(scene);
 				close(fd);
-				return (NULL);
+				return NULL;
 			}
 		}
 		else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
@@ -93,19 +94,30 @@ t_parsed_scene *parse_rt_file(const char *filename)
 				free(line);
 				free_parsed_scene(scene);
 				close(fd);
-				return (NULL);
+				return NULL;
 			}
 		}
 		else if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
 		{
-    		if (!parse_cylinder(line, scene->world))
-    		{
-        		printf("Error parsing cylinder line: %s\n", line);
-        		free(line);
+			if (!parse_cylinder(line, scene->world))
+			{
+				printf("Error parsing cylinder line: %s\n", line);
+				free(line);
 				free_parsed_scene(scene);
 				close(fd);
-				return (NULL);
-    		}
+				return NULL;
+			}
+		}
+		else if (line[0] == 'p' && line[1] == 'l' && line[2] == ' ')
+		{
+			if (!parse_plane(line, scene->world))
+			{
+				printf("Error parsing plane line: %s\n", line);
+				free(line);
+				free_parsed_scene(scene);
+				close(fd);
+				return NULL;
+			}
 		}
 		else
 		{
@@ -113,7 +125,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 			free(line);
 			free_parsed_scene(scene);
 			close(fd);
-			return (NULL);
+			return NULL;
 		}
 
 		free(line);
@@ -121,7 +133,7 @@ t_parsed_scene *parse_rt_file(const char *filename)
 
 	close(fd);
 	printf("Successfully parsed file!\n");
-	return (scene);
+	return scene;
 }
 
 void free_parsed_scene(t_parsed_scene *scene)
@@ -137,6 +149,7 @@ void free_parsed_scene(t_parsed_scene *scene)
 	free(scene);
 }
 
+
 void print_parsed_scene_debug(t_parsed_scene *scene)
 {
 	if (!scene)
@@ -146,7 +159,7 @@ void print_parsed_scene_debug(t_parsed_scene *scene)
 	}
 
 	printf("=== PARSED SCENE DEBUG INFO ===\n");
-	
+
 	// Print ambient
 	printf("Ambient Light:\n");
 	printf("  Ratio: %.2f\n", scene->world->ambient.ratio);
@@ -174,13 +187,13 @@ void print_parsed_scene_debug(t_parsed_scene *scene)
 		light_index++;
 	}
 
-	// Print objects (spheres)
+	// Print objects
 	printf("Objects (%d):\n", scene->world->objects->count);
 	t_object_node *current_obj = scene->world->objects->head;
 	int obj_index = 1;
 	while (current_obj)
 	{
-		if (current_obj->object.data && current_obj->object.type == SPHERE)
+		if (current_obj->object.type == SPHERE)
 		{
 			t_sphere *sphere = (t_sphere *)current_obj->object.data;
 			printf("  Sphere %d:\n", obj_index);
@@ -192,17 +205,31 @@ void print_parsed_scene_debug(t_parsed_scene *scene)
 		}
 		else if (current_obj->object.type == CYLINDER)
 		{
-    		t_cylinder *cyl = (t_cylinder *)current_obj->object.data;
-    		printf("  Cylinder %d:\n", obj_index);
-    		printf("    Radius: %.2f, Height: %.2f\n", cyl->radius, cyl->height);
-    		printf("    Color: (%.2f, %.2f, %.2f)\n",
-        	current_obj->object.material.color.r,
-        	current_obj->object.material.color.g,
-        	current_obj->object.material.color.b);
+			t_cylinder *cyl = (t_cylinder *)current_obj->object.data;
+			printf("  Cylinder %d:\n", obj_index);
+			printf("    Radius: %.2f, Height: %.2f\n", cyl->radius, cyl->height);
+			printf("    Color: (%.2f, %.2f, %.2f)\n",
+				current_obj->object.material.color.r,
+				current_obj->object.material.color.g,
+				current_obj->object.material.color.b);
 		}
+		else if (current_obj->object.type == PLANE)
+		{
+			t_plane *plane = (t_plane *)current_obj->object.data;
+			printf("  Plane %d:\n", obj_index);
+			printf("    Point: (%.2f, %.2f, %.2f)\n",
+				plane->point.x, plane->point.y, plane->point.z);
+			printf("    Normal: (%.2f, %.2f, %.2f)\n",
+				plane->normal.x, plane->normal.y, plane->normal.z);
+			printf("    Color: (%.2f, %.2f, %.2f)\n",
+				current_obj->object.material.color.r,
+				current_obj->object.material.color.g,
+				current_obj->object.material.color.b);
+		}
+
 		current_obj = current_obj->next;
 		obj_index++;
 	}
-	
+
 	printf("========================\n");
 }

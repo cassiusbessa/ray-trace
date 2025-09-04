@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/03 18:32:12 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:48:49 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,24 @@ t_matrix orientation_matrix(t_tuple orientation)
     return rot;
 }
 
-
-
-// Cria apenas a matriz de orientação da câmera
+// Função segura de orientação da câmera
 static t_matrix view_orientation(t_tuple from, t_tuple to, t_tuple up)
 {
     t_tuple forward = normalize_vector(sub_tuples(to, from));
     t_tuple upn = normalize_vector(up);
+
     t_tuple left = vector_cross_product(forward, upn);
+
+    // Proteção: se forward e up são colineares
+    if (magnitude_of_vector(left) < 1e-6) {
+        if (fabs(upn.y) > 0.99f)
+            upn = vector(0, 0, 1); // muda up para Z
+        else
+            upn = vector(0, 1, 0); // mantém padrão
+        left = vector_cross_product(forward, upn);
+    }
+
+    left = normalize_vector(left);
     t_tuple true_up = vector_cross_product(left, forward);
 
     t_matrix orientation = new_matrix(4, 4);
@@ -96,7 +106,7 @@ static t_matrix view_orientation(t_tuple from, t_tuple to, t_tuple up)
     return orientation;
 }
 
-// Função principal que combina orientação e translação
+// Função segura de view_transform
 t_matrix view_transform(t_tuple from, t_tuple to, t_tuple up)
 {
     t_matrix orientation = view_orientation(from, to, up);

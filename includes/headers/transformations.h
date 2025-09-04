@@ -23,4 +23,5 @@ t_matrix	shearing_matrix(float xy, float xz, float yx,
 t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up);
 t_matrix	chain_transformations(t_transform_params params);
 
+
 #endif

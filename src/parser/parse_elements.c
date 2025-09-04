@@ -253,4 +253,58 @@ int parse_cylinder(char *line, t_world *world)
     return 1;
 }
 
+int parse_plane(char *line, t_world *world)
+{
+    char **tokens;
+    t_tuple point;
+    t_tuple normal;
+    t_rgb color;
+    t_object obj;
 
+    tokens = ft_split(line, ' ');
+    if (!validate_parameter_count(tokens, "Plane", 4))
+    {
+        destroy_2d((void**)tokens);
+        return 0;
+    }
+
+    // Ponto do plano
+    point = parse_tuple(tokens[1], 1);
+
+    // Normal do plano
+    normal = parse_tuple(tokens[2], 0);
+    if (fabs(normal.x) > 1.0 || fabs(normal.y) > 1.0 || fabs(normal.z) > 1.0)
+    {
+        printf("Error: Plane normal must be in [-1,1]\n");
+        destroy_2d((void**)tokens);
+        return 0;
+    }
+    normal = normalize_vector(normal);
+
+    // Cor do plano
+    if (!validate_and_parse_rgb(tokens[3], &color))
+    {
+        printf("Error: Invalid RGB values for plane\n");
+        destroy_2d((void**)tokens);
+        return 0;
+    }
+
+    // Criar plano
+    t_plane *plane = malloc(sizeof(t_plane));
+    if (!plane)
+    {
+        printf("Error: malloc plane\n");
+        destroy_2d((void**)tokens);
+        return 0;
+    }
+    plane = new_plane(point, normal);
+
+    // Criar objeto
+    obj = new_object(PLANE, plane);
+    obj.material.color = color;
+
+    add_object_to_world(world, obj);
+
+    destroy_2d((void**)tokens);
+    return 1;
+}

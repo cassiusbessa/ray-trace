@@ -17,6 +17,7 @@ MLX_DIR          = src/mlx_adapter
 TRANSF_DIR       = src/transformation
 RAY_DIR          = src/ray
 SPHERE_DIR       = src/sphere
+PLANE_DIR        = src/plane
 CYLINDER_DIR     = src/cylinder
 INTERSECTION_DIR = src/intersection
 OBJS_DIR         = src/objects
@@ -82,6 +83,7 @@ SRCS = main.c \
        $(MATERIAL_DIR)/material.c \
        $(WORLD_DIR)/world.c \
        $(WORLD_DIR)/shade.c \
+       $(PLANE_DIR)/plane.c \
        $(COMPUTATION_DIR)/prepare_computation.c \
        $(CAMERA_DIR)/camera.c \
        $(UTILS_DIR)/solve_quadratic.c \

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 20:46:50 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/03 20:03:21 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/04 09:30:26 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,32 @@ t_tuple normal_at_cylinder(t_object *obj, t_tuple world_point)
     return world_normal;
 }
 
+t_tuple normal_at_plane(t_object *obj, t_tuple world_point)
+{
+    (void)world_point; // não usado, mas mantemos por consistência
+
+    int success;
+    t_matrix inv = invert_matrix(obj->transform, &success);
+    if (!success || !inv.data)
+        return vector(0, 0, 0);
+
+    // Pega a normal no espaço local do plano
+    t_plane *plane = (t_plane *)obj->data;
+    t_tuple local_normal = plane->normal;
+    local_normal.w = 0;
+
+    // Transforma para espaço do mundo
+    t_matrix invT = transpose_matrix(inv);
+    t_tuple world_normal = matrix_multiply_by_tuple(invT, local_normal);
+    world_normal.w = 0;
+    world_normal = safe_normalize_vector(world_normal);
+
+    free_matrix(inv);
+    free_matrix(invT);
+
+    return world_normal;
+}
+
 
 // ----------------------------
 // Dispatcher de normal
@@ -126,6 +152,7 @@ t_tuple normal_at(t_object *obj, t_tuple world_point)
         return normal_at_sphere(obj, world_point);
     else if (obj->type == CYLINDER)
         return normal_at_cylinder(obj, world_point);
-    // adicione outros tipos no futuro
+    else if (obj->type == PLANE)
+        return normal_at_plane(obj, world_point);
     return vector(0, 0, 0);
 }
