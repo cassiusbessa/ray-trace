@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 22:14:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/03 19:09:19 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/03 21:46:36 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ t_object new_cylinder_object(t_tuple center, t_tuple orientation, float diameter
     free_matrix(rotate);
     free_matrix(translate);
     free_matrix(tmp);
-
     return obj;
 }
 

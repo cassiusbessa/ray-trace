@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:27:02 by caqueiro          #+#    #+#             */
-/*   Updated: 2024/02/23 21:28:23 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/09/03 21:45:16 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	q = count_big_array(s, c);
-	split = ft_calloc(q, sizeof (char *) + 1);
+	split = ft_calloc(q + 1, sizeof (char *));
 	if (!split)
 		return (NULL);
 	fill_matrix(split, q, s, c);

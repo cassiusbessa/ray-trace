@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/03 18:28:00 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/03 21:46:09 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_object_transform(t_object *obj, t_matrix m)
 	// Set the composed transform
 	obj->transform = t;
 	
-	// Free the input matrix since we're done with it
+	// Note: We don't free the input matrix 'm' here as it belongs to the caller
 	free_matrix(m);
 }
 
