@@ -57,6 +57,10 @@ t_parsed_scene *parse_rt_file(const char *filename)
 			if (!parse_ambient(line, scene->world))
 			{
 				printf("Error parsing ambient line: %s\n", line);
+				free(line);
+				free_parsed_scene(scene);
+				close(fd);
+				return (NULL);
 			}
 		}
 		else if (line[0] == 'C' && line[1] == ' ')
@@ -64,6 +68,10 @@ t_parsed_scene *parse_rt_file(const char *filename)
 			if (!parse_camera(line, &scene->camera))
 			{
 				printf("Error parsing camera line: %s\n", line);
+				free(line);
+				free_parsed_scene(scene);
+				close(fd);
+				return (NULL);
 			}
 		}
 		else if (line[0] == 'L' && line[1] == ' ')
@@ -71,6 +79,10 @@ t_parsed_scene *parse_rt_file(const char *filename)
 			if (!parse_light(line, scene->world))
 			{
 				printf("Error parsing light line: %s\n", line);
+				free(line);
+				free_parsed_scene(scene);
+				close(fd);
+				return (NULL);
 			}
 		}
 		else if (line[0] == 's' && line[1] == 'p' && line[2] == ' ')
@@ -78,12 +90,30 @@ t_parsed_scene *parse_rt_file(const char *filename)
 			if (!parse_sphere(line, scene->world))
 			{
 				printf("Error parsing sphere line: %s\n", line);
+				free(line);
+				free_parsed_scene(scene);
+				close(fd);
+				return (NULL);
 			}
 		}
 		else if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
 		{
     		if (!parse_cylinder(line, scene->world))
-        	printf("Error parsing cylinder line: %s\n", line);
+    		{
+        		printf("Error parsing cylinder line: %s\n", line);
+        		free(line);
+				free_parsed_scene(scene);
+				close(fd);
+				return (NULL);
+    		}
+		}
+		else
+		{
+			printf("Error: Unknown element identifier in line: %s\n", line);
+			free(line);
+			free_parsed_scene(scene);
+			close(fd);
+			return (NULL);
 		}
 
 		free(line);

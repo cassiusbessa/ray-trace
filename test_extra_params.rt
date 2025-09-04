@@ -1,0 +1,6 @@
+# Teste 2: Parâmetros excedentes
+A 0.2 255,255,255 extra_param
+C 0,0,-3 0,0,1 70 extra1 extra2
+L -10,10,-10 0.7 255,255,255 extra_param
+sp 0,0,5 3 255,0,0 extra_param
+cy 0,0,10 0,1,0 2.0 4.0 255,0,0 1 extra_param extra2

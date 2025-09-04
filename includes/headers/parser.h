@@ -23,9 +23,11 @@ int		parse_cylinder(char *line, t_world *world);
 
 // Utility functions
 t_rgb	parse_rgb(char *rgb_str);
+int		validate_and_parse_rgb(char *rgb_str, t_rgb *out_rgb);
 t_tuple	parse_tuple(char *tuple_str, int is_point);
 float	parse_float(char *str);
-float	parse_float(char *str);
+int		count_tokens(char **tokens);
+int		validate_parameter_count(char **tokens, char *element_type, int expected_count);
 char	**split_by_spaces(char *line, int *count);
 void	free_tokens(char **tokens, int count);
 
