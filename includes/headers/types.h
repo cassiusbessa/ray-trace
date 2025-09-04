@@ -2,6 +2,7 @@
 # define TYPES_H
 
 # define EPSILON 0.0001
+# define SHADOW_EPSILON 0.0008
 # define TRUE 1
 # define FALSE 0
 # define HEIGHT 800

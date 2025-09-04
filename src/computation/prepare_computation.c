@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_computation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 21:54:10 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/03 19:38:18 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/03 22:48:51 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ t_comps prepare_computations(t_intersection_node i, t_ray r)
     comps.eyev = eyev;
     comps.normalv = normalv;
     comps.inside = inside;
+    
+    // Use SHADOW_EPSILON for better shadow acne prevention
     comps.over_point = add_tuples(point,
-        multiply_tuple_by_scalar(normalv, EPSILON));
+        multiply_tuple_by_scalar(normalv, SHADOW_EPSILON));
     return comps;
 }

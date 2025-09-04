@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/03 09:58:54 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/03 22:48:51 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@ t_bool is_shadowed(t_world *world, t_tuple point)
     current = xs->head;
 
     // Checa se algum objeto bloqueia a luz
+    // Use um threshold maior para evitar shadow acne
     while (current)
     {
-        if (current->t > EPSILON && current->t < distance)
+        if (current->t > SHADOW_EPSILON && current->t < distance - EPSILON)
         {
             free_intersection_list(xs);
             return TRUE;
