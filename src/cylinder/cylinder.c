@@ -36,6 +36,11 @@ t_object new_cylinder_object(t_tuple center, t_tuple orientation, float diameter
     t_object obj = new_object(CYLINDER, cylinder);
     obj.material = new_material_default();
     obj.material.color = color;
+    
+    // Aumentar reflexão especular para cilindros
+    obj.material.specular = 1.0f;     // Máxima reflexão especular
+    obj.material.shininess = 300.0f;  // Reflexão mais focada
+    obj.material.diffuse = 0.7f;      // Reduzir um pouco difusa para destacar especular
 
     t_matrix scale = scaling_matrix(cylinder->radius, height / 2.0f, cylinder->radius);
     t_matrix rotate = orientation_matrix(orientation);
