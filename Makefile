@@ -69,6 +69,7 @@ SRCS = main.c \
        $(TRANSF_DIR)/rotation.c \
        $(TRANSF_DIR)/shearing.c \
        $(TRANSF_DIR)/view_transform.c \
+       $(TRANSF_DIR)/orientation_matrix.c \
        $(TRANSFS_DIR)/chain_transformations.c \
        $(RAY_DIR)/ray.c \
        $(RAY_DIR)/ray_utils.c \
@@ -97,6 +98,7 @@ SRCS = main.c \
        $(UTILS_DIR)/solve_quadratic.c \
        $(PARSER_DIR)/parser.c \
        $(PARSER_DIR)/parse_elements.c \
+       $(PARSER_DIR)/parse_elements_utils.c \
        $(PARSER_DIR)/parse_utils.c \
        $(PARSER_DIR)/parse_utils_2.c \
        $(SPHERE_DIR)/sphere_utils.c \

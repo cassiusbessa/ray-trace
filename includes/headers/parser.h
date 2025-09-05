@@ -9,6 +9,14 @@ typedef struct s_parsed_scene
 	t_camera	camera;
 }	t_parsed_scene;
 
+typedef struct s_cylinder_data
+{
+	t_tuple	center;
+	t_tuple	orientation;
+	float	diameter;
+	float	height;
+}	t_cylinder_data;
+
 // Parser functions
 t_parsed_scene	*parse_rt_file(const char *filename);
 void			free_parsed_scene(t_parsed_scene *scene);
@@ -20,6 +28,8 @@ int		parse_camera(char *line, t_camera *camera);
 int		parse_light(char *line, t_world *world);
 int		parse_sphere(char *line, t_world *world);
 int		parse_cylinder(char *line, t_world *world);
+int		parse_cylinder_continue(char **tokens, t_world *world,
+			t_cylinder_data data);
 int		parse_plane(char *line, t_world *world);
 
 // Utility functions

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 15:50:23 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:04:25 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_matrix	rotation_y_matrix(float radians)
 
 t_matrix	rotation_z_matrix(float radians)
 {
-	t_matrix matrix;
+	t_matrix	matrix;
 
 	matrix = identity_matrix(4);
 	matrix.data[0][0] = cos(radians);
