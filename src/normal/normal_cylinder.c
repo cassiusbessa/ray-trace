@@ -6,13 +6,12 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:38:27 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/05 18:59:11 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:32:00 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-// Calcula a normal local das tampas do cilindro, retorna TRUE se for cap
 static t_bool local_normal_cylinder_cap(t_cylinder *cyl, t_tuple local_point, t_tuple *normal)
 {
     float dist;
@@ -34,7 +33,6 @@ static t_bool local_normal_cylinder_cap(t_cylinder *cyl, t_tuple local_point, t_
     return 1;
 }
 
-// Calcula a normal lateral do cilindro
 static t_tuple local_normal_cylinder_side(t_tuple local_point)
 {
     t_tuple lateral;
@@ -46,7 +44,6 @@ static t_tuple local_normal_cylinder_side(t_tuple local_point)
     return safe_normalize_vector(lateral);
 }
 
-// Transforma uma normal local para o espaço mundial
 static t_tuple transform_local_to_world_normal(t_matrix transform, t_tuple local_normal)
 {
     t_matrix trans_inv;
@@ -61,7 +58,6 @@ static t_tuple transform_local_to_world_normal(t_matrix transform, t_tuple local
     return world_normal;
 }
 
-// Função principal que retorna a normal no espaço mundial
 t_tuple normal_at_cylinder(t_object *obj, t_tuple world_point)
 {
     int success;

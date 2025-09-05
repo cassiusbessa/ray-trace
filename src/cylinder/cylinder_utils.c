@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 17:09:44 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/05 17:38:53 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:33:09 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	intersect_cylinder_sides(t_ray ray, t_object *obj,
 	i = 0;
 	while (i < q.count)
 	{
-		if(i == 0)
+		if (i == 0)
 			t = q.x1;
 		else
 			t = q.x2;
@@ -82,9 +82,9 @@ void	intersect_cylinder_sides(t_ray ray, t_object *obj,
 void	intersect_cylinder_caps(t_ray ray, t_object *obj,
 		t_intersection_list *list)
 {
-	t_cylinder *cyl;
-	float t_top;
-	float t_bottom;
+	t_cylinder	*cyl;
+	float	t_top;
+	float	t_bottom;
 
 	cyl = (t_cylinder *)obj->data;
 	if (!cyl->closed || fabs(ray.direction.y) < EPSILON)
