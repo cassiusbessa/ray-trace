@@ -6,13 +6,12 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 19:52:17 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 19:59:19 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-// Calcula o raio local do objeto transformado
 static t_ray get_local_ray_sphere(t_ray ray, t_object *obj, int *success)
 {
     t_matrix inv;
@@ -27,7 +26,6 @@ static t_ray get_local_ray_sphere(t_ray ray, t_object *obj, int *success)
     return local_ray;
 }
 
-// Calcula os coeficientes a, b, c e o discriminante da equação quadrática
 static float compute_sphere_discriminant(t_ray local_ray, float *a, float *b, float *c)
 {
     t_tuple sphere_to_ray;
