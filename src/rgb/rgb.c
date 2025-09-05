@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:54:58 by cassius           #+#    #+#             */
-/*   Updated: 2025/08/27 19:27:46 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 19:49:21 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
 t_rgb	new_rgb(float r, float g, float b)
 {
 	t_rgb	color;

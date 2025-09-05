@@ -73,7 +73,7 @@ int count_tokens(char **tokens)
 	return count;
 }
 
-int validate_parameter_count(char **tokens, char *element_type, int expected_count)
+int validate_parameter_count(char **tokens, char *element_type __attribute__((unused)), int expected_count)
 {
 	int actual_count;
 

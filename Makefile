@@ -80,6 +80,9 @@ SRCS = main.c \
        $(INTERSECTION_DIR)/hit.c \
        $(OBJS_DIR)/object.c \
        $(NORMAL_DIR)/normal.c \
+       $(NORMAL_DIR)/normal_cylinder.c \
+       $(NORMAL_DIR)/normal_plane.c \
+       $(NORMAL_DIR)/normal_sphere.c \
        $(REFLECT_DIR)/reflect.c \
        $(LIGHT_DIR)/light.c \
        $(LIGHT_DIR)/lighting.c \
@@ -95,6 +98,8 @@ SRCS = main.c \
        $(PARSER_DIR)/parser.c \
        $(PARSER_DIR)/parse_elements.c \
        $(PARSER_DIR)/parse_utils.c \
+       $(PARSER_DIR)/parse_utils_2.c \
+       $(SPHERE_DIR)/sphere_utils.c \
        src/thick.c
 
 # Objetos

@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reflect.c                                          :+:      :+:    :+:   */
+/*   sphere_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/18 20:54:58 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 19:47:59 by cassius          ###   ########.fr       */
+/*   Created: 2025/08/14 20:21:33 by cassius           #+#    #+#             */
+/*   Updated: 2025/09/05 19:52:09 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_tuple	reflect(t_tuple v, t_tuple n)
+t_sphere	new_sphere(t_tuple center, float radius)
 {
-	float	dot_product;
+	t_sphere	sphere;
 
-	dot_product = vector_dot_product(v, n);
-	return (vector(v.x - 2 * dot_product * n.x, v.y - 2 * dot_product * n.y, v.z
-			- 2 * dot_product * n.z));
+	sphere.center = center;
+	sphere.radius = radius;
+	return (sphere);
+}
+
+
+void free_sphere(t_sphere *s)
+{
+	if (!s)
+		return;
+	free(s);
 }
