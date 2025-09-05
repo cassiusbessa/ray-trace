@@ -96,6 +96,7 @@ SRCS = main.c \
        $(CAMERA_DIR)/camera.c \
        $(CAMERA_DIR)/camera_utils.c \
        $(UTILS_DIR)/solve_quadratic.c \
+       $(UTILS_DIR)/solve_quadratic_utils.c \
        $(PARSER_DIR)/parser.c \
        $(PARSER_DIR)/parse_elements.c \
        $(PARSER_DIR)/parse_elements_utils.c \

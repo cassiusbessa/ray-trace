@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:53:45 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 08:08:28 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:45:49 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool	equal_tuples(t_tuple t1, t_tuple t2)
 		return (FALSE);
 	if (fabs(t1.z - t2.z) > EPSILON)
 		return (FALSE);
-	if (t1.w != t2.w) // w é int, não precisa de EPSILON
+	if (t1.w != t2.w)
 		return (FALSE);
 	return (TRUE);
 }

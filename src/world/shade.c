@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/03 22:48:51 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 20:53:15 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,6 @@ t_rgb color_at(t_world *world, t_ray ray)
     free_intersection_list(xs);
     return color;
 }
-
-
-
 
 
 t_intersection_node *get_node(int i,t_intersection_list *list)

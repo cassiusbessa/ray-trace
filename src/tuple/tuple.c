@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tuple.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 19:42:13 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/19 08:08:01 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 20:45:47 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-t_tuple	new_tuple(float x, float y, float z, t_bool is_point);
-t_tuple	add_tuples(t_tuple t1, t_tuple t2);
-t_tuple	sub_tuples(t_tuple t1, t_tuple t2);
-t_tuple	multiply_tuple_by_scalar(t_tuple t, float scalar);
 
 t_tuple	new_tuple(float x, float y, float z, t_bool is_point)
 {
