@@ -12,10 +12,12 @@
 
 #include "../../includes/miniRT.h"
 
-double cofactor_matrix(t_matrix matrix, int row, int col)
+double	cofactor_matrix(t_matrix matrix, int row, int col)
 {
-    double minor = minor_matrix(matrix, row, col);
-    if ((row + col) % 2)
-        return -minor;
-    return minor;
+	double	minor;
+
+	minor = minor_matrix(matrix, row, col);
+	if ((row + col) % 2)
+		return (-minor);
+	return (minor);
 }

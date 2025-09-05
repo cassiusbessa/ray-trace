@@ -27,8 +27,8 @@ void	free_matrix(t_matrix matrix)
 
 void	print_matrix(t_matrix matrix)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < matrix.size)
@@ -43,4 +43,3 @@ void	print_matrix(t_matrix matrix)
 		i++;
 	}
 }
-

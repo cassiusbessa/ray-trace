@@ -15,6 +15,7 @@ CANVAS_DIR       = src/canvas
 MATRIX_DIR       = src/matrix
 MLX_DIR          = src/mlx_adapter
 TRANSF_DIR       = src/transformation
+TRANSFS_DIR      = src/transformations
 RAY_DIR          = src/ray
 SPHERE_DIR       = src/sphere
 PLANE_DIR        = src/plane
@@ -45,13 +46,14 @@ MINILIBX         = $(MINILIBX_DIR)/libmlx_Linux.a
 
 # Arquivos fontes
 SRCS = main.c \
-       src/camera/free_camera.c \
+       $(CAMERA_DIR)/free_camera.c \
        $(TUPLE_DIR)/tuple.c \
        $(TUPLE_DIR)/tuple_utils.c \
        $(TUPLE_DIR)/vector.c \
        $(RGB_DIR)/rgb.c \
        $(RGB_DIR)/rgb_utils.c \
        $(CANVAS_DIR)/canvas.c \
+       $(CANVAS_DIR)/canvas_utils.c \
        $(MATRIX_DIR)/matrix.c \
        $(MATRIX_DIR)/matrix_utils.c \
        $(MATRIX_DIR)/matrix_multiply.c \
@@ -67,11 +69,12 @@ SRCS = main.c \
        $(TRANSF_DIR)/rotation.c \
        $(TRANSF_DIR)/shearing.c \
        $(TRANSF_DIR)/view_transform.c \
-       src/transformations/chain_transformations.c \
+       $(TRANSFS_DIR)/chain_transformations.c \
        $(RAY_DIR)/ray.c \
        $(RAY_DIR)/ray_utils.c \
        $(SPHERE_DIR)/sphere.c \
        $(CYLINDER_DIR)/cylinder.c \
+       $(CYLINDER_DIR)/cylinder_utils.c \
        $(INTERSECTION_DIR)/intersection.c \
        $(INTERSECTION_DIR)/intersection_list.c \
        $(INTERSECTION_DIR)/hit.c \
@@ -85,7 +88,9 @@ SRCS = main.c \
        $(WORLD_DIR)/shade.c \
        $(PLANE_DIR)/plane.c \
        $(COMPUTATION_DIR)/prepare_computation.c \
+       $(COMPUTATION_DIR)/computations_utils.c \
        $(CAMERA_DIR)/camera.c \
+       $(CAMERA_DIR)/camera_utils.c \
        $(UTILS_DIR)/solve_quadratic.c \
        $(PARSER_DIR)/parser.c \
        $(PARSER_DIR)/parse_elements.c \

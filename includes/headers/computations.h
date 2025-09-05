@@ -19,5 +19,8 @@ typedef struct s_comps
 t_comps	prepare_computations(t_intersection_node i, t_ray r);
 t_rgb	shade_hit(t_world *world, t_comps comps);
 t_rgb	color_at(t_world *world, t_ray ray);
+float	compute_dynamic_epsilon(t_object *obj, t_tuple point);
+void	set_inside(t_tuple *normalv, t_tuple eyev, t_bool *inside);
+
 
 #endif

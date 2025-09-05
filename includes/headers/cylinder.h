@@ -19,5 +19,12 @@ t_object new_cylinder_object(t_tuple center, t_tuple orientation, float diameter
 t_tuple normal_at_cylinder(t_object *obj, t_tuple world_point);
 t_intersection_list *intersect_ray_cylinder(t_ray ray, t_object *obj);
 t_tuple normal_at(t_object *obj, t_tuple world_point);
+t_cylinder      *init_cylinder(float diameter, float height, t_bool closed);
+void            set_cylinder_material(t_object *obj, t_rgb color);
+t_matrix        compute_cylinder_transform(t_tuple center, t_tuple orientation, float radius, float half_height);
+t_bool          transform_ray_to_local(t_ray ray, t_object *obj, t_ray *local_ray);
+void            intersect_cylinder_sides(t_ray ray, t_object *obj, t_intersection_list *list);
+void            intersect_cylinder_caps(t_ray ray, t_object *obj, t_intersection_list *list);
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe>                        +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/14 14:07:57 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:28:30 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,6 @@ t_bool	equal_matrix(t_matrix m1, t_matrix m2)
 	return (TRUE);
 }
 
-int	matrix_determinant_2x2(t_matrix matrix)
-{
-	return (matrix.data[0][0] * matrix.data[1][1] - matrix.data[0][1]
-		* matrix.data[1][0]);
-}
-
 t_matrix	submatrix(t_matrix matrix, int row, int col)
 {
 	t_matrix sub;
@@ -91,26 +85,21 @@ t_matrix	submatrix(t_matrix matrix, int row, int col)
 	int j_sub;
 
 	sub = new_matrix(matrix.size - 1, matrix.size - 1);
-	i = 0;
+	i = -1;
 	i_sub = 0;
-	while (i < matrix.size)
+	while (++i < matrix.size)
 	{
-		if (i != row)
+		if (i == row)
+			continue;
+		j = -1;
+		j_sub = 0;
+		while (++j < matrix.size)
 		{
-			j = 0;
-			j_sub = 0;
-			while (j < matrix.size)
-			{
-				if (j != col)
-				{
-					sub.data[i_sub][j_sub] = matrix.data[i][j];
-					j_sub++;
-				}
-				j++;
-			}
-			i_sub++;
+			if (j == col)
+				continue;
+			sub.data[i_sub][j_sub++] = matrix.data[i][j];
 		}
-		i++;
+		i_sub++;
 	}
 	return (sub);
 }

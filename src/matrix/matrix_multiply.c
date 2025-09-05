@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:30:27 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/08/26 02:23:20 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:16:03 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,15 @@ static void	set_tuple_value(t_tuple *t, int index, double value)
 	if (index == 3)
 		t->w = value;
 }
-// ======================== MATRIX_MULTIPLY_BY_TUPLE ========================
+
 t_tuple matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 {
-    t_tuple result = new_tuple(0, 0, 0, 0);
+    t_tuple result;
+    int i;
+    int j;
+    float val;
+
+    result = new_tuple(0, 0, 0, 0);
 
     if (!m.data || m.size != 4)
     {
@@ -72,13 +77,17 @@ t_tuple matrix_multiply_by_tuple(t_matrix m, t_tuple t)
         return result;
     }
 
-    for (int i = 0; i < m.size; i++)
+    i = 0;
+    while (i < m.size)
     {
-        for (int j = 0; j < m.size; j++)
+        j = 0;
+        while (j < m.size)
         {
-            float val = get_tuple_value(result, i) + m.data[i][j] * get_tuple_value(t, j);
+            val = get_tuple_value(result, i) + m.data[i][j] * get_tuple_value(t, j);
             set_tuple_value(&result, i, val);
+            j++;
         }
+        i++;
     }
 
     return result;

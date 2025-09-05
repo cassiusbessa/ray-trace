@@ -15,5 +15,8 @@ t_canvas	*new_canvas(int width, int height);
 void		free_canvas(t_canvas *canvas);
 t_rgb		*pixel_at(t_canvas *canvas, int x, int y);
 void		write_pixel(t_canvas *canvas, int x, int y, t_rgb color);
+int	alloc_pixels(t_canvas *canvas, int width, int height);
+void	free_failed_canvas(t_canvas *canvas, int last);
+void	fill_black_canvas(t_canvas *canvas);
 
 #endif
