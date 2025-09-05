@@ -17,6 +17,14 @@ typedef struct s_cylinder_data
 	float	height;
 }	t_cylinder_data;
 
+typedef struct s_parse_data
+{
+	float	result;
+	float	decimal_part;
+	int		i;
+	int		sign;
+}	t_parse_data;
+
 // Parser functions
 t_parsed_scene	*parse_rt_file(const char *filename);
 void			free_parsed_scene(t_parsed_scene *scene);

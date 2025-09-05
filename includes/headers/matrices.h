@@ -33,4 +33,18 @@ double		determinant_matrix(t_matrix a);
 
 
 t_matrix orientation_matrix(t_tuple orientation);
+
+typedef struct s_transform_matrices
+{
+    t_matrix translation;
+    t_matrix rotation_x;
+    t_matrix rotation_y;
+    t_matrix rotation_z;
+    t_matrix scaling;
+    t_matrix temp1;
+    t_matrix temp2;
+    t_matrix temp3;
+    t_matrix final_transform;
+} t_transform_matrices;
+
 #endif

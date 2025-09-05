@@ -6,83 +6,94 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 19:01:53 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/05 19:59:10 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 20:41:06 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+static float	parse_float_continue(char *str, t_parse_data data);
+static float	apply_decimal_places(t_parse_data data, int decimal_places);
 
-float parse_float(char *str)
+float	parse_float(char *str)
 {
-	float result = 0.0;
-	float decimal_part = 0.0;
-	int i, sign, decimal_places, in_decimal;
+	t_parse_data	data;
 
-	i = 0;
-	sign = 1;
+	data.result = 0.0;
+	data.decimal_part = 0.0;
+	data.i = 0;
+	data.sign = 1;
+	if (str[data.i] == '-')
+	{
+		data.sign = -1;
+		data.i++;
+	}
+	else if (str[data.i] == '+')
+		data.i++;
+	return (parse_float_continue(str, data));
+}
+
+static float	parse_float_continue(char *str, t_parse_data data)
+{
+	int	decimal_places;
+	int	in_decimal;
+
 	decimal_places = 0;
 	in_decimal = 0;
-
-	if (str[i] == '-')
+	while (str[data.i])
 	{
-		sign = -1;
-		i++;
-	}
-	else if (str[i] == '+')
-		i++;
-
-	while (str[i])
-	{
-		if (str[i] >= '0' && str[i] <= '9')
+		if (str[data.i] >= '0' && str[data.i] <= '9')
 		{
 			if (in_decimal)
 			{
-				decimal_part = decimal_part * 10 + (str[i] - '0');
+				data.decimal_part = data.decimal_part * 10
+					+ (str[data.i] - '0');
 				decimal_places++;
 			}
 			else
-				result = result * 10 + (str[i] - '0');
+				data.result = data.result * 10 + (str[data.i] - '0');
 		}
-		else if (str[i] == '.' && !in_decimal)
+		else if (str[data.i] == '.' && !in_decimal)
 			in_decimal = 1;
 		else
-			break;
-		i++;
+			break ;
+		data.i++;
 	}
-
-	while (decimal_places > 0)
-	{
-		decimal_part /= 10.0;
-		decimal_places--;
-	}
-
-	result += decimal_part;
-	return result * sign;
+	return (apply_decimal_places(data, decimal_places));
 }
 
-int count_tokens(char **tokens)
+static float	apply_decimal_places(t_parse_data data, int decimal_places)
 {
-	int count;
+	while (decimal_places > 0)
+	{
+		data.decimal_part /= 10.0;
+		decimal_places--;
+	}
+	data.result += data.decimal_part;
+	return (data.result * data.sign);
+}
+
+int	count_tokens(char **tokens)
+{
+	int	count;
 
 	count = 0;
 	if (!tokens)
-		return 0;
+		return (0);
 	while (tokens[count])
 		count++;
-	return count;
+	return (count);
 }
 
-int validate_parameter_count(char **tokens, char *element_type __attribute__((unused)), int expected_count)
+int	validate_parameter_count(char **tokens,
+		char *element_type __attribute__((unused)), int expected_count)
 {
-	int actual_count;
+	int	actual_count;
 
 	if (!tokens)
-		return 0;
-
+		return (0);
 	actual_count = count_tokens(tokens);
 	if (actual_count != expected_count)
-		return 0;
-
-	return 1;
+		return (0);
+	return (1);
 }
