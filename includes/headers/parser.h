@@ -39,8 +39,12 @@ typedef struct s_parse_data
 
 // Parser functions
 t_parsed_scene	*parse_rt_file(const char *filename);
+t_parsed_scene	*init_parsed_scene(void);
+int				process_file_content(char *file_content, t_parsed_scene *scene);
+int				process_file_lines_from_array(char **lines, t_parsed_scene *scene);
 void			free_parsed_scene(t_parsed_scene *scene);
 void			print_parsed_scene_debug(t_parsed_scene *scene);
+int				dispatch_parse(char *line, t_parsed_scene *scene, int fd);
 
 // Internal parsing functions
 int				parse_ambient(char *line, t_world *world);

@@ -104,6 +104,8 @@ SRCS = main.c \
        $(UTILS_DIR)/solve_quadratic.c \
        $(UTILS_DIR)/solve_quadratic_utils.c \
        $(PARSER_DIR)/parser.c \
+       $(PARSER_DIR)/parser_file.c \
+       $(PARSER_DIR)/parser_init.c \
        $(PARSER_DIR)/parser_utils.c \
        $(PARSER_DIR)/parse_elements.c \
        $(PARSER_DIR)/parse_elements_utils.c \
