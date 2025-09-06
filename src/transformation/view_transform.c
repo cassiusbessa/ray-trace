@@ -12,24 +12,26 @@
 
 #include "../../includes/miniRT.h"
 
-static void	compute_orthonormal_basis(t_tuple from, t_tuple to, t_tuple up,
-		t_tuple *forward, t_tuple *left, t_tuple *true_up)
+static t_basis	compute_orthonormal_basis(t_tuple from, t_tuple to,
+		t_tuple up)
 {
+	t_basis	basis;
 	t_tuple	upn;
 
-	*forward = normalize_vector(sub_tuples(to, from));
+	basis.forward = normalize_vector(sub_tuples(to, from));
 	upn = normalize_vector(up);
-	*left = vector_cross_product(*forward, upn);
-	if (magnitude_of_vector(*left) < 1e-6)
+	basis.left = vector_cross_product(basis.forward, upn);
+	if (magnitude_of_vector(basis.left) < 1e-6)
 	{
 		if (fabs(upn.y) > 0.99f)
 			upn = vector(0, 0, 1);
 		else
 			upn = vector(0, 1, 0);
-		*left = vector_cross_product(*forward, upn);
+		basis.left = vector_cross_product(basis.forward, upn);
 	}
-	*left = normalize_vector(*left);
-	*true_up = vector_cross_product(*left, *forward);
+	basis.left = normalize_vector(basis.left);
+	basis.true_up = vector_cross_product(basis.left, basis.forward);
+	return (basis);
 }
 
 static t_matrix	build_view_matrix(t_tuple forward, t_tuple left,
@@ -59,13 +61,11 @@ static t_matrix	build_view_matrix(t_tuple forward, t_tuple left,
 
 static t_matrix	view_orientation(t_tuple from, t_tuple to, t_tuple up)
 {
-	t_tuple		forward;
-	t_tuple		left;
-	t_tuple		true_up;
+	t_basis		basis;
 	t_matrix	orientation;
 
-	compute_orthonormal_basis(from, to, up, &forward, &left, &true_up);
-	orientation = build_view_matrix(forward, left, true_up);
+	basis = compute_orthonormal_basis(from, to, up);
+	orientation = build_view_matrix(basis.forward, basis.left, basis.true_up);
 	return (orientation);
 }
 

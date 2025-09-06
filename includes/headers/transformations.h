@@ -20,6 +20,13 @@ typedef struct s_transform_params
 	float	scaling[3];
 }	t_transform_params;
 
+typedef struct s_basis
+{
+	t_tuple	forward;
+	t_tuple	left;
+	t_tuple	true_up;
+}	t_basis;
+
 
 // Basic transformations
 t_matrix	translation_matrix(float x, float y, float z);
