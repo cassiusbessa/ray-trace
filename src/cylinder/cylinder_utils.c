@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 17:09:44 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/05 19:33:09 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/06 00:28:52 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,18 @@ void	intersect_cylinder_caps(t_ray ray, t_object *obj,
 		t_intersection_list *list)
 {
 	t_cylinder	*cyl;
-	float	t_top;
-	float	t_bottom;
+	float		t_top;
+	float		t_bottom;
 
 	cyl = (t_cylinder *)obj->data;
 	if (!cyl->closed || fabs(ray.direction.y) < EPSILON)
 		return ;
-
 	t_top = (cyl->height / 2.0f - ray.origin.y) / ray.direction.y;
 	if (((ray.origin.x + t_top * ray.direction.x) * (ray.origin.x + t_top
 				* ray.direction.x) + (ray.origin.z + t_top * ray.direction.z)
 			* (ray.origin.z + t_top * ray.direction.z)) <= cyl->radius
 		* cyl->radius)
 		add_node_ordered(t_top, list, obj);
-
 	t_bottom = (-cyl->height / 2.0f - ray.origin.y) / ray.direction.y;
 	if (((ray.origin.x + t_bottom * ray.direction.x) * (ray.origin.x + t_bottom
 				* ray.direction.x) + (ray.origin.z + t_bottom * ray.direction.z)

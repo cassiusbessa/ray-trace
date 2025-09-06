@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 22:14:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 19:34:01 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/06 00:27:59 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,15 @@ t_object	new_cylinder_object(t_tuple center, t_tuple orientation,
 
 t_intersection_list	*intersect_ray_cylinder(t_ray ray, t_object *obj)
 {
-	t_ray	local_ray;
+	t_ray				local_ray;
 	t_intersection_list	*list;
 
 	list = new_intersection_list();
 	if (!list)
 		return (NULL);
-
 	if (!transform_ray_to_local(ray, obj, &local_ray))
 		return (list);
-
 	intersect_cylinder_sides(local_ray, obj, list);
 	intersect_cylinder_caps(local_ray, obj, list);
-
 	return (list);
 }
