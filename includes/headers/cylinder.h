@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/06 00:40:28 by emorshhe          #+#    #+#             */
+/*   Updated: 2025/09/06 00:44:59 by emorshhe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CYLINDER_H
 # define CYLINDER_H
 
@@ -11,7 +23,7 @@ typedef struct s_cylinder
 {
 	float			radius;
 	float			height;
-	int closed; // 1 se tiver tampas, 0 se aberto
+	int				closed;
 }					t_cylinder;
 
 typedef struct s_cylinder_params

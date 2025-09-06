@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/06 00:41:00 by emorshhe          #+#    #+#             */
+/*   Updated: 2025/09/06 00:44:38 by emorshhe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
@@ -17,7 +29,7 @@ typedef struct s_object
 	t_object_type			type;
 	t_matrix				transform;
 	t_material				material;
-	void *data; // ponteiro para t_sphere, t_plane, etc.
+	void					*data;
 }							t_object;
 
 // Object operations
