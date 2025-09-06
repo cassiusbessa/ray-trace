@@ -93,6 +93,7 @@ SRCS = main.c \
        $(WORLD_DIR)/render.c \
        $(WORLD_DIR)/shadow.c \
        $(WORLD_DIR)/world_utils.c \
+       $(WORLD_DIR)/world_free.c \
        $(WORLD_DIR)/color_at.c \
        $(PLANE_DIR)/plane.c \
        $(COMPUTATION_DIR)/prepare_computation.c \
