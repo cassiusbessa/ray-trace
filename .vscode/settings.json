@@ -13,7 +13,8 @@
     "compare": "c",
     "parser.h": "c",
     "colors.h": "c",
-    "matrices.h": "c"
+    "matrices.h": "c",
+    "cmath": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
