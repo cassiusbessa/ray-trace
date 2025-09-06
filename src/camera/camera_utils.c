@@ -45,10 +45,10 @@ t_matrix	get_camera_inverse(t_camera cam)
 
 t_tuple	get_pixel_position(t_camera cam, int px, int py, t_matrix inv)
 {
-	float		xoffset;
-	float		yoffset;
-	float		world_x;
-	float		world_y;
+	float	xoffset;
+	float	yoffset;
+	float	world_x;
+	float	world_y;
 
 	xoffset = (px + 0.5f) * cam.pixel_size;
 	yoffset = (py + 0.5f) * cam.pixel_size;

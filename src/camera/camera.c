@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:45:48 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 18:33:55 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/06 00:10:49 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_camera	new_camera(int hsize, int vsize, float field_of_view)
 
 t_ray	ray_for_pixel(t_camera cam, int px, int py)
 {
-	t_matrix inv;
-	t_tuple pixel;
-	t_tuple origin;
-	t_tuple direction;
+	t_matrix	inv;
+	t_tuple		pixel;
+	t_tuple		origin;
+	t_tuple		direction;
 
 	inv = get_camera_inverse(cam);
 	pixel = get_pixel_position(cam, px, py, inv);
