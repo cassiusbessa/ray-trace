@@ -12,6 +12,13 @@ typedef struct s_sphere
 	float		radius;
 }	t_sphere;
 
+typedef struct s_sphere_calc
+{
+	float	a;
+	float	b;
+	float	c;
+}	t_sphere_calc;
+
 // Sphere operations
 t_sphere			new_sphere(t_tuple center, float radius);
 void				free_sphere(t_sphere *sphere);
