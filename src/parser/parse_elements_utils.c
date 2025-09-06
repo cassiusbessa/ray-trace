@@ -25,9 +25,6 @@ static t_plane	*create_plane_object(t_tuple point, t_tuple normal)
 {
 	t_plane	*plane;
 
-	plane = malloc(sizeof(t_plane));
-	if (!plane)
-		return (NULL);
 	plane = new_plane(point, normal);
 	return (plane);
 }

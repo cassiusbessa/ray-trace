@@ -58,5 +58,6 @@ void	free_parsed_scene(t_parsed_scene *scene)
 		free_world(scene->world);
 		free(scene->world);
 	}
+	free_camera(&scene->camera);
 	free(scene);
 }
