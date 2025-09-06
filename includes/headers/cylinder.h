@@ -14,8 +14,18 @@ typedef struct s_cylinder
     int closed; // 1 se tiver tampas, 0 se aberto
 } t_cylinder;
 
+typedef struct s_cylinder_params
+{
+    t_tuple center;
+    t_tuple orientation;
+    float   diameter;
+    float   height;
+    t_rgb   color;
+    t_bool  closed;
+} t_cylinder_params;
+
 t_cylinder new_cylinder(void);
-t_object new_cylinder_object(t_tuple center, t_tuple orientation, float diameter, float height, t_rgb color, t_bool closed);
+t_object new_cylinder_object(t_cylinder_params params);
 t_tuple normal_at_cylinder(t_object *obj, t_tuple world_point);
 t_intersection_list *intersect_ray_cylinder(t_ray ray, t_object *obj);
 t_tuple normal_at(t_object *obj, t_tuple world_point);

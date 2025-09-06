@@ -26,15 +26,21 @@ static int	validate_cylinder_params(char **tokens, float diameter,
 
 int	parse_cylinder_continue(char **tokens, t_world *world, t_cylinder_data data)
 {
-	t_rgb		color;
-	t_bool		closed;
-	t_object	obj;
+	t_cylinder_params	params;
+	t_rgb				color;
+	t_bool				closed;
+	t_object			obj;
 
 	if (!validate_and_parse_rgb(tokens[5], &color))
 		return (destroy_2d((void **)tokens), 0);
 	closed = ft_atoi(tokens[6]) != 0;
-	obj = new_cylinder_object(data.center, data.orientation, data.diameter,
-			data.height, color, closed);
+	params.center = data.center;
+	params.orientation = data.orientation;
+	params.diameter = data.diameter;
+	params.height = data.height;
+	params.color = color;
+	params.closed = closed;
+	obj = new_cylinder_object(params);
 	add_object_to_world(world, obj);
 	destroy_2d((void **)tokens);
 	return (1);

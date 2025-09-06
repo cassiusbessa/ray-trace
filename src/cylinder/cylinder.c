@@ -36,20 +36,19 @@ t_cylinder	*init_cylinder(float diameter, float height, t_bool closed)
 	return (cylinder);
 }
 
-t_object	new_cylinder_object(t_tuple center, t_tuple orientation,
-		float diameter, float height, t_rgb color, t_bool closed)
+t_object	new_cylinder_object(t_cylinder_params params)
 {
 	t_cylinder	*cylinder;
 	t_object	obj;
 	t_matrix	transform;
 
-	cylinder = init_cylinder(diameter, height, closed);
+	cylinder = init_cylinder(params.diameter, params.height, params.closed);
 	if (!cylinder)
 		return ((t_object){0});
 	obj = new_object(CYLINDER, cylinder);
-	set_cylinder_material(&obj, color);
-	transform = compute_cylinder_transform(center, orientation,
-			cylinder->radius, height / 2.0f);
+	set_cylinder_material(&obj, params.color);
+	transform = compute_cylinder_transform(params.center, params.orientation,
+			cylinder->radius, params.height / 2.0f);
 	set_object_transform(&obj, transform);
 	return (obj);
 }
