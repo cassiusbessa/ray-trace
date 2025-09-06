@@ -1,8 +1,8 @@
 #ifndef COMPUTATIONS_H
 # define COMPUTATIONS_H
 
-# include "world.h"
 # include "rays.h"
+# include "world.h"
 
 typedef struct s_comps
 {
@@ -13,14 +13,13 @@ typedef struct s_comps
 	t_tuple		eyev;
 	t_tuple		normalv;
 	t_bool		inside;
-}	t_comps;
+}				t_comps;
 
 // Computation operations
-t_comps	prepare_computations(t_intersection_node i, t_ray r);
-t_rgb	shade_hit(t_world *world, t_comps comps);
-t_rgb	color_at(t_world *world, t_ray ray);
-float	compute_dynamic_epsilon(t_object *obj, t_tuple point);
-void	set_inside(t_tuple *normalv, t_tuple eyev, t_bool *inside);
-
+t_comps			prepare_computations(t_intersection_node i, t_ray r);
+t_rgb			shade_hit(t_world *world, t_comps comps);
+t_rgb			color_at(t_world *world, t_ray ray);
+float			compute_dynamic_epsilon(t_object *obj, t_tuple point);
+void			set_inside(t_tuple *normalv, t_tuple eyev, t_bool *inside);
 
 #endif

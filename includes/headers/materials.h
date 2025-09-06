@@ -10,7 +10,7 @@ typedef struct s_material
 	float	diffuse;
 	float	specular;
 	float	shininess;
-}	t_material;
+}			t_material;
 
 // Material operations
 t_material	new_material_default(void);

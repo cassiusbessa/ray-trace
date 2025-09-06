@@ -10,17 +10,17 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_img;
+}			t_img;
 
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
-}	t_mlx;
+}			t_mlx;
 
 // MLX operations
-void	open_mlx_screen(t_canvas *canvas);
-void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
+void		open_mlx_screen(t_canvas *canvas);
+void		canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
 
 #endif
