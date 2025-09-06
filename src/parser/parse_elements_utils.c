@@ -46,11 +46,11 @@ static int	add_plane_to_world(t_world *world, t_plane *plane, t_rgb color,
 
 int	parse_plane(char *line, t_world *world)
 {
-	char		**tokens;
-	t_tuple		point;
-	t_tuple		normal;
-	t_rgb		color;
-	t_plane		*plane;
+	char	**tokens;
+	t_tuple	point;
+	t_tuple	normal;
+	t_rgb	color;
+	t_plane	*plane;
 
 	tokens = ft_split(line, ' ');
 	point = parse_tuple(tokens[1], 1);

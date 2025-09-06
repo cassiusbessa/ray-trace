@@ -46,8 +46,8 @@ static float	parse_float_continue(char *str, t_parse_data data)
 		{
 			if (in_decimal)
 			{
-				data.decimal_part = data.decimal_part * 10
-					+ (str[data.i] - '0');
+				data.decimal_part = data.decimal_part * 10 + (str[data.i]
+						- '0');
 				decimal_places++;
 			}
 			else

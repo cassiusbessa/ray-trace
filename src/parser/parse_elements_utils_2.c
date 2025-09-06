@@ -36,17 +36,17 @@ static t_object	create_sphere_object(t_tuple center, float radius, t_rgb color)
 	obj = new_object(SPHERE, sphere);
 	obj.material.color = color;
 	set_object_transform(&obj, scaling_matrix(radius, radius, radius));
-	set_object_transform(&obj,
-		translation_matrix(center.x, center.y, center.z));
+	set_object_transform(&obj, translation_matrix(center.x, center.y,
+			center.z));
 	return (obj);
 }
 
 int	parse_sphere(char *line, t_world *world)
 {
-	char		**tokens;
-	t_tuple		center;
-	float		radius;
-	t_rgb		color;
+	char **tokens;
+	t_tuple center;
+	float radius;
+	t_rgb color;
 
 	tokens = ft_split(line, ' ');
 	center = parse_tuple(tokens[1], 1);

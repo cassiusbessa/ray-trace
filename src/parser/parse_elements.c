@@ -48,8 +48,8 @@ int	parse_camera(char *line, t_camera *camera)
 	if (fov <= 0 || fov >= 180)
 		return (destroy_2d((void **)tokens), 0);
 	*camera = new_camera(WIDTH, HEIGHT, fov * M_PI / 180.0);
-	camera->transform = view_transform(position,
-			add_tuples(position, direction), vector(0, 1, 0));
+	camera->transform = view_transform(position, add_tuples(position,
+				direction), vector(0, 1, 0));
 	destroy_2d((void **)tokens);
 	return (1);
 }

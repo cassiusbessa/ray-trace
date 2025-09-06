@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 21:11:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 22:44:19 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 22:51:35 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,87 +142,3 @@ void free_parsed_scene(t_parsed_scene *scene)
 	free(scene);
 }
 
-
-void print_parsed_scene_debug(t_parsed_scene *scene)
-{
-	if (!scene)
-	{
-		printf("Parsed scene is NULL\n");
-		return;
-	}
-
-	printf("=== PARSED SCENE DEBUG INFO ===\n");
-
-	// Print ambient
-	printf("Ambient Light:\n");
-	printf("  Ratio: %.2f\n", scene->world->ambient.ratio);
-	printf("  Color: (%.2f, %.2f, %.2f)\n", 
-		scene->world->ambient.color.r, scene->world->ambient.color.g, scene->world->ambient.color.b);
-
-	// Print camera
-	printf("Camera:\n");
-	printf("  Size: %dx%d\n", scene->camera.hsize, scene->camera.vsize);
-	printf("  FOV: %.2f degrees\n", scene->camera.field_of_view);
-	printf("  Pixel Size: %.6f\n", scene->camera.pixel_size);
-
-	// Print lights
-	printf("Lights (%d):\n", scene->world->lights->count);
-	t_point_light_node *current_light = scene->world->lights->head;
-	int light_index = 1;
-	while (current_light)
-	{
-		printf("  Light %d:\n", light_index);
-		printf("    Position: (%.2f, %.2f, %.2f)\n",
-			current_light->light.position.x, current_light->light.position.y, current_light->light.position.z);
-		printf("    Intensity: (%.2f, %.2f, %.2f)\n",
-			current_light->light.intensity.r, current_light->light.intensity.g, current_light->light.intensity.b);
-		current_light = current_light->next;
-		light_index++;
-	}
-
-	// Print objects
-	printf("Objects (%d):\n", scene->world->objects->count);
-	t_object_node *current_obj = scene->world->objects->head;
-	int obj_index = 1;
-	while (current_obj)
-	{
-		if (current_obj->object.type == SPHERE)
-		{
-			t_sphere *sphere = (t_sphere *)current_obj->object.data;
-			printf("  Sphere %d:\n", obj_index);
-			printf("    Center: (%.2f, %.2f, %.2f)\n",
-				sphere->center.x, sphere->center.y, sphere->center.z);
-			printf("    Radius: %.2f\n", sphere->radius);
-			printf("    Color: (%.2f, %.2f, %.2f)\n",
-				current_obj->object.material.color.r, current_obj->object.material.color.g, current_obj->object.material.color.b);
-		}
-		else if (current_obj->object.type == CYLINDER)
-		{
-			t_cylinder *cyl = (t_cylinder *)current_obj->object.data;
-			printf("  Cylinder %d:\n", obj_index);
-			printf("    Radius: %.2f, Height: %.2f\n", cyl->radius, cyl->height);
-			printf("    Color: (%.2f, %.2f, %.2f)\n",
-				current_obj->object.material.color.r,
-				current_obj->object.material.color.g,
-				current_obj->object.material.color.b);
-		}
-		else if (current_obj->object.type == PLANE)
-		{
-			t_plane *plane = (t_plane *)current_obj->object.data;
-			printf("  Plane %d:\n", obj_index);
-			printf("    Point: (%.2f, %.2f, %.2f)\n",
-				plane->point.x, plane->point.y, plane->point.z);
-			printf("    Normal: (%.2f, %.2f, %.2f)\n",
-				plane->normal.x, plane->normal.y, plane->normal.z);
-			printf("    Color: (%.2f, %.2f, %.2f)\n",
-				current_obj->object.material.color.r,
-				current_obj->object.material.color.g,
-				current_obj->object.material.color.b);
-		}
-
-		current_obj = current_obj->next;
-		obj_index++;
-	}
-
-	printf("========================\n");
-}

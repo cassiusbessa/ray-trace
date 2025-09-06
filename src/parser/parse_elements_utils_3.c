@@ -12,8 +12,8 @@
 
 #include "../../includes/miniRT.h"
 
-static int	validate_cylinder_params(char **tokens,
-	float diameter, float height)
+static int	validate_cylinder_params(char **tokens, float diameter,
+		float height)
 {
 	if (!validate_parameter_count(tokens, "Cylinder", 7))
 		return (0);
@@ -42,8 +42,8 @@ int	parse_cylinder_continue(char **tokens, t_world *world, t_cylinder_data data)
 
 int	parse_cylinder(char *line, t_world *world)
 {
-	char			**tokens;
-	t_cylinder_data	data;
+	char **tokens;
+	t_cylinder_data data;
 
 	tokens = ft_split(line, ' ');
 	data.center = parse_tuple(tokens[1], 1);
