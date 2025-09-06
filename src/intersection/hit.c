@@ -12,23 +12,23 @@
 
 #include "../../includes/miniRT.h"
 
-t_intersection_node *get_node(int i,t_intersection_list *list)
+t_intersection_node	*get_node(int i, t_intersection_list *list)
 {
-    t_intersection_node *current;
-    int count;
+	t_intersection_node	*current;
+	int					count;
 
-    if (!list || i < 0 || i >= list->count)
-        return (NULL);
-    current = list->head;
-    count = 0;
-    while (current)
-    {
-        if (count == i)
-            return (current);
-        current = current->next;
-        count++;
-    }
-    return (NULL);
+	if (!list || i < 0 || i >= list->count)
+		return (NULL);
+	current = list->head;
+	count = 0;
+	while (current)
+	{
+		if (count == i)
+			return (current);
+		current = current->next;
+		count++;
+	}
+	return (NULL);
 }
 
 t_intersection_node	*hit(t_intersection_list l)
