@@ -63,14 +63,19 @@ void	free_light_node(t_point_light_node *node)
 
 void	free_world(t_world *world)
 {
+	t_object_node		*curr_obj;
+	t_object_node		*next;
+	t_point_light_node	*curr_light;
+	t_point_light_node	*next;
+
 	if (!world)
 		return ;
 	if (world->objects)
 	{
-		t_object_node *curr_obj = world->objects->head;
+		curr_obj = world->objects->head;
 		while (curr_obj)
 		{
-			t_object_node *next = curr_obj->next;
+			next = curr_obj->next;
 			free_object_node(curr_obj);
 			curr_obj = next;
 		}
@@ -78,10 +83,10 @@ void	free_world(t_world *world)
 	}
 	if (world->lights)
 	{
-		t_point_light_node *curr_light = world->lights->head;
+		curr_light = world->lights->head;
 		while (curr_light)
 		{
-			t_point_light_node *next = curr_light->next;
+			next = curr_light->next;
 			free_light_node(curr_light);
 			curr_light = next;
 		}

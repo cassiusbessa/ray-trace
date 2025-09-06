@@ -12,54 +12,50 @@
 
 #include "../../includes/miniRT.h"
 
-static t_ray shadow_ray(t_tuple point, t_point_light light, float *distance)
+static t_ray	shadow_ray(t_tuple point, t_point_light light, float *distance)
 {
-    t_tuple v;
-    t_tuple direction;
-    t_ray r;
+	t_tuple	v;
+	t_tuple	direction;
+	t_ray	r;
 
-    v = sub_tuples(light.position, point);
-    *distance = magnitude_of_vector(v);
-    direction = safe_normalize_vector(v);
-    r = create_ray(point, direction);
-
-    return (r);
+	v = sub_tuples(light.position, point);
+	*distance = magnitude_of_vector(v);
+	direction = safe_normalize_vector(v);
+	r = create_ray(point, direction);
+	return (r);
 }
 
-static t_bool has_blocking_intersection(t_intersection_list *xs, float distance)
+static t_bool	has_blocking_intersection(t_intersection_list *xs,
+		float distance)
 {
-    t_intersection_node *current;
+	t_intersection_node	*current;
 
-    current = xs->head;
-    while (current)
-    {
-        if (current->t > SHADOW_EPSILON && current->t < distance - EPSILON)
-            return TRUE;
-        current = current->next;
-    }
-    return (FALSE);
+	current = xs->head;
+	while (current)
+	{
+		if (current->t > SHADOW_EPSILON && current->t < distance - EPSILON)
+			return (TRUE);
+		current = current->next;
+	}
+	return (FALSE);
 }
 
-t_bool is_shadowed(t_world *world, t_tuple point)
+t_bool	is_shadowed(t_world *world, t_tuple point)
 {
-    t_bool result;
-    t_point_light light;
-    t_ray r;
-    t_intersection_list *xs;
-    float distance;
+	t_bool				result;
+	t_point_light		light;
+	t_ray				r;
+	t_intersection_list	*xs;
+	float				distance;
 
-    xs = NULL;
-    distance = 0.0f;
-    if (!world->lights || !world->lights->head)
-        return FALSE;
-
-    light = world->lights->head->light;
-
-    r = shadow_ray(point, light, &distance);
-    xs = intersect_world(world, &r);
-
-    result = has_blocking_intersection(xs, distance);
-    free_intersection_list(xs);
-
-    return (result);
+	xs = NULL;
+	distance = 0.0f;
+	if (!world->lights || !world->lights->head)
+		return (FALSE);
+	light = world->lights->head->light;
+	r = shadow_ray(point, light, &distance);
+	xs = intersect_world(world, &r);
+	result = has_blocking_intersection(xs, distance);
+	free_intersection_list(xs);
+	return (result);
 }
