@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   matrix_multiply.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:30:27 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/05 18:16:03 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/06 00:24:23 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,7 @@ t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 
 	result = new_tuple(0, 0, 0, 0);
 	if (!m.data || m.size != 4)
-	{
-		printf("ERRO: matriz inválida para multiplicação. Retornando tupla zero.\n");
 		return (result);
-	}
 	i = 0;
 	while (i < m.size)
 	{
