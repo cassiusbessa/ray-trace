@@ -3,6 +3,16 @@
 
 # include "matrices.h"
 
+typedef struct s_shearing
+{
+    float xy;
+    float xz;
+    float yx;
+    float yz;
+    float zx;
+    float zy;
+} t_shearing;
+
 typedef struct s_transform_params
 {
 	float	translation[3];
@@ -10,14 +20,14 @@ typedef struct s_transform_params
 	float	scaling[3];
 }	t_transform_params;
 
+
 // Basic transformations
 t_matrix	translation_matrix(float x, float y, float z);
 t_matrix	scaling_matrix(float x, float y, float z);
 t_matrix	rotation_x_matrix(float radians);
 t_matrix	rotation_y_matrix(float radians);
 t_matrix	rotation_z_matrix(float radians);
-t_matrix	shearing_matrix(float xy, float xz, float yx,
-				float yz, float zx, float zy);
+t_matrix shearing_matrix(t_shearing s);
 
 // Advanced transformations
 t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up);

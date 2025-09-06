@@ -23,13 +23,14 @@ t_plane *new_plane(t_tuple point, t_tuple normal)
     plane->point = point;
     plane->normal = safe_normalize_vector(normal);
 
-    return plane;
+    return (
+        plane);
 }
 
 static double compute_plane_t(t_plane *plane, t_ray ray)
 {
-    double denom;
-    double t;
+    double  denom;
+    double  t;
 
     denom = vector_dot_product(plane->normal, ray.direction);
     if (fabs(denom) < EPSILON)
@@ -39,15 +40,15 @@ static double compute_plane_t(t_plane *plane, t_ray ray)
     if (t < 0)
         return -1;
 
-    return t;
+    return (t);
 }
 
 t_intersection_list *intersect_ray_plane(t_ray ray, t_object *obj)
 {
     t_plane *plane;
-    double t;
+    double  t;
     t_intersection_list *list;
-    t_intersection inter;
+    t_intersection  inter;
 
     plane = (t_plane *)obj->data;
     t = compute_plane_t(plane, ray);
@@ -61,6 +62,6 @@ t_intersection_list *intersect_ray_plane(t_ray ray, t_object *obj)
     inter = new_intersection(1, t, 0, obj);
     add_intersection_to_list(list, inter);
 
-    return list;
+    return (list);
 }
 
