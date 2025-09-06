@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_cylinder.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:38:27 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/05 19:32:00 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/06 00:20:02 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,11 @@ static t_tuple	transform_local_to_world_normal(t_matrix transform,
 
 t_tuple	normal_at_cylinder(t_object *obj, t_tuple world_point)
 {
-	int			success;
 	t_matrix	inv;
 	t_cylinder	*cyl;
 	t_tuple		local_point;
 	t_tuple		local_normal;
-	t_tuple		world_normal;
+	int			success;
 
 	inv = invert_matrix(obj->transform, &success);
 	if (!success || !inv.data)
@@ -71,7 +70,7 @@ t_tuple	normal_at_cylinder(t_object *obj, t_tuple world_point)
 	cyl = (t_cylinder *)obj->data;
 	if (!local_normal_cylinder_cap(cyl, local_point, &local_normal))
 		local_normal = local_normal_cylinder_side(local_point);
-	world_normal = transform_local_to_world_normal(inv, local_normal);
+	local_normal = transform_local_to_world_normal(inv, local_normal);
 	free_matrix(inv);
-	return (world_normal);
+	return (local_normal);
 }
