@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 20:54:58 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 23:49:40 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/06 00:04:10 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	equal_rgb(t_rgb c1, t_rgb c2)
 		&& fabsf(c1.b - c2.b) < eps);
 }
 
-t_rgb	clamp_color(t_rgb c)
+t_rgb    clamp_color(t_rgb c)
 {
-	c.r = fmin(fmax(c.r, 0), 1);
-	c.g = fmin(fmax(c.g, 0), 1);
-	c.b = fmin(fmax(c.b, 0), 1);
-	return (c);
+    c.r = fmin(fmax(c.r, 0), 1);
+    c.g = fmin(fmax(c.g, 0), 1);
+    c.b = fmin(fmax(c.b, 0), 1);
+    return (c);
 }
 
 void	print_rgb(t_rgb c)
 {
-	printf("RGB(%f, %f, %f)\n", c.r, c.g, c.b);
+    printf("RGB(%f, %f, %f)\n", c.r, c.g, c.b);
 }

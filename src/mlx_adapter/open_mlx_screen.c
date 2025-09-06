@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_mlx_screen.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:57:03 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/02/15 20:09:23 by caqueiro         ###   ########.fr       */
+/*   Updated: 2025/09/05 23:43:29 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	handle_key_press(int key, t_mlx *data)
 
 void	open_mlx_screen(t_canvas *canvas)
 {
-	t_mlx *data;
+	t_mlx	*data;
 
 	data = malloc(sizeof(t_mlx));
 	data->mlx_ptr = mlx_init();

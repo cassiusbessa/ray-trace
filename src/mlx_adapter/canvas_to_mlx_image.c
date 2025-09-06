@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:31:32 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/05 18:33:51 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 23:44:10 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,16 @@ void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data)
 			&data->img.line_len, &data->img.endian);
 	if (!data->img.addr)
 		return ;
-	y = 0;
-	while (y < canvas->height)
+	y = -1;
+	while (++y < canvas->height)
 	{
-		x = 0;
-		while (x < canvas->width)
+		x = -1;
+		while (++x < canvas->width)
 		{
 			color = rgb_to_int(pixel_at(canvas, x, y));
 			*(unsigned int *)(data->img.addr + (y * data->img.line_len + x
 						* (data->img.bpp / 8))) = color;
-			x++;
 		}
-		y++;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0,
 		0);

@@ -6,7 +6,7 @@
 /*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/05 18:28:30 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 23:45:52 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ t_bool	equal_matrix(t_matrix m1, t_matrix m2)
 
 t_matrix	submatrix(t_matrix matrix, int row, int col)
 {
-	t_matrix sub;
-	int i;
-	int j;
-	int i_sub;
-	int j_sub;
+	t_matrix	sub;
+	int			i;
+	int			j;
+	int			i_sub;
+	int			j_sub;
 
 	sub = new_matrix(matrix.size - 1, matrix.size - 1);
 	i = -1;
