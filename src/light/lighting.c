@@ -12,16 +12,16 @@
 
 #include "../../includes/miniRT.h"
 
-t_rgb	diffuse_component(t_material m, t_point_light light, t_tuple lightv,
-		t_tuple normalv)
+t_rgb	diffuse_component(t_material m, t_point_light light,
+		t_lighting_vectors vectors)
 {
 	double	light_dot_normal;
 	t_rgb	effective_color;
 	t_rgb	diffuse;
 
-	if (lightv.x == 0 && lightv.y == 0 && lightv.z == 0)
+	if (vectors.lightv.x == 0 && vectors.lightv.y == 0 && vectors.lightv.z == 0)
 		return (new_rgb(0, 0, 0));
-	light_dot_normal = vector_dot_product(normalv, lightv);
+	light_dot_normal = vector_dot_product(vectors.normalv, vectors.lightv);
 	if (light_dot_normal < 0.0 || isnan(light_dot_normal))
 		light_dot_normal = 0.0;
 	effective_color = multiply_rgb_by_rgb(m.color, light.intensity);
@@ -30,8 +30,8 @@ t_rgb	diffuse_component(t_material m, t_point_light light, t_tuple lightv,
 	return (diffuse);
 }
 
-t_rgb	specular_component(t_material m, t_point_light light, t_tuple lightv,
-		t_tuple eyev, t_tuple normalv)
+t_rgb	specular_component(t_material m, t_point_light light,
+		t_lighting_vectors vectors)
 {
 	t_rgb	specular;
 	double	light_dot_normal;
@@ -40,13 +40,14 @@ t_rgb	specular_component(t_material m, t_point_light light, t_tuple lightv,
 	double	factor;
 
 	specular = new_rgb(0, 0, 0);
-	if (lightv.x == 0 && lightv.y == 0 && lightv.z == 0)
+	if (vectors.lightv.x == 0 && vectors.lightv.y == 0 && vectors.lightv.z == 0)
 		return (specular);
-	light_dot_normal = vector_dot_product(normalv, lightv);
+	light_dot_normal = vector_dot_product(vectors.normalv, vectors.lightv);
 	if (light_dot_normal <= 0)
 		return (specular);
-	reflectv = reflect(multiply_tuple_by_scalar(lightv, -1), normalv);
-	reflect_dot_eye = vector_dot_product(reflectv, eyev);
+	reflectv = reflect(multiply_tuple_by_scalar(vectors.lightv, -1),
+			vectors.normalv);
+	reflect_dot_eye = vector_dot_product(reflectv, vectors.eyev);
 	if (reflect_dot_eye <= 0 || isnan(reflect_dot_eye))
 		return (specular);
 	factor = pow(reflect_dot_eye, m.shininess);
@@ -54,46 +55,51 @@ t_rgb	specular_component(t_material m, t_point_light light, t_tuple lightv,
 	return (specular);
 }
 
-t_rgb	calc_diff_spec(t_material m, t_point_light light, t_tuple lightv,
-		t_tuple eyev, t_tuple normalv)
+t_rgb	calc_diff_spec(t_material m, t_point_light light,
+		t_lighting_vectors vectors)
 {
 	t_rgb	diffuse;
 	t_rgb	specular;
 	t_rgb	result;
 
-	diffuse = diffuse_component(m, light, lightv, normalv);
-	specular = specular_component(m, light, lightv, eyev, normalv);
+	diffuse = diffuse_component(m, light, vectors);
+	specular = specular_component(m, light, vectors);
 	result = add_rgb(diffuse, specular);
 	return (result);
 }
 
-t_rgb	lighting(t_material m, t_point_light light, t_tuple position,
-		t_tuple eyev, t_tuple normalv, int in_shadow)
+t_rgb	lighting(t_material m, t_point_light light, t_lighting_params params)
 {
-	t_tuple	lightv;
-	t_rgb	ambient;
-	t_rgb	diff_spec;
-	t_rgb	result;
+	t_lighting_vectors	vectors;
+	t_rgb				ambient;
+	t_rgb				diff_spec;
+	t_rgb				result;
 
-	lightv = normalize_vector(sub_tuples(light.position, position));
+	vectors.lightv = normalize_vector(sub_tuples(light.position,
+				params.position));
+	vectors.eyev = params.eyev;
+	vectors.normalv = params.normalv;
 	ambient = multiply_rgb_by_scalar(multiply_rgb_by_rgb(m.color,
 				light.intensity), m.ambient);
-	if (in_shadow)
+	if (params.in_shadow)
 		return (ambient);
-	diff_spec = calc_diff_spec(m, light, lightv, eyev, normalv);
+	diff_spec = calc_diff_spec(m, light, vectors);
 	result = add_rgb(ambient, diff_spec);
 	return (result);
 }
 
-t_rgb	lighting_no_ambient(t_material m, t_point_light light, t_tuple position,
-		t_tuple eyev, t_tuple normalv, int in_shadow)
+t_rgb	lighting_no_ambient(t_material m, t_point_light light,
+		t_lighting_params params)
 {
-	t_tuple	lightv;
-	t_rgb	diff_spec;
+	t_lighting_vectors	vectors;
+	t_rgb				diff_spec;
 
-	if (in_shadow)
+	if (params.in_shadow)
 		return (new_rgb(0, 0, 0));
-	lightv = normalize_vector(sub_tuples(light.position, position));
-	diff_spec = calc_diff_spec(m, light, lightv, eyev, normalv);
+	vectors.lightv = normalize_vector(sub_tuples(light.position,
+				params.position));
+	vectors.eyev = params.eyev;
+	vectors.normalv = params.normalv;
+	diff_spec = calc_diff_spec(m, light, vectors);
 	return (diff_spec);
 }

@@ -39,10 +39,14 @@ static t_rgb	ambient_light_contribution(t_world *world, t_material *mat)
 static t_rgb	light_contribution(t_world *world, t_material *mat,
 		t_point_light light, t_comps comps)
 {
-	t_rgb	contribution;
+	t_lighting_params	params;
+	t_rgb				contribution;
 
-	contribution = lighting_no_ambient(*mat, light, comps.point, comps.eyev,
-			comps.normalv, is_shadowed(world, comps.over_point));
+	params.position = comps.point;
+	params.eyev = comps.eyev;
+	params.normalv = comps.normalv;
+	params.in_shadow = is_shadowed(world, comps.over_point);
+	contribution = lighting_no_ambient(*mat, light, params);
 	return (contribution);
 }
 
