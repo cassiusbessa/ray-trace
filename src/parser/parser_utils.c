@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 23:15:00 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 23:36:48 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/06 02:32:13 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,11 @@ char	*clean_line(char *line)
 }
 
 int	handle_parse_error(const char *msg, char *line,
-		t_parsed_scene *scene, int fd)
+		t_parsed_scene *scene __attribute__((unused)), int fd)
 {
 	printf("Error %s: %s\n", msg, line);
-	free(line);
-	free_parsed_scene(scene);
-	close(fd);
+	if (fd >= 0)
+		close(fd);
 	return (0);
 }
 

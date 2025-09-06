@@ -3,7 +3,7 @@
 # ===========================================
 
 # Compilador e flags
-CC      = cc -g -fsanitize=address
+CC      = cc -g
 CFLAGS  = -Wall -Wextra -Werror
 RM      = rm -f
 

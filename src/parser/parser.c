@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 21:11:33 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 23:05:45 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/06 02:42:23 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,61 +54,91 @@ static int	dispatch_parse(char *line, t_parsed_scene *scene, int fd)
 	else if (!dispatch_primitives(line, scene, fd))
 	{
 		printf("Error: Unknown element identifier in line: %s\n", line);
-		free(line);
-		free_parsed_scene(scene);
-		close(fd);
 		return (0);
 	}
 	return (1);
 }
 
-static t_parsed_scene	*init_scene(int fd)
+static char	*read_entire_file(const char *filename)
 {
-	t_parsed_scene	*scene;
+	int		fd;
+	char	*buffer;
+	char	*temp;
+	char	chunk[1025];
+	int		bytes_read;
 
-	scene = malloc(sizeof(t_parsed_scene));
-	if (!scene)
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	buffer = ft_strdup("");
+	if (!buffer)
 		return (close(fd), NULL);
-	scene->world = malloc(sizeof(t_world));
-	if (!scene->world)
-		return (free(scene), close(fd), NULL);
-	*(scene->world) = new_world();
-	return (scene);
+	while ((bytes_read = read(fd, chunk, 1024)) > 0)
+	{
+		chunk[bytes_read] = '\0';
+		temp = ft_strjoin(buffer, chunk);
+		free(buffer);
+		if (!temp)
+			return (close(fd), NULL);
+		buffer = temp;
+	}
+	close(fd);
+	if (bytes_read < 0)
+		return (free(buffer), NULL);
+	return (buffer);
 }
 
-static int	process_file_lines(int fd, t_parsed_scene *scene)
+static char	**split_lines(char *content)
 {
-	char	*line;
+	return (ft_split(content, '\n'));
+}
 
-	line = get_next_line(fd);
-	while (line != NULL)
+static int	process_file_lines_from_array(char **lines, t_parsed_scene *scene)
+{
+	int		i;
+	int		result;
+
+	i = 0;
+	while (lines[i])
 	{
-		line = clean_line(line);
-		if (line)
+		if (lines[i][0] != '\0' && lines[i][0] != '#')
 		{
-			if (!dispatch_parse(line, scene, fd))
+			result = dispatch_parse(lines[i], scene, -1);
+			if (!result)
 				return (0);
-			free(line);
 		}
-		line = get_next_line(fd);
+		i++;
 	}
 	return (1);
 }
 
 t_parsed_scene	*parse_rt_file(const char *filename)
 {
-	int				fd;
 	t_parsed_scene	*scene;
+	char			*file_content;
+	char			**lines;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (printf("Error: Cannot open file %s\n", filename), NULL);
-	scene = init_scene(fd);
+	file_content = read_entire_file(filename);
+	if (!file_content)
+		return (printf("Error: Cannot read file %s\n", filename), NULL);
+	scene = malloc(sizeof(t_parsed_scene));
 	if (!scene)
+		return (free(file_content), NULL);
+	scene->world = malloc(sizeof(t_world));
+	if (!scene->world)
+		return (free(scene), free(file_content), NULL);
+	*(scene->world) = new_world();
+	lines = split_lines(file_content);
+	free(file_content);
+	if (!lines)
+		return (free_parsed_scene(scene), NULL);
+	if (!process_file_lines_from_array(lines, scene))
+	{
+		destroy_2d((void **)lines);
+		free_parsed_scene(scene);
 		return (NULL);
-	if (!process_file_lines(fd, scene))
-		return (NULL);
-	close(fd);
+	}
+	destroy_2d((void **)lines);
 	printf("Successfully parsed file!\n");
 	return (scene);
 }
