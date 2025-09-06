@@ -90,13 +90,13 @@ t_matrix	submatrix(t_matrix matrix, int row, int col)
 	while (++i < matrix.size)
 	{
 		if (i == row)
-			continue;
+			continue ;
 		j = -1;
 		j_sub = 0;
 		while (++j < matrix.size)
 		{
 			if (j == col)
-				continue;
+				continue ;
 			sub.data[i_sub][j_sub++] = matrix.data[i][j];
 		}
 		i_sub++;

@@ -62,33 +62,31 @@ static void	set_tuple_value(t_tuple *t, int index, double value)
 		t->w = value;
 }
 
-t_tuple matrix_multiply_by_tuple(t_matrix m, t_tuple t)
+t_tuple	matrix_multiply_by_tuple(t_matrix m, t_tuple t)
 {
-    t_tuple result;
-    int i;
-    int j;
-    float val;
+	t_tuple	result;
+	int		i;
+	int		j;
+	float	val;
 
-    result = new_tuple(0, 0, 0, 0);
-
-    if (!m.data || m.size != 4)
-    {
-        printf("ERRO: matriz inválida para multiplicação. Retornando tupla zero.\n");
-        return result;
-    }
-
-    i = 0;
-    while (i < m.size)
-    {
-        j = 0;
-        while (j < m.size)
-        {
-            val = get_tuple_value(result, i) + m.data[i][j] * get_tuple_value(t, j);
-            set_tuple_value(&result, i, val);
-            j++;
-        }
-        i++;
-    }
-
-    return result;
+	result = new_tuple(0, 0, 0, 0);
+	if (!m.data || m.size != 4)
+	{
+		printf("ERRO: matriz inválida para multiplicação. Retornando tupla zero.\n");
+		return (result);
+	}
+	i = 0;
+	while (i < m.size)
+	{
+		j = 0;
+		while (j < m.size)
+		{
+			val = get_tuple_value(result, i) + m.data[i][j] * get_tuple_value(t,
+					j);
+			set_tuple_value(&result, i, val);
+			j++;
+		}
+		i++;
+	}
+	return (result);
 }
