@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_interface.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/06 00:40:51 by emorshhe          #+#    #+#             */
+/*   Updated: 2025/09/06 00:42:11 by emorshhe         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MLX_INTERFACE_H
 # define MLX_INTERFACE_H
 
@@ -10,17 +22,17 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_img;
+}			t_img;
 
 typedef struct s_mlx
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
-}	t_mlx;
+}			t_mlx;
 
 // MLX operations
-void	open_mlx_screen(t_canvas *canvas);
-void	canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
+void		open_mlx_screen(t_canvas *canvas);
+void		canvas_to_mlx_image(t_canvas *canvas, t_mlx *data);
 
 #endif
