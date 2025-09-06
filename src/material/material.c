@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 21:55:38 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 17:55:45 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/06 00:25:42 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,17 @@ t_material	new_material_default(void)
 	return (material);
 }
 
-t_bool equal_materials(t_material m1, t_material m2)
+t_bool	equal_materials(t_material m1, t_material m2)
 {
-    if (!equal_rgb(m1.color, m2.color))
-        return FALSE;
-    if (!float_equal(m1.ambient, m2.ambient))
-        return FALSE;
-    if (!float_equal(m1.diffuse, m2.diffuse))
-        return FALSE;
-    if (!float_equal(m1.specular, m2.specular))
-        return FALSE;
-    if (!float_equal(m1.shininess, m2.shininess))
-        return FALSE;
-
-    return TRUE;
+	if (!equal_rgb(m1.color, m2.color))
+		return (FALSE);
+	if (!float_equal(m1.ambient, m2.ambient))
+		return (FALSE);
+	if (!float_equal(m1.diffuse, m2.diffuse))
+		return (FALSE);
+	if (!float_equal(m1.specular, m2.specular))
+		return (FALSE);
+	if (!float_equal(m1.shininess, m2.shininess))
+		return (FALSE);
+	return (TRUE);
 }
