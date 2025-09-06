@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/05 20:17:50 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/06 00:56:33 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,12 @@ static void	compute_rotation_axis(t_tuple orientation, t_tuple *axis,
 static t_matrix	build_rotation_matrix(double cos_theta, double sin_theta,
 		t_tuple axis)
 {
-	double		x;
-	double		y;
-	double		z;
-	double		one_minus_cos;
 	t_matrix	rot;
 
-	x = axis.x;
-	y = axis.y;
-	z = axis.z;
-	one_minus_cos = 1 - cos_theta;
 	rot = new_matrix(4, 4);
-	rot.data[0][0] = cos_theta + x * x * one_minus_cos;
-	rot.data[0][1] = x * y * one_minus_cos - z * sin_theta;
-	rot.data[0][2] = x * z * one_minus_cos + y * sin_theta;
-	rot.data[0][3] = 0;
-	rot.data[1][0] = y * x * one_minus_cos + z * sin_theta;
-	rot.data[1][1] = cos_theta + y * y * one_minus_cos;
-	rot.data[1][2] = y * z * one_minus_cos - x * sin_theta;
-	rot.data[1][3] = 0;
-	rot.data[2][0] = z * x * one_minus_cos - y * sin_theta;
-	rot.data[2][1] = z * y * one_minus_cos + x * sin_theta;
-	rot.data[2][2] = cos_theta + z * z * one_minus_cos;
-	rot.data[2][3] = 0;
-	rot.data[3][0] = 0;
-	rot.data[3][1] = 0;
-	rot.data[3][2] = 0;
-	rot.data[3][3] = 1;
+	set_rotation_row_0(&rot, cos_theta, sin_theta, axis);
+	set_rotation_row_1(&rot, cos_theta, sin_theta, axis);
+	set_rotation_row_2_3(&rot, cos_theta, sin_theta, axis);
 	return (rot);
 }
 

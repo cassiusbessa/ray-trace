@@ -70,6 +70,7 @@ SRCS = main.c \
        $(TRANSF_DIR)/shearing.c \
        $(TRANSF_DIR)/view_transform.c \
        $(TRANSF_DIR)/orientation_matrix.c \
+       $(TRANSF_DIR)/orientation_matrix_utils.c \
        $(TRANSFS_DIR)/chain_transformations.c \
        $(RAY_DIR)/ray.c \
        $(RAY_DIR)/ray_utils.c \

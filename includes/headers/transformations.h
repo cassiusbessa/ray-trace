@@ -40,5 +40,13 @@ t_matrix shearing_matrix(t_shearing s);
 t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up);
 t_matrix	chain_transformations(t_transform_params params);
 
+// Orientation matrix helpers
+void		set_rotation_row_0(t_matrix *rot, double cos_theta,
+				double sin_theta, t_tuple axis);
+void		set_rotation_row_1(t_matrix *rot, double cos_theta,
+				double sin_theta, t_tuple axis);
+void		set_rotation_row_2_3(t_matrix *rot, double cos_theta,
+				double sin_theta, t_tuple axis);
+
 
 #endif
