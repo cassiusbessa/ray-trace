@@ -20,9 +20,6 @@ int main(int argc, char **argv)
 		printf("Failed to parse file\n");
 		return (1);
 	}
-
-	print_parsed_scene_debug(scene);
-
 	printf("\nSuccessfully loaded scene!\n");
 	printf("World contains:\n");
 	printf("  - %d objects\n", scene->world->objects->count);

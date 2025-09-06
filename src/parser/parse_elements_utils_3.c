@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 21:08:38 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 21:09:07 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 22:56:37 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ int	parse_cylinder_continue(char **tokens, t_world *world, t_cylinder_data data)
 
 int	parse_cylinder(char *line, t_world *world)
 {
-	char **tokens;
-	t_cylinder_data data;
+	char			**tokens;
+	t_cylinder_data	data;
 
 	tokens = ft_split(line, ' ');
 	data.center = parse_tuple(tokens[1], 1);

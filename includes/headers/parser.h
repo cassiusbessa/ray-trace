@@ -50,4 +50,11 @@ int		validate_parameter_count(char **tokens, char *element_type, int expected_co
 char	**split_by_spaces(char *line, int *count);
 void	free_tokens(char **tokens, int count);
 
+// parser_utils.c functions
+int		starts_with(const char *line, const char *prefix);
+char	*clean_line(char *line);
+int		handle_parse_error(const char *msg, char *line,
+			t_parsed_scene *scene, int fd);
+void	free_parsed_scene(t_parsed_scene *scene);
+
 #endif

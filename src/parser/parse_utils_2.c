@@ -61,7 +61,7 @@ t_rgb	parse_rgb(char *rgb_str)
 	return (result);
 }
 
-static t_tuple	handle_parse_error(int is_point)
+static t_tuple	handle_tuple_parse_error(int is_point)
 {
 	if (is_point)
 		return (point(0, 0, 0));
@@ -77,12 +77,12 @@ t_tuple	parse_tuple(char *tuple_str, int is_point)
 	i = 0;
 	if (!parse_rgb_component(tuple_str, &i, components[0])
 		|| tuple_str[i++] != ',')
-		return (handle_parse_error(is_point));
+		return (handle_tuple_parse_error(is_point));
 	if (!parse_rgb_component(tuple_str, &i, components[1])
 		|| tuple_str[i++] != ',')
-		return (handle_parse_error(is_point));
+		return (handle_tuple_parse_error(is_point));
 	if (!parse_rgb_component(tuple_str, &i, components[2]))
-		return (handle_parse_error(is_point));
+		return (handle_tuple_parse_error(is_point));
 	values[0] = parse_float(components[0]);
 	values[1] = parse_float(components[1]);
 	values[2] = parse_float(components[2]);

@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 21:06:34 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 21:07:36 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 22:59:38 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static t_object	create_sphere_object(t_tuple center, float radius, t_rgb color)
 
 int	parse_sphere(char *line, t_world *world)
 {
-	char **tokens;
-	t_tuple center;
-	float radius;
-	t_rgb color;
+	char	**tokens;
+	t_tuple	center;
+	float	radius;
+	t_rgb	color;
 
 	tokens = ft_split(line, ' ');
 	center = parse_tuple(tokens[1], 1);
