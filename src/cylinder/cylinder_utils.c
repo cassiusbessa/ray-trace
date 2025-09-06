@@ -38,6 +38,7 @@ t_matrix	compute_cylinder_transform(t_tuple center, t_tuple orientation,
 	free_matrix(scale);
 	free_matrix(rotate);
 	free_matrix(translate);
+	free_matrix(tmp);
 	return (transform);
 }
 
