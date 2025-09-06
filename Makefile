@@ -90,6 +90,10 @@ SRCS = main.c \
        $(MATERIAL_DIR)/material.c \
        $(WORLD_DIR)/world.c \
        $(WORLD_DIR)/shade.c \
+       $(WORLD_DIR)/render.c \
+       $(WORLD_DIR)/shadow.c \
+       $(WORLD_DIR)/world_utils.c \
+       $(WORLD_DIR)/color_at.c \
        $(PLANE_DIR)/plane.c \
        $(COMPUTATION_DIR)/prepare_computation.c \
        $(COMPUTATION_DIR)/computations_utils.c \
@@ -100,6 +104,8 @@ SRCS = main.c \
        $(PARSER_DIR)/parser.c \
        $(PARSER_DIR)/parse_elements.c \
        $(PARSER_DIR)/parse_elements_utils.c \
+       $(PARSER_DIR)/parse_elements_utils_2.c \
+       $(PARSER_DIR)/parse_elements_utils_3.c \
        $(PARSER_DIR)/parse_utils.c \
        $(PARSER_DIR)/parse_utils_2.c \
        $(SPHERE_DIR)/sphere_utils.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersection.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:23:40 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/05 17:50:17 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/05 21:28:13 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,43 @@ t_intersection_list	*intersect(t_ray ray, t_object *object)
 		return (intersect_ray_plane(ray, object));
 	return (NULL);
 }
+
+static void intersect_object_with_ray(t_intersection_list *dest,
+    t_ray *ray,
+    t_object *object)
+{
+    t_intersection_list *src;
+    t_intersection_node *node;
+
+    src = intersect(*ray, object);
+    if (!src)
+    return;
+    node = src->head;
+    while (node)
+    {
+        add_node_ordered(node->t, dest, node->object);
+        node = node->next;
+    }
+    free_intersection_list(src);
+}
+
+t_intersection_list *intersect_world(t_world *world, t_ray *ray)
+{
+    t_intersection_list *dest;
+    t_object_node   *current_obj;
+
+    if (!world || !ray || !world->objects || !world->objects->head)
+        return NULL;
+
+    dest = new_intersection_list();
+    if (!dest)
+        return NULL;
+    current_obj = world->objects->head;
+    while (current_obj)
+    {
+        intersect_object_with_ray(dest, ray, &current_obj->object);
+        current_obj = current_obj->next;
+    }
+    return dest;
+}
+

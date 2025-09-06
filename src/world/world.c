@@ -6,7 +6,7 @@
 /*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:18:44 by cassius           #+#    #+#             */
-/*   Updated: 2025/09/03 09:58:54 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 22:33:36 by cassius          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_world	new_world(void)
 	world.objects->tail = NULL;
 	world.lights->head = NULL;
 	world.lights->tail = NULL;
-	// Initialize ambient with default values
 	world.ambient.ratio = 0.1f;
 	world.ambient.color = new_rgb(1.0f, 1.0f, 1.0f);
 	return (world);
@@ -62,138 +61,26 @@ t_world	new_world_with_ambient(t_ambient ambient)
 	return (world);
 }
 
-void	add_object_to_world(t_world *world, t_object obj)
-{
-	t_object_node	*on;
-
-	on = malloc(sizeof(t_object_node));
-	if (!on)
-		return ;
-	on->object = obj;
-	on->next = NULL;
-	if (!world->objects->head)
-		world->objects->head = on;
-	else
-		world->objects->tail->next = on;
-	world->objects->tail = on;
-	world->objects->count++;
-}
-
-void	add_light_to_world(t_world *world, t_point_light light)
-{
-	t_point_light_node	*ln;
-
-	ln = malloc(sizeof(t_point_light_node));
-	if (!ln)
-		return ;
-	ln->light = light;
-	ln->next = NULL;
-	if (!world->lights->head)
-		world->lights->head = ln;
-	else
-		world->lights->tail->next = ln;
-	world->lights->tail = ln;
-	world->lights->count++;
-}
-
-
-void free_object_node(t_object_node *node)
-{
-    if (!node)
-        return;
-    free_object(&node->object);
-    free(node);
-}
-
-void free_light_node(t_point_light_node *node)
-{
-    if (!node)
-        return;
-    free(node);
-}
-
-void free_world(t_world *world)
-{
-    if (!world)
-        return;
-    if (world->objects)
-    {
-        t_object_node *curr_obj = world->objects->head;
-        while (curr_obj)
-        {
-            t_object_node *next = curr_obj->next;
-            free_object_node(curr_obj);
-            curr_obj = next;
-        }
-        free(world->objects);
-    }
-    if (world->lights)
-    {
-        t_point_light_node *curr_light = world->lights->head;
-        while (curr_light)
-        {
-            t_point_light_node *next = curr_light->next;
-            free_light_node(curr_light);
-            curr_light = next;
-        }
-        free(world->lights);
-    }
-}
-
-
 t_world default_world(void)
 {
-    t_world world = new_world();
+	t_world world = new_world();
 
-    // Adiciona luz principal
-    add_light_to_world(&world,
-        new_point_light(point(-10, 10, -10), new_rgb(1.0f, 1.0f, 1.0f))
-    );
+	add_light_to_world(&world,
+		new_point_light(point(-10, 10, -10), new_rgb(1.0f, 1.0f, 1.0f)));
 
-    // Primeira esfera (com material ajustado)
-    t_sphere *s1 = malloc(sizeof(t_sphere));
-    *s1 = new_sphere(point(0, 0, 0), 1.0f);
+	t_sphere *s1 = malloc(sizeof(t_sphere));
+	*s1 = new_sphere(point(0, 0, 0), 1.0f);
+	t_object o1 = new_object(SPHERE, s1);
+	o1.material.color = new_rgb(0.8f, 1.0f, 0.6f);
+	o1.material.diffuse = 0.7f;
+	o1.material.specular = 0.2f;
+	add_object_to_world(&world, o1);
 
-    t_object o1 = new_object(SPHERE, s1);
-    o1.material.color = new_rgb(0.8f, 1.0f, 0.6f);
-    o1.material.diffuse = 0.7f;
-    o1.material.specular = 0.2f;
-    add_object_to_world(&world, o1);
+	t_sphere *s2 = malloc(sizeof(t_sphere));
+	*s2 = new_sphere(point(0, 0, 0), 1.0f);
+	t_object o2 = new_object(SPHERE, s2);
+	set_object_transform(&o2, scaling_matrix(0.5f, 0.5f, 0.5f));
+	add_object_to_world(&world, o2);
 
-    // Segunda esfera (escala 0.5)
-    t_sphere *s2 = malloc(sizeof(t_sphere));
-    *s2 = new_sphere(point(0, 0, 0), 1.0f);
-    
-    t_object o2 = new_object(SPHERE, s2);
-    t_matrix scale_transform = scaling_matrix(0.5f, 0.5f, 0.5f);
-    set_object_transform(&o2, scale_transform);
-    add_object_to_world(&world, o2);
-
-    return world;
-}
-
-t_canvas    *render(t_camera cam, t_world *w)
-{
-    t_canvas *image;
-    int     x;
-    int     y;
-    t_ray   ray;
-    t_rgb   color;
-
-    image = new_canvas(cam.hsize, cam.vsize);
-    x = 0;
-    y = 0;
-    while (y < cam.vsize)
-    {
-        x = 0;
-        while (x < cam.hsize)
-        {
-            ray = ray_for_pixel(cam, x, y);
-            color = color_at(w, ray);         
-            write_pixel(image, x, y, color);     
-            x++;
-        }
-        y++;
-    }
-    return image;
+	return world;
 }
