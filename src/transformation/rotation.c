@@ -38,7 +38,7 @@ t_matrix	rotation_y_matrix(float radians)
 
 t_matrix	rotation_z_matrix(float radians)
 {
-	t_matrix	matrix;
+	t_matrix matrix;
 
 	matrix = identity_matrix(4);
 	matrix.data[0][0] = cos(radians);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   translation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 23:53:57 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/05 20:05:24 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/05 23:12:21 by emorshhe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ t_matrix	translation_matrix(float x, float y, float z)
 	matrix.data[0][3] = x;
 	matrix.data[1][3] = y;
 	matrix.data[2][3] = z;
-
 	return (matrix);
 }

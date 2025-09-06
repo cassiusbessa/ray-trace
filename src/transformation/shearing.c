@@ -18,7 +18,6 @@ t_matrix	shearing_matrix(float xy, float xz, float yx, float yz, float zx,
 	t_matrix	matrix;
 
 	matrix = identity_matrix(4);
-
 	matrix.data[0][1] = xy;
 	matrix.data[0][2] = xz;
 	matrix.data[1][0] = yx;
