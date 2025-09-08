@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_cylinder.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cassius <cassius@student.42.fr>            +#+  +:+       +#+        */
+/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:38:27 by emorshhe          #+#    #+#             */
-/*   Updated: 2025/09/06 00:20:02 by cassius          ###   ########.fr       */
+/*   Updated: 2025/09/08 20:22:30 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_bool	local_normal_cylinder_cap(t_cylinder *cyl, t_tuple local_point,
 	float	epsilon;
 
 	dist = local_point.x * local_point.x + local_point.z * local_point.z;
-	epsilon = 1e-4f;
+	epsilon = EPSILON;
 	if (!cyl->closed || dist > cyl->radius * cyl->radius)
 		return (0);
 	if (local_point.y >= cyl->height / 2.0f - epsilon)

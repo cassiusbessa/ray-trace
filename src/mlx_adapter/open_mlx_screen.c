@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_mlx_screen.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emorshhe <emorshhe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: caqueiro <caqueiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 20:57:03 by caqueiro          #+#    #+#             */
-/*   Updated: 2025/09/05 23:43:29 by emorshhe         ###   ########.fr       */
+/*   Updated: 2025/09/08 20:29:25 by caqueiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	open_mlx_screen(t_canvas *canvas)
 	canvas_to_mlx_image(canvas, data);
 	mlx_loop_hook(data->mlx_ptr, &handle_no_event, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_key_press, data);
+	mlx_hook(data->win_ptr, DestroyNotify, NoEventMask, &close_window, data);
 	mlx_loop(data->mlx_ptr);
 }

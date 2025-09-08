@@ -33,9 +33,7 @@ UTILS_DIR        = src/utils
 PARSER_DIR       = src/parser
 INCLUDE_DIR      = include
 LIBFT_DIR        = utils/libft
-MINILIBX_DIR     = includes/minilibx-linux
-
-TESTS_DIR        = tests
+MINILIBX_DIR     = minilibx-linux
 
 # Nome do executável
 MINIRT           = miniRT
@@ -142,29 +140,20 @@ leaks: all
 	@valgrind --leak-check=full --show-leak-kinds=all ./$(MINIRT)
 
 
-# Testes
-test:
-	@$(MAKE) -C $(TESTS_DIR) run
-
 run: all
 	@./$(MINIRT)
-
-test_leaks:
-	@$(MAKE) -C $(TESTS_DIR) leaks
 
 # Limpeza
 clean:
 	@make clean -C $(LIBFT_DIR)
-	@make clean -C $(TESTS_DIR)
 	$(RM) $(OBJS)
 	@printf "\e[93;5;226m    - Objects removed.\n\e[0m"
 
 fclean: clean
 	@make fclean -C $(LIBFT_DIR)
-	@make fclean -C $(TESTS_DIR)
 	$(RM) $(MINIRT)
 	@printf "\e[93;5;226m    - Executable removed.\n\e[0m"
 
 re: fclean all
 
-.PHONY: all clean fclean re test test_leaks
+.PHONY: all clean fclean re
